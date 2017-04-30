@@ -4,6 +4,7 @@
   "description": "Autocompletion for the Factorio Lua API",
   "version": "0.1.0",
   "publisher": "svizzini",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.11.0"
   },
