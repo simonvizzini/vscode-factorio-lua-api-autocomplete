@@ -1,7 +1,7 @@
 "use strict"
 
 import vscode = require('vscode')
-import { FactorioTypes } from "./FactorioApiData"
+import FactorioApiData from "./FactorioApiData"
 
 const { isArray } = Array
 const { assign, keys } = Object
@@ -9,22 +9,26 @@ const { assign, keys } = Object
 const wordsRegex = /(?:\=|\s|\()*(\w+\.(?:\w|\.|\[\d\])*)(?:\s|\))*/
 
 export class FactorioCompletionItemProvider implements vscode.CompletionItemProvider {
-    public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList> {
-        let lineText = document.lineAt(position.line).text
-        let lineTillCurrentPosition = lineText.substr(0, position.character)
-        let match = lineTillCurrentPosition.match(wordsRegex)
-        let line = match ? match[1] : ""
-        let words = line.split(".")
-        words.pop()
+    public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
+        return FactorioApiData.load().then(({ classes, defines }) => {
+            return new Promise<vscode.CompletionItem[]>((resolve, reject) => {
+                let lineText = document.lineAt(position.line).text
+                let lineTillCurrentPosition = lineText.substr(0, position.character)
+                let match = lineTillCurrentPosition.match(wordsRegex)
+                let line = match ? match[1] : ""
+                let words = line.split(".")
+                words.pop()
 
-        let types = getFactorioTypesFromPath(words, FactorioTypes)
+                let types = getFactorioTypesFromPath(words, classes)
 
-        if (!types) {
-            return []
-        }
+                if (!types) {
+                    return resolve([])
+                }
 
-        let suggestions = toCompletionItems(types)
-        return suggestions
+                let suggestions = toCompletionItems(types)
+                return resolve(suggestions)
+            })
+        })
     }
 }
 
@@ -70,12 +74,17 @@ function getFactorioTypesFromPath(path: string[], factorioTypes: any): any {
         let type = props[path[i]]
 
         // Not found
-        if (type === null) return null
+        if (!type) return null
 
         // First traverse it's own properties
         if (type.properties) {
             props = type.properties
             continue
+        }
+
+        // e.g. defines don't have a type
+        if (!type.type) {
+            return null
         }
 
         // Then the complete type list
@@ -103,14 +112,18 @@ function toCompletionItem(type: FactorioType, key: string): vscode.CompletionIte
 
     let completionItem = assign(new vscode.CompletionItem(key), {
         detail: type.type,
-        documentation: mode ? `${doc}\n${mode}` : doc,
+        documentation: mode ? `${doc}\n\n${mode}` : doc,
         kind: vscode.CompletionItemKind.Property
     })
 
     if (type.type === "function") {
         assign(completionItem, {
-            detail: type.name,
+            detail: name,
             kind: vscode.CompletionItemKind.Function
+        })
+    } else if (type.type === "define") {
+        assign(completionItem, {
+            kind: vscode.CompletionItemKind.Constant
         })
     }
 

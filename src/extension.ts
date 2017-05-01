@@ -1,7 +1,7 @@
-"use strict";
+"use strict"
 
-import * as vscode from "vscode";
-import { FactorioCompletionItemProvider } from "./FactorioCompletionItemProvider";
+import vscode = require("vscode")
+import { FactorioCompletionItemProvider } from "./FactorioCompletionItemProvider"
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
