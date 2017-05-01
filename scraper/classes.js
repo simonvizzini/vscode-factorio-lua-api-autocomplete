@@ -76,8 +76,8 @@ function scrape() {
                             //.replace(/\n\s*\n\s*\n/g, "\n\n")
                             .replace(/\n\s*\n/g, "\n")
                             // Add a newline before "Note:"
-                            .replace(/Note\:/g, "\n\n$&")
-                            .replace(/Parameters/g, "$&\n\n")
+                            .replace(/[^ ]\n*(Note\:)\n*/g, "\n\n$1")
+                            .replace(/[^ ]\n*(Parameters)\n*/g, "\n\n$1\n\n")
                     })
                     .then((context, data) => {
 
@@ -152,7 +152,7 @@ function scrape() {
             //.debug(console.log)
             .done(() => {
                 console.log(`done: ${keys(classes).length} classes and ${keys(globals).length} globals parsed`)
-                resolve({ globals, classes})
+                resolve({ globals, classes })
             })
     })
 }

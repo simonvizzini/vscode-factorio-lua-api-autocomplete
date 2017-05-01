@@ -17,7 +17,7 @@
             "type": "function()"
           }
         },
-        "doc": "Register a callback to be run on mod init. This is called once when a new save game is created or once when a save file is loaded that previously didn't contain the mod. This is always called before other event handlers and is meant for setting up initial values that a mod will use for its lifetime. \nParameters\n\nf :: function(): The function to call. Passing nil will unregister the handler.",
+        "doc": "Register a callback to be run on mod init. This is called once when a new save game is created or once when a save file is loaded that previously didn't contain the mod. This is always called before other event handlers and is meant for setting up initial values that a mod will use for its lifetime. \n\nParameters\n\nf :: function(): The function to call. Passing nil will unregister the handler.",
         "type": "function"
       },
       "on_load": {
@@ -29,7 +29,7 @@
             "type": "function()"
           }
         },
-        "doc": "Register a function to be run on module load. This is called every time a save file is loaded *except* for the instance when a mod is loaded into a save file that it previously wasn't part of. Additionally this is called when connecting to any other game in a multiplayer session and should never change the game state.\n This is meant for 3 specific reasons and only 3: \n *  re-register conditional event handlers\n *  re-setup meta tables\n *  create local references to tables stored in the global table\n In all other instances the LuaBootstrap::on_init, LuaBootstrap::on_configuration_changed or migration scripts should be used. Doing any other logic when loading a save file can break the replay and cause desync issues if the mod is used in multiplayer. \nParameters\n\nf :: function(): The function to call. Passing nil will unregister the handler.",
+        "doc": "Register a function to be run on module load. This is called every time a save file is loaded *except* for the instance when a mod is loaded into a save file that it previously wasn't part of. Additionally this is called when connecting to any other game in a multiplayer session and should never change the game state.\n This is meant for 3 specific reasons and only 3: \n *  re-register conditional event handlers\n *  re-setup meta tables\n *  create local references to tables stored in the global table\n In all other instances the LuaBootstrap::on_init, LuaBootstrap::on_configuration_changed or migration scripts should be used. Doing any other logic when loading a save file can break the replay and cause desync issues if the mod is used in multiplayer. \n\nParameters\n\nf :: function(): The function to call. Passing nil will unregister the handler.",
         "type": "function"
       },
       "on_configuration_changed": {
@@ -41,7 +41,7 @@
             "type": "function(ConfigurationChangedData)"
           }
         },
-        "doc": "Register a function to be run when mod configuration changes. This is called any time the game version changes and any time mod versions change including adding or removing mods. \nParameters\n\nf :: function(ConfigurationChangedData): The handler for this event. Passing nil will unregister the handler.",
+        "doc": "Register a function to be run when mod configuration changes. This is called any time the game version changes and any time mod versions change including adding or removing mods. \n\nParameters\n\nf :: function(ConfigurationChangedData): The handler for this event. Passing nil will unregister the handler.",
         "type": "function"
       },
       "on_event": {
@@ -58,7 +58,7 @@
             "type": "function(Event)"
           }
         },
-        "doc": "Register a handler to run on event or events. \nParameters\n\nevent :: defines.events or array of defines.events or string: The events or custom-input name to invoke the handler onf :: function(Event): The handler to run. Passing nil will unregister the handler. The handler will receive a table that contains the key name (of type defines.events) specifying the name of the event it was called to handle, and tick that specifies when the event was created. This table will also contain other fields, depending on the type of the event. See the list of\nFactorio events for a listing of these additional fields.",
+        "doc": "Register a handler to run on event or events. \n\nParameters\n\nevent :: defines.events or array of defines.events or string: The events or custom-input name to invoke the handler onf :: function(Event): The handler to run. Passing nil will unregister the handler. The handler will receive a table that contains the key name (of type defines.events) specifying the name of the event it was called to handle, and tick that specifies when the event was created. This table will also contain other fields, depending on the type of the event. See the list of\nFactorio events for a listing of these additional fields.",
         "type": "function"
       },
       "generate_event_name": {
@@ -77,7 +77,7 @@
             "type": "uint"
           }
         },
-        "doc": "Find the event handler for an event.\nParameters\n\nevent :: uint: The event identifier to get a handler forReturn value Reference to the function currently registered as the handler.",
+        "doc": "Find the event handler for an event\n\nParameters\n\nevent :: uint: The event identifier to get a handler forReturn value Reference to the function currently registered as the handler.",
         "type": "function"
       },
       "raise_event": {
@@ -93,7 +93,7 @@
             "name": "table"
           }
         },
-        "doc": "Raise an event. \nParameters\n\nevent :: uint: ID of the event to raisetable: Table with extra data. This table will be passed to the event handler.",
+        "doc": "Raise an event. \n\nParameters\n\nevent :: uint: ID of the event to raisetable: Table with extra data. This table will be passed to the event handler.",
         "type": "function"
       }
     }
@@ -131,13 +131,13 @@
         "name": "remaining_burning_fuel",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: Writing will silently do nothing if there's no LuaBurner::currently_burning set."
+        "doc": "Note: Writing will silently do nothing if there's no LuaBurner::currently_burning set."
       },
       "currently_burning": {
         "name": "currently_burning",
         "type": "LuaItemPrototype",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: Writing automatically handles correcting LuaBurner::remaining_burning_fuel."
+        "doc": "Note: Writing automatically handles correcting LuaBurner::remaining_burning_fuel."
       }
     }
   },
@@ -203,7 +203,7 @@
             "type": "LuaEntity"
           }
         },
-        "doc": "Make a unit a member of this group. Has the same effect as giving a group_command with this group to the unit.\nParameters\n\nunit :: LuaEntity\n\nNote: The member must have the same force as the unit group.",
+        "doc": "Make a unit a member of this group. Has the same effect as giving a group_command with this group to the unit\n\nParameters\n\nunit :: LuaEntit\n\nNote: The member must have the same force as the unit group.",
         "type": "function"
       },
       "set_command": {
@@ -215,7 +215,7 @@
             "type": "Command"
           }
         },
-        "doc": "Give this group a command.\nParameters\n\ncommand :: CommandSee also * LuaEntity::set_command",
+        "doc": "Give this group a command\n\nParameters\n\ncommand :: CommandSee also * LuaEntity::set_command",
         "type": "function"
       },
       "set_autonomous": {
@@ -289,7 +289,7 @@
             "type": "string"
           }
         },
-        "doc": "Count some or all items on this line.\nParameters\n\nitem :: string (optional): Prototype name of the item to count. If not specified, count all items.See also * LuaInventory::get_item_count",
+        "doc": "Count some or all items on this line\n\nParameters\n\nitem :: string (optional): Prototype name of the item to count. If not specified, count all items.See also * LuaInventory::get_item_count",
         "type": "function"
       },
       "remove_item": {
@@ -302,7 +302,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Remove some items from this line.\nParameters\n\nitems :: SimpleItemStack: Items to remove.Return value Number of items actually removed.",
+        "doc": "Remove some items from this line\n\nParameters\n\nitems :: SimpleItemStack: Items to remove.Return value Number of items actually removed.",
         "type": "function"
       },
       "can_insert_at": {
@@ -315,7 +315,7 @@
             "type": "float"
           }
         },
-        "doc": "Can an item be inserted at a given position?\nParameters\n\nposition :: float: Where to insert an item.",
+        "doc": "Can an item be inserted at a given position\n\nParameters\n\nposition :: float: Where to insert an item.",
         "type": "function"
       },
       "can_insert_at_back": {
@@ -340,7 +340,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Insert items at a given position.\nParameters\n\nposition :: float: Where on the line to insert the items.items :: SimpleItemStack: Items to insert.Return value Were the items inserted successfully?",
+        "doc": "Insert items at a given position\n\nParameters\n\nposition :: float: Where on the line to insert the items.items :: SimpleItemStack: Items to insert.Return value Were the items inserted successfully?",
         "type": "function"
       },
       "insert_at_back": {
@@ -353,7 +353,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Insert items at the back of this line.\nParameters\n\nitems :: SimpleItemStackReturn value Were the items inserted successfully?",
+        "doc": "Insert items at the back of this line\n\nParameters\n\nitems :: SimpleItemStackReturn value Were the items inserted successfully?",
         "type": "function"
       },
       "get_contents": {
@@ -398,7 +398,7 @@
             "type": "string"
           }
         },
-        "doc": "Get the amount of a particular item stored in the train.\nParameters\n\nitem :: string (optional): Item name to count. If not given, counts all items.",
+        "doc": "Get the amount of a particular item stored in the train\n\nParameters\n\nitem :: string (optional): Item name to count. If not given, counts all items.",
         "type": "function"
       },
       "get_contents": {
@@ -418,7 +418,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Remove some items from the train.\nParameters\n\nstack :: SimpleItemStack: The amount and type of items to removeReturn value Number of items actually removed.",
+        "doc": "Remove some items from the train\n\nParameters\n\nstack :: SimpleItemStack: The amount and type of items to removeReturn value Number of items actually removed.",
         "type": "function"
       },
       "insert": {
@@ -430,7 +430,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Insert a stack into the train.\nParameters\n\nstack :: SimpleItemStack",
+        "doc": "Insert a stack into the train\n\nParameters\n\nstack :: SimpleItemStack",
         "type": "function"
       },
       "clear_items_inside": {
@@ -449,7 +449,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Checks if the path is invalid and tries to re-path if it isn't. \nParameters\n\nforce :: boolean (optional): Forces the train to re-path regardless of the current path being valid or not.Return value If the train has a path after the repath attempt.",
+        "doc": "Checks if the path is invalid and tries to re-path if it isn't. \n\nParameters\n\nforce :: boolean (optional): Forces the train to re-path regardless of the current path being valid or not.Return value If the train has a path after the repath attempt.",
         "type": "function"
       },
       "manual_mode": {
@@ -462,7 +462,7 @@
         "name": "speed",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "Current speed. \n\n\nNote: Changing the speed of the train is potentially an unsafe operation because train uses the speed for its internal calculations of break distances, etc."
+        "doc": "Current speed. \n\nNote: Changing the speed of the train is potentially an unsafe operation because train uses the speed for its internal calculations of break distances, etc."
       },
       "carriages": {
         "name": "carriages",
@@ -492,7 +492,7 @@
         "name": "schedule",
         "type": "TrainSchedule",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: The schedule can't be changed by modifying the returned table. Instead, changes must be made by assigning a new table to this attribute."
+        "doc": "Note: The schedule can't be changed by modifying the returned table. Instead, changes must be made by assigning a new table to this attribute."
       },
       "state": {
         "name": "state",
@@ -595,7 +595,7 @@
         "name": "collision_mask",
         "type": "dictionary string → boolean",
         "mode": "[Read-only]",
-        "doc": "The collison mask this tile uses \n The boolean values for each item are meaningless and will always be true.\n\n\nNote: This is a dictionary of the collision masks this tile uses to allow quick lookup of any value."
+        "doc": "The collison mask this tile uses \n The boolean values for each item are meaningless and will always be true\n\nNote: This is a dictionary of the collision masks this tile uses to allow quick lookup of any value."
       },
       "layer": {
         "name": "layer",
@@ -679,7 +679,7 @@
             "type": "string"
           }
         },
-        "doc": "What type of things can collide with this tile?\nParameters\n\nlayer :: string: Possible values:  *  \"ground-tile\"\n *  \"water-tile\"\n *  \"resource-layer\"\n *  \"floor-layer\"\n *  \"object-layer\"\n *  \"player-layer\"\n *  \"train-layer\"\n *  \"layer-11\"\n *  \"layer-12\"\n *  \"layer-13\"\n *  \"layer-14\"\n *  \"layer-15\"\nExampleCheck if the player would collide with a tile game.player.print(tostring(game.player.surface.get_tile(1, 1).collides_with(\"player-layer\")))",
+        "doc": "What type of things can collide with this tile\n\nParameters\n\nlayer :: string: Possible values:  *  \"ground-tile\"\n *  \"water-tile\"\n *  \"resource-layer\"\n *  \"floor-layer\"\n *  \"object-layer\"\n *  \"player-layer\"\n *  \"train-layer\"\n *  \"layer-11\"\n *  \"layer-12\"\n *  \"layer-13\"\n *  \"layer-14\"\n *  \"layer-15\"\nExampleCheck if the player would collide with a tile game.player.print(tostring(game.player.surface.get_tile(1, 1).collides_with(\"player-layer\")))",
         "type": "function"
       },
       "name": {
@@ -917,7 +917,7 @@
             "type": "Position"
           }
         },
-        "doc": "Get the pollution for a given position.\nParameters\n\nposition :: PositionExample game.surfaces[1].get_pollution({1,2})",
+        "doc": "Get the pollution for a given position\n\nParameters\n\nposition :: PositionExample game.surfaces[1].get_pollution({1,2})",
         "type": "function"
       },
       "can_place_entity": {
@@ -946,7 +946,7 @@
             "type": "force=…"
           }
         },
-        "doc": "Check for collisions with terrain or other entities.\nParameters\n\n Table with the following fields:  * name :: string: Name of the entity to check\n * position :: Position: Where the entity would be placed\n * direction :: defines.direction (optional): Direction the entity would be placed\n * force :: string or LuaForce (optional): The force that would place the entity. If not specified, the enemy force is assumed.",
+        "doc": "Check for collisions with terrain or other entities\n\nParameters\n\n Table with the following fields:  * name :: string: Name of the entity to check\n * position :: Position: Where the entity would be placed\n * direction :: defines.direction (optional): Direction the entity would be placed\n * force :: string or LuaForce (optional): The force that would place the entity. If not specified, the enemy force is assumed.",
         "type": "function"
       },
       "find_entity": {
@@ -964,7 +964,7 @@
             "type": "Position"
           }
         },
-        "doc": "Find a specific entity at a specific position.\nParameters\n\nentity :: string: Entity to look forposition :: Position: Coordinates to look atReturn value Will be nil if no such entity is found.Example game.player.selected.surface.find_entity('filter-inserter',{0,0})",
+        "doc": "Find a specific entity at a specific position\n\nParameters\n\nentity :: string: Entity to look forposition :: Position: Coordinates to look atReturn value Will be nil if no such entity is found.Example game.player.selected.surface.find_entity('filter-inserter',{0,0})",
         "type": "function"
       },
       "find_entities": {
@@ -977,7 +977,7 @@
             "type": "BoundingBox"
           }
         },
-        "doc": "Find entities in a given area.\nParameters\n\narea :: BoundingBox (optional): Where to search. If not given all entities on the surface are returned.ExampleWill evaluate to a list of all entities within given area. game.surfaces[\"nauvis\"].find_entities({{-10, -10}, {10, 10}})",
+        "doc": "Find entities in a given area\n\nParameters\n\narea :: BoundingBox (optional): Where to search. If not given all entities on the surface are returned.ExampleWill evaluate to a list of all entities within given area. game.surfaces[\"nauvis\"].find_entities({{-10, -10}, {10, 10}})",
         "type": "function"
       },
       "find_entities_filtered": {
@@ -1014,7 +1014,7 @@
             "type": "limit=…"
           }
         },
-        "doc": "Find entities of given type or name in a given area.\n If no filters (name, type, or force) are given, returns all entities in the search area. If multiple filters are specified, returns only entities matching all given filters.\nParameters\n\n Table with the following fields:  * area :: BoundingBox (optional): Search area if not defined and position is not defined the entire surface is searched\n * position :: Position (optional): Search position if not defined and area is not defined the entire surface is searched\n * name :: string (optional)\n * type :: string (optional)\n * force :: string or LuaForce (optional)\n * limit :: uint (optional)\nExample game.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, type= \"resource\"} -- gets all resources in the rectangle\ngame.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, name= \"iron-ore\"} -- gets all iron ores in the rectangle\ngame.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, force= \"player\"} -- gets player owned entities in the rectangle\ngame.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, limit= 5} -- gets the first 5 entities in the rectangle",
+        "doc": "Find entities of given type or name in a given area.\n If no filters (name, type, or force) are given, returns all entities in the search area. If multiple filters are specified, returns only entities matching all given filters\n\nParameters\n\n Table with the following fields:  * area :: BoundingBox (optional): Search area if not defined and position is not defined the entire surface is searched\n * position :: Position (optional): Search position if not defined and area is not defined the entire surface is searched\n * name :: string (optional)\n * type :: string (optional)\n * force :: string or LuaForce (optional)\n * limit :: uint (optional)\nExample game.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, type= \"resource\"} -- gets all resources in the rectangle\ngame.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, name= \"iron-ore\"} -- gets all iron ores in the rectangle\ngame.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, force= \"player\"} -- gets player owned entities in the rectangle\ngame.surfaces[1].find_entities_filtered{area = {{-10, -10}, {10, 10}}, limit= 5} -- gets the first 5 entities in the rectangle",
         "type": "function"
       },
       "count_entities_filtered": {
@@ -1051,7 +1051,7 @@
             "type": "limit=…"
           }
         },
-        "doc": "Count entities of given type or name in a given area. Works just like LuaSurface::find_entities_filtered, except this only returns the count. As it doesn't construct all the wrapper objects, this is more efficient if one is only interested in the number of entities.\nParameters\n\n Table with the following fields:  * area :: BoundingBox (optional): Search area if not defined and position is not defined the entire surface is searched\n * position :: Position (optional): Search position if not defined and area is not defined the entire surface is searched\n * name :: string (optional)\n * type :: string (optional)\n * force :: string or LuaForce (optional)\n * limit :: uint (optional)",
+        "doc": "Count entities of given type or name in a given area. Works just like LuaSurface::find_entities_filtered, except this only returns the count. As it doesn't construct all the wrapper objects, this is more efficient if one is only interested in the number of entities\n\nParameters\n\n Table with the following fields:  * area :: BoundingBox (optional): Search area if not defined and position is not defined the entire surface is searched\n * position :: Position (optional): Search position if not defined and area is not defined the entire surface is searched\n * name :: string (optional)\n * type :: string (optional)\n * force :: string or LuaForce (optional)\n * limit :: uint (optional)",
         "type": "function"
       },
       "find_non_colliding_position": {
@@ -1079,7 +1079,7 @@
             "type": "double"
           }
         },
-        "doc": "Find a non-colliding possition within a given rectangle.\nParameters\n\nname :: string: Prototype name of the entity to find a position for. (The bounding box for the collision checking is taken from this prototype.)center :: Position: Center of the search area.radius :: double: Max distance from center to search in. 0 for infinitely-large search area.precision :: double: The step length from the given position as it searches, in tiles.Return value The non-colliding position. May be nil if no suitable position was found.",
+        "doc": "Find a non-colliding possition within a given rectangle\n\nParameters\n\nname :: string: Prototype name of the entity to find a position for. (The bounding box for the collision checking is taken from this prototype.)center :: Position: Center of the search area.radius :: double: Max distance from center to search in. 0 for infinitely-large search area.precision :: double: The step length from the given position as it searches, in tiles.Return value The non-colliding position. May be nil if no suitable position was found.",
         "type": "function"
       },
       "spill_item_stack": {
@@ -1101,7 +1101,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Spill items on the ground centered at a given location.\nParameters\n\nposition :: Position: Center of the spillageitems :: LuaItemStack or SimpleItemStack: Items to spillenable_looted :: boolean (optional): When true, each created item will be flagged with the LuaEntity::to_be_looted flag.",
+        "doc": "Spill items on the ground centered at a given location\n\nParameters\n\nposition :: Position: Center of the spillageitems :: LuaItemStack or SimpleItemStack: Items to spillenable_looted :: boolean (optional): When true, each created item will be flagged with the LuaEntity::to_be_looted flag.",
         "type": "function"
       },
       "find_enemy_units": {
@@ -1124,7 +1124,7 @@
             "type": "LuaForce or string"
           }
         },
-        "doc": "Find units enemy of a given force within an area.\nParameters\n\ncenter :: Position: Center of the search arearadius :: double: Radius of the circular search areaforce :: LuaForce or string (optional): Force to find enemies of. If not given, uses the player force.\n\nNote: This is more efficient than LuaSurface::find_entities.ExampleFind all entities who would be interested to attack the player, within 100-tile area. local enemies = game.player.surface.find_enemy_units(game.player.character.position, 100)",
+        "doc": "Find units enemy of a given force within an area\n\nParameters\n\ncenter :: Position: Center of the search arearadius :: double: Radius of the circular search areaforce :: LuaForce or string (optional): Force to find enemies of. If not given, uses the player force\n\nNote: This is more efficient than LuaSurface::find_entities.ExampleFind all entities who would be interested to attack the player, within 100-tile area. local enemies = game.player.surface.find_enemy_units(game.player.character.position, 100)",
         "type": "function"
       },
       "find_nearest_enemy": {
@@ -1149,7 +1149,7 @@
             "type": "force=…"
           }
         },
-        "doc": "Find the enemy closest to the given position.\nParameters\n\n Table with the following fields:  * position :: Position: Center of the search area.\n * max_distance :: double: Radius of the circular search area.\n * force :: string or LuaForce (optional): The force the result will be an enemy of. Uses the player force if not specified.\nReturn value The nearest enemy unit or nil if no enemy could be found within the given area.",
+        "doc": "Find the enemy closest to the given position\n\nParameters\n\n Table with the following fields:  * position :: Position: Center of the search area.\n * max_distance :: double: Radius of the circular search area.\n * force :: string or LuaForce (optional): The force the result will be an enemy of. Uses the player force if not specified.\nReturn value The nearest enemy unit or nil if no enemy could be found within the given area.",
         "type": "function"
       },
       "set_multi_command": {
@@ -1178,7 +1178,7 @@
             "type": "unit_search_distance=…"
           }
         },
-        "doc": "Give a command to multiple units. This will automatically select suitable units for the task.\nParameters\n\n Table with the following fields:  * command :: Command\n * unit_count :: uint: Number of units to give the command to.\n * force :: string or LuaForce (optional): Force of the units this command is to be given to. If not specified, uses the enemy force.\n * unit_search_distance :: uint (optional): Radius to search for units. The search area is centered on the destination of the command.\nReturn value Number of units actually sent. May be less than count if not enough units were available.",
+        "doc": "Give a command to multiple units. This will automatically select suitable units for the task\n\nParameters\n\n Table with the following fields:  * command :: Command\n * unit_count :: uint: Number of units to give the command to.\n * force :: string or LuaForce (optional): Force of the units this command is to be given to. If not specified, uses the enemy force.\n * unit_search_distance :: uint (optional): Radius to search for units. The search area is centered on the destination of the command.\nReturn value Number of units actually sent. May be less than count if not enough units were available.",
         "type": "function"
       },
       "create_entity": {
@@ -1227,7 +1227,7 @@
             "type": "spill=…"
           }
         },
-        "doc": "Create an entity on this surface.\nParameters\n\n Table with the following fields:  * name :: string: The entity prototype name to create.\n * position :: Position: Where to create the entity.\n * direction :: defines.direction (optional): Desired orientation of the entity after creation.\n * force :: string or LuaForce (optional): Force of the entity, default is enemy.\n * target :: LuaEntity (optional): Entity with health for the new entity to target.\n * source :: LuaEntity (optional): Source entity. Used for beams.\n * fast_replace :: boolean (optional): If true, building will attempt to simulate fast-replace building.\n * player :: PlayerSpecification (optional): If given along with fast_replace being true, fast-replace will simulate using this player.\n * spill :: boolean (optional): If false while fast_replace is true any excess items from fast-replacing will be deleted instead of dropped on the ground.\n * Additional entity-specific parameters * assembling-machine * recipe :: string (optional)\n    * container * bar :: uint (optional): Inventory index where the red limiting bar should be set.\n    * flying-text * text :: string: The string to show.\n       * color :: Color: Color of the displayed text.\n    * entity-ghost * inner_name :: string: The prototype name of the entity contained in the ghost.\n       * expires :: boolean (optional): If false the ghost entity will not expire. Default is true.\n    * fire * initial_ground_flame_count :: uint: With how many small flames should the fire on ground be created.\n    * inserter * conditions: Table with the following fields:  * circuit :: CircuitCondition (optional)\n          * logistics :: CircuitCondition (optional)\n       * filters :: array of Filter\n    * item-entity * stack :: SimpleItemStack: The stack of items to create. This must be a table, i.e. a single string is not allowed here.\n    * item-request-proxy * modules :: array of SimpleItemStack: The stacks of items to be delivered to target entity from logistic network. Each stack must be table. If empty, the item request proxy won't be created.\n    * logistic-container * request_filters :: array of Filter (optional)\n    * particle * movement :: Vector\n       * height :: float\n       * vertical_speed :: float\n       * frame_speed :: float\n    * projectile * speed :: double\n    * resource * amount :: uint\n    * underground-belt * type :: string (optional): \"output\" or \"input\"; default is \"input\".\n    * programmable-speaker * parameters :: ProgrammableSpeakerParameters\n\n (optional)\n       * alert_parameters :: ProgrammableSpeakerAlertParameters\n\n (optional)\n    * character-corpse * inventory_size :: uint (optional)\n       * player_index :: uint (optional)\nReturn value The created entity or nil if the creation failed.Example asm = game.surfaces[1].create_entity{name = \"assembling-machine-1\", position = {15, 3}, force=game.forces.player, recipe = \"iron-stick\"} ExampleCreates a smart inserter with circuit conditions and a filter game.surfaces[1].create_entity{\nname = \"filter-inserter\", position = {20, 15}, force=game.player.force,\nconditions={red={name=\"wood\", count=3, operator=\">\"},\ngreen={name=\"iron-ore\", count=1, operator=\" logistics={name=\"wood\", count=3, operator=\"=\"}},\nfilters={ {index=1, name=\"iron-ore\"} }\n} ExampleCreates a requester chest already set to request 128 iron plates. game.surfaces[1].create_entity{\nname = \"logistic-chest-requester\", position = {game.player.position.x+3, game.player.position.y},\nforce=game.player.force, request_filters={ {index=1, name=\"iron-plate\", count=128} }\n} Example game.surfaces[1].create_entity{name = \"big-biter\", position= {15, 3}, force = game.forces.player} -- Friendly biter\ngame.surfaces[1].create_entity{name = \"medium-biter\", position= {15, 3}, force = game.forces.enemy} -- Enemy biter ExampleCreates a basic inserter at the player's location facing north game.surfaces[1].create_entity{name = \"inserter\", position = game.player.position, direction = defines.direction.north}",
+        "doc": "Create an entity on this surface\n\nParameters\n\n Table with the following fields:  * name :: string: The entity prototype name to create.\n * position :: Position: Where to create the entity.\n * direction :: defines.direction (optional): Desired orientation of the entity after creation.\n * force :: string or LuaForce (optional): Force of the entity, default is enemy.\n * target :: LuaEntity (optional): Entity with health for the new entity to target.\n * source :: LuaEntity (optional): Source entity. Used for beams.\n * fast_replace :: boolean (optional): If true, building will attempt to simulate fast-replace building.\n * player :: PlayerSpecification (optional): If given along with fast_replace being true, fast-replace will simulate using this player.\n * spill :: boolean (optional): If false while fast_replace is true any excess items from fast-replacing will be deleted instead of dropped on the ground.\n * Additional entity-specific parameters * assembling-machine * recipe :: string (optional)\n    * container * bar :: uint (optional): Inventory index where the red limiting bar should be set.\n    * flying-text * text :: string: The string to show.\n       * color :: Color: Color of the displayed text.\n    * entity-ghost * inner_name :: string: The prototype name of the entity contained in the ghost.\n       * expires :: boolean (optional): If false the ghost entity will not expire. Default is true.\n    * fire * initial_ground_flame_count :: uint: With how many small flames should the fire on ground be created.\n    * inserter * conditions: Table with the following fields:  * circuit :: CircuitCondition (optional)\n          * logistics :: CircuitCondition (optional)\n       * filters :: array of Filter\n    * item-entity * stack :: SimpleItemStack: The stack of items to create. This must be a table, i.e. a single string is not allowed here.\n    * item-request-proxy * modules :: array of SimpleItemStack: The stacks of items to be delivered to target entity from logistic network. Each stack must be table. If empty, the item request proxy won't be created.\n    * logistic-container * request_filters :: array of Filter (optional)\n    * particle * movement :: Vector\n       * height :: float\n       * vertical_speed :: float\n       * frame_speed :: float\n    * projectile * speed :: double\n    * resource * amount :: uint\n    * underground-belt * type :: string (optional): \"output\" or \"input\"; default is \"input\".\n    * programmable-speaker * parameters :: ProgrammableSpeake\n\nParameters\n\n (optional)\n       * alert_parameters :: ProgrammableSpeakerAler\n\nParameters\n\n (optional)\n    * character-corpse * inventory_size :: uint (optional)\n       * player_index :: uint (optional)\nReturn value The created entity or nil if the creation failed.Example asm = game.surfaces[1].create_entity{name = \"assembling-machine-1\", position = {15, 3}, force=game.forces.player, recipe = \"iron-stick\"} ExampleCreates a smart inserter with circuit conditions and a filter game.surfaces[1].create_entity{\nname = \"filter-inserter\", position = {20, 15}, force=game.player.force,\nconditions={red={name=\"wood\", count=3, operator=\">\"},\ngreen={name=\"iron-ore\", count=1, operator=\" logistics={name=\"wood\", count=3, operator=\"=\"}},\nfilters={ {index=1, name=\"iron-ore\"} }\n} ExampleCreates a requester chest already set to request 128 iron plates. game.surfaces[1].create_entity{\nname = \"logistic-chest-requester\", position = {game.player.position.x+3, game.player.position.y},\nforce=game.player.force, request_filters={ {index=1, name=\"iron-plate\", count=128} }\n} Example game.surfaces[1].create_entity{name = \"big-biter\", position= {15, 3}, force = game.forces.player} -- Friendly biter\ngame.surfaces[1].create_entity{name = \"medium-biter\", position= {15, 3}, force = game.forces.enemy} -- Enemy biter ExampleCreates a basic inserter at the player's location facing north game.surfaces[1].create_entity{name = \"inserter\", position = game.player.position, direction = defines.direction.north}",
         "type": "function"
       },
       "create_unit_group": {
@@ -1248,7 +1248,7 @@
             "type": "force=…"
           }
         },
-        "doc": "Create a new unit group at a given position.\nParameters\n\n Table with the following fields:  * position :: Position: Initial position of the new unit group.\n * force :: string or LuaForce (optional): Force of the new unit group. Defaults to \"enemy\".",
+        "doc": "Create a new unit group at a given position\n\nParameters\n\n Table with the following fields:  * position :: Position: Initial position of the new unit group.\n * force :: string or LuaForce (optional): Force of the new unit group. Defaults to \"enemy\".",
         "type": "function"
       },
       "build_enemy_base": {
@@ -1270,7 +1270,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Send a group to build a new base.\nParameters\n\nposition :: Position: Location of the new base.unit_count :: uint: Number of biters to send for the base-building task.force :: string or LuaForce (optional): Force the new base will belong to. Defaults to enemy.\n\nNote: The specified force must be AI-controlled; i.e. force.ai_controllable must be true.",
+        "doc": "Send a group to build a new base\n\nParameters\n\nposition :: Position: Location of the new base.unit_count :: uint: Number of biters to send for the base-building task.force :: string or LuaForce (optional): Force the new base will belong to. Defaults to enemy\n\nNote: The specified force must be AI-controlled; i.e. force.ai_controllable must be true.",
         "type": "function"
       },
       "get_tile": {
@@ -1288,7 +1288,7 @@
             "type": "int"
           }
         },
-        "doc": "Get the tile at a given position.\nParameters\n\nx :: inty :: int\n\nNote: The input position params can also be a single tile position.",
+        "doc": "Get the tile at a given position\n\nParameters\n\nx :: inty :: in\n\nNote: The input position params can also be a single tile position.",
         "type": "function"
       },
       "set_tiles": {
@@ -1305,7 +1305,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Set tiles at specified locations. Automatically corrects the edges around modified tiles.\nParameters\n\ntiles :: array of Tile: Each Tile is a table:  * name :: string\n * position :: Position\ncorrect_tiles :: boolean (optional): If false, the correction logic is not done on the changed tiles. Defaults to true.\n\nNote: It is recommended to call this method once for all the tiles you want to change rather than calling it individually for every tile. As the tile correction is used after every step, calling it one by one could cause the tile correction logic to redo some of the changes, and it is also much performance heavy.",
+        "doc": "Set tiles at specified locations. Automatically corrects the edges around modified tiles\n\nParameters\n\ntiles :: array of Tile: Each Tile is a table:  * name :: string\n * position :: Position\ncorrect_tiles :: boolean (optional): If false, the correction logic is not done on the changed tiles. Defaults to true\n\nNote: It is recommended to call this method once for all the tiles you want to change rather than calling it individually for every tile. As the tile correction is used after every step, calling it one by one could cause the tile correction logic to redo some of the changes, and it is also much performance heavy.",
         "type": "function"
       },
       "pollute": {
@@ -1322,7 +1322,7 @@
             "type": "double"
           }
         },
-        "doc": "Spawn pollution at the given position.\nParameters\n\nsource :: Position: Where to spawn the pollution.amount :: double: How much pollution to add.",
+        "doc": "Spawn pollution at the given position\n\nParameters\n\nsource :: Position: Where to spawn the pollution.amount :: double: How much pollution to add.",
         "type": "function"
       },
       "get_chunks": {
@@ -1342,7 +1342,7 @@
             "type": "ChunkPosition"
           }
         },
-        "doc": "Is a given chunk generated?\nParameters\n\nposition :: ChunkPosition: The chunk's position.",
+        "doc": "Is a given chunk generated\n\nParameters\n\nposition :: ChunkPosition: The chunk's position.",
         "type": "function"
       },
       "request_to_generate_chunks": {
@@ -1359,7 +1359,7 @@
             "type": "uint"
           }
         },
-        "doc": "Request that the game's map generator generate chunks at the given position for the given radius on this surface.\nParameters\n\nposition :: Position: Where to generate the new chunks.radius :: uint: Radius from position to generate new chunks in.",
+        "doc": "Request that the game's map generator generate chunks at the given position for the given radius on this surface\n\nParameters\n\nposition :: Position: Where to generate the new chunks.radius :: uint: Radius from position to generate new chunks in.",
         "type": "function"
       },
       "set_chunk_generated_status": {
@@ -1376,7 +1376,7 @@
             "type": "defines.chunk_generated_status"
           }
         },
-        "doc": "Set generated status of a chunk. Useful when copying chunks.\nParameters\n\nposition :: Position: The chunk's position.status :: defines.chunk_generated_status: The chunk's new status.",
+        "doc": "Set generated status of a chunk. Useful when copying chunks\n\nParameters\n\nposition :: Position: The chunk's position.status :: defines.chunk_generated_status: The chunk's new status.",
         "type": "function"
       },
       "find_logistic_network_by_position": {
@@ -1394,7 +1394,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Find the logistic network that covers a given position.\nParameters\n\nposition :: Positionforce :: string or LuaForce: Force the logistic network should belong to.Return value The found network or nil if no such network was found.",
+        "doc": "Find the logistic network that covers a given position\n\nParameters\n\nposition :: Positionforce :: string or LuaForce: Force the logistic network should belong to.Return value The found network or nil if no such network was found.",
         "type": "function"
       },
       "find_logistic_networks_by_construction_area": {
@@ -1412,7 +1412,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Finds all of the logistics networks whos construction area intersects with the given position.\nParameters\n\nposition :: Positionforce :: string or LuaForce: Force the logistic networks should belong to.",
+        "doc": "Finds all of the logistics networks whos construction area intersects with the given position\n\nParameters\n\nposition :: Positionforce :: string or LuaForce: Force the logistic networks should belong to.",
         "type": "function"
       },
       "freeze_daytime": {
@@ -1424,7 +1424,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Freeze or unfreeze time of day at the current value. \nParameters\n\nfreeze :: boolean",
+        "doc": "Freeze or unfreeze time of day at the current value. \n\nParameters\n\nfreeze :: boolean",
         "type": "function"
       },
       "deconstruct_area": {
@@ -1444,7 +1444,7 @@
             "type": "force=…"
           }
         },
-        "doc": "Place a deconstruction request. \nParameters\n\n Table with the following fields:  * area :: BoundingBox: The area to mark for deconstruction\n * force :: string or LuaForce: The force whose bots should perform the deconstruction.",
+        "doc": "Place a deconstruction request. \n\nParameters\n\n Table with the following fields:  * area :: BoundingBox: The area to mark for deconstruction\n * force :: string or LuaForce: The force whose bots should perform the deconstruction.",
         "type": "function"
       },
       "cancel_deconstruct_area": {
@@ -1464,7 +1464,7 @@
             "type": "force=…"
           }
         },
-        "doc": "Cancel a deconstruction order. \nParameters\n\n Table with the following fields:  * area :: BoundingBox: The are to cancel deconstruction orders in.\n * force :: string or LuaForce: The force whose deconstruction orders to cancel.",
+        "doc": "Cancel a deconstruction order. \n\nParameters\n\n Table with the following fields:  * area :: BoundingBox: The are to cancel deconstruction orders in.\n * force :: string or LuaForce: The force whose deconstruction orders to cancel.",
         "type": "function"
       },
       "get_hidden_tile": {
@@ -1476,7 +1476,7 @@
             "type": "Position"
           }
         },
-        "doc": "The hidden tile name or nil if there isn't one for the given position.\nParameters\n\nposition :: Position: The tile position.",
+        "doc": "The hidden tile name or nil if there isn't one for the given position\n\nParameters\n\nposition :: Position: The tile position.",
         "type": "function"
       },
       "get_connected_tiles": {
@@ -1494,7 +1494,7 @@
             "type": "array of string"
           }
         },
-        "doc": "Gets all tiles of the given types that are connected horizontally or vertically to the given tile position including the given tile position. \nParameters\n\nposition :: Position: The tile position to start at.tiles :: array of string: The tiles to search for.Return value The resulting set of tiles.\n\nNote: This won't find tiles in non-generated chunks.",
+        "doc": "Gets all tiles of the given types that are connected horizontally or vertically to the given tile position including the given tile position. \n\nParameters\n\nposition :: Position: The tile position to start at.tiles :: array of string: The tiles to search for.Return value The resulting set of tiles\n\nNote: This won't find tiles in non-generated chunks.",
         "type": "function"
       },
       "delete_chunk": {
@@ -1506,7 +1506,7 @@
             "type": "Position"
           }
         },
-        "doc": "Parameters\n\nposition :: Position: The chunk position to delete\n\nNote: This won't delete the chunk immediately. Chunks are deleted at the end of the current tick.",
+        "doc": "Parametersposition :: Position: The chunk position to delet\n\nNote: This won't delete the chunk immediately. Chunks are deleted at the end of the current tick.",
         "type": "function"
       },
       "regenerate_entity": {
@@ -1523,7 +1523,7 @@
             "type": "array of Position"
           }
         },
-        "doc": "Regenerate autoplacement of some entities on this surface. This can be used to autoplace newly-added entities.\nParameters\n\nentitites :: string or array of string: Prototype names of entity or entities to autoplace.chunks :: array of Position (optional): The chunk positions to regenerate the entities on. If not given all chunks are regenerated. Note chunks with status < entities are ignored.\n\nNote: All specified entity prototypes must be autoplacable.",
+        "doc": "Regenerate autoplacement of some entities on this surface. This can be used to autoplace newly-added entities\n\nParameters\n\nentitites :: string or array of string: Prototype names of entity or entities to autoplace.chunks :: array of Position (optional): The chunk positions to regenerate the entities on. If not given all chunks are regenerated. Note chunks with status < entities are ignored\n\nNote: All specified entity prototypes must be autoplacable.",
         "type": "function"
       },
       "regenerate_decorative": {
@@ -1540,7 +1540,7 @@
             "type": "array of Position"
           }
         },
-        "doc": "Regenerate autoplacement of some decoratives on this surface. This can be used to autoplace newly-added decoratives.\nParameters\n\ndecoratives :: string or array of string: Prototype names of decorative or decoratives to autoplace.chunks :: array of Position (optional): The chunk positions to regenerate the entities on. If not given all chunks are regenerated. Note chunks with status < entities are ignored.\n\nNote: All specified decorative prototypes must be autoplacable.",
+        "doc": "Regenerate autoplacement of some decoratives on this surface. This can be used to autoplace newly-added decoratives\n\nParameters\n\ndecoratives :: string or array of string: Prototype names of decorative or decoratives to autoplace.chunks :: array of Position (optional): The chunk positions to regenerate the entities on. If not given all chunks are regenerated. Note chunks with status < entities are ignored\n\nNote: All specified decorative prototypes must be autoplacable.",
         "type": "function"
       },
       "print": {
@@ -1552,7 +1552,7 @@
             "type": "LocalisedString"
           }
         },
-        "doc": "Print text to the chat console of all players on this surface.\nParameters\n\nmessage :: LocalisedString",
+        "doc": "Print text to the chat console of all players on this surface\n\nParameters\n\nmessage :: LocalisedString",
         "type": "function"
       },
       "destroy_decoratives": {
@@ -1564,7 +1564,7 @@
             "type": "BoundingBox"
           }
         },
-        "doc": "Removes all decoratives from the given area. \nParameters\n\narea :: BoundingBox",
+        "doc": "Removes all decoratives from the given area. \n\nParameters\n\narea :: BoundingBox",
         "type": "function"
       },
       "create_decoratives": {
@@ -1584,7 +1584,7 @@
             "type": "decoratives=…"
           }
         },
-        "doc": "Adds the given decoratives to the surface. \n Each Decorative is \n * name :: string\n * position :: Position\n * amount :: uint8\nParameters\n\n Table with the following fields:  * check_collision :: boolean (optional): If collision should be checked against entities/tiles.\n * decoratives :: array of Decorative\n\n\nNote: This will merge decoratives of the same type that alreaday exist effectivly increasing the \"amount\" field.",
+        "doc": "Adds the given decoratives to the surface. \n Each Decorative is \n * name :: string\n * position :: Position\n * amount :: uint\n\nParameters\n\n Table with the following fields:  * check_collision :: boolean (optional): If collision should be checked against entities/tiles.\n * decoratives :: array of Decorativ\n\nNote: This will merge decoratives of the same type that alreaday exist effectivly increasing the \"amount\" field.",
         "type": "function"
       },
       "get_trains": {
@@ -1597,7 +1597,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Parameters\n\nforce :: string or LuaForce (optional): If given only trains matching this force are returned.",
+        "doc": "Parametersforce :: string or LuaForce (optional): If given only trains matching this force are returned.",
         "type": "function"
       },
       "name": {
@@ -1885,7 +1885,7 @@
             "type": "LuaPlayer"
           }
         },
-        "doc": "Parameters\n\n\n\nNote:",
+        "doc": "Parameter\n\nNote:",
         "type": "function"
       },
       "startup": {
@@ -1927,7 +1927,7 @@
             "type": "dictionary string → function"
           }
         },
-        "doc": "Add a remote interface.\nParameters\n\nname :: string: Name of the interface.functions :: dictionary string → function: List of functions that are members of the new interface.\n\nNote: It is an error if the given interface name is already registered.",
+        "doc": "Add a remote interface\n\nParameters\n\nname :: string: Name of the interface.functions :: dictionary string → function: List of functions that are members of the new interface\n\nNote: It is an error if the given interface name is already registered.",
         "type": "function"
       },
       "remove_interface": {
@@ -1940,7 +1940,7 @@
             "type": "string"
           }
         },
-        "doc": "Removes an interface with the given name. \nParameters\n\nname :: string: Name of the interface.Return value If the interface was removed. False if the interface didn't exist.",
+        "doc": "Removes an interface with the given name. \n\nParameters\n\nname :: string: Name of the interface.Return value If the interface was removed. False if the interface didn't exist.",
         "type": "function"
       },
       "call": {
@@ -1961,7 +1961,7 @@
             "name": "..."
           }
         },
-        "doc": "Call a function of an interface.\nParameters\n\ninterface :: string: Interface to look up function in.function :: string: Function name that belongs to interface....: Arguments to pass to the called function.",
+        "doc": "Call a function of an interface\n\nParameters\n\ninterface :: string: Interface to look up function in.function :: string: Function name that belongs to interface....: Arguments to pass to the called function.",
         "type": "function"
       },
       "interfaces": {
@@ -2180,7 +2180,7 @@
             "type": "double"
           }
         },
-        "doc": "Generates a random number. If no parameters are given a number in the [0, 1) range is returned. If a single parameter is given a floored number in the [0, N) range is returned. If 2 parameters are given a floored number in the [N1, N2) range is returned. \nParameters\n\nlower :: double (optional): Inclusive lower bound on the resultupper :: double (optional): Exclusive upper bound on the result",
+        "doc": "Generates a random number. If no parameters are given a number in the [0, 1) range is returned. If a single parameter is given a floored number in the [0, N) range is returned. If 2 parameters are given a floored number in the [N1, N2) range is returned. \n\nParameters\n\nlower :: double (optional): Inclusive lower bound on the resultupper :: double (optional): Exclusive upper bound on the result",
         "type": "function"
       },
       "re_seed": {
@@ -2192,7 +2192,7 @@
             "type": "uint"
           }
         },
-        "doc": "Re-seeds the random generator with the given value. \nParameters\n\nseed :: uint",
+        "doc": "Re-seeds the random generator with the given value. \n\nParameters\n\nseed :: uint",
         "type": "function"
       }
     }
@@ -2216,7 +2216,7 @@
             "type": "string"
           }
         },
-        "doc": "Setup the screen to be shown when the game is finished.\nParameters\n\nmessage :: LocalisedString: Message to be shown.file :: string (optional): Path to image to be shown.",
+        "doc": "Setup the screen to be shown when the game is finished\n\nParameters\n\nmessage :: LocalisedString: Message to be shown.file :: string (optional): Path to image to be shown.",
         "type": "function"
       },
       "print": {
@@ -2228,7 +2228,7 @@
             "type": "LocalisedString"
           }
         },
-        "doc": "Print text to the chat console.\nParameters\n\nmessage :: LocalisedString",
+        "doc": "Print text to the chat console\n\nParameters\n\nmessage :: LocalisedString",
         "type": "function"
       },
       "clear_console": {
@@ -2258,7 +2258,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Set the text in the goal window (top left).\nParameters\n\ntext :: LocalisedString (optional): The text to display. \\n can be used to delimit lines. Passing empty string or omitting this parameter entirely will make the goal window disappear.only_update :: boolean (optional): When true, won't play the \"goal updated\" sound.",
+        "doc": "Set the text in the goal window (top left)\n\nParameters\n\ntext :: LocalisedString (optional): The text to display. \\n can be used to delimit lines. Passing empty string or omitting this parameter entirely will make the goal window disappear.only_update :: boolean (optional): When true, won't play the \"goal updated\" sound.",
         "type": "function"
       },
       "set_controller": {
@@ -2278,19 +2278,19 @@
             "type": "character=…"
           }
         },
-        "doc": "Set the controller type of the player.\nParameters\n\n Table with the following fields:  * type :: defines.controllers: Which controller to use\n * character :: LuaEntity (optional): Entity to control. Mandatory when type is defines.controllers.character, ignored otherwise.",
+        "doc": "Set the controller type of the player\n\nParameters\n\n Table with the following fields:  * type :: defines.controllers: Which controller to use\n * character :: LuaEntity (optional): Entity to control. Mandatory when type is defines.controllers.character, ignored otherwise.",
         "type": "function"
       },
       "disable_recipe_groups": {
         "name": "disable_recipe_groups()",
         "args": {},
-        "doc": "Disable recipe groups.\n\n\nNote: There is no way to undo this.",
+        "doc": "Disable recipe groups\n\nNote: There is no way to undo this.",
         "type": "function"
       },
       "disable_recipe_subgroups": {
         "name": "disable_recipe_subgroups()",
         "args": {},
-        "doc": "Disable recipe subgroups.\n\n\nNote: There is no way to undo this.",
+        "doc": "Disable recipe subgroups\n\nNote: There is no way to undo this.",
         "type": "function"
       },
       "print_entity_statistics": {
@@ -2302,7 +2302,7 @@
             "type": "array of string"
           }
         },
-        "doc": "Print entity statistics to the player's console. \nParameters\n\nentities :: array of string (optional): Entity prototypes to get statistics for. If not specified or empty, display statistics for all entities.",
+        "doc": "Print entity statistics to the player's console. \n\nParameters\n\nentities :: array of string (optional): Entity prototypes to get statistics for. If not specified or empty, display statistics for all entities.",
         "type": "function"
       },
       "unlock_achievement": {
@@ -2314,7 +2314,7 @@
             "type": "string"
           }
         },
-        "doc": "Unlock the achievements of the given player. This has any effect only when this is the local player and the achievement isn't unlocked so far. \nParameters\n\nname :: string: name of the achievement to unlock",
+        "doc": "Unlock the achievements of the given player. This has any effect only when this is the local player and the achievement isn't unlocked so far. \n\nParameters\n\nname :: string: name of the achievement to unlock",
         "type": "function"
       },
       "clean_cursor": {
@@ -2333,7 +2333,7 @@
             "type": "string"
           }
         },
-        "doc": "Creates and attaches a character entity to this player. \nParameters\n\ncharacter :: string (optional): The character to create else the default is used.\n\nNote: The player must not have a character already associated and must be online (see LuaPlayer::connected).",
+        "doc": "Creates and attaches a character entity to this player. \n\nParameters\n\ncharacter :: string (optional): The character to create else the default is used\n\nNote: The player must not have a character already associated and must be online (see LuaPlayer::connected).",
         "type": "function"
       },
       "add_alert": {
@@ -2350,7 +2350,7 @@
             "type": "defines.alert_type"
           }
         },
-        "doc": "Adds an alert to this player for the given entity of the given alert type. \nParameters\n\nentity :: LuaEntitytype :: defines.alert_type",
+        "doc": "Adds an alert to this player for the given entity of the given alert type. \n\nParameters\n\nentity :: LuaEntitytype :: defines.alert_type",
         "type": "function"
       },
       "add_custom_alert": {
@@ -2377,7 +2377,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Adds a custom alert to this player. \nParameters\n\nentity :: LuaEntityicon :: SignalIDmessage :: LocalisedStringshow_on_map :: boolean",
+        "doc": "Adds a custom alert to this player. \n\nParameters\n\nentity :: LuaEntityicon :: SignalIDmessage :: LocalisedStringshow_on_map :: boolean",
         "type": "function"
       },
       "remove_alert": {
@@ -2417,7 +2417,7 @@
             "type": "message=…"
           }
         },
-        "doc": "Removes all alerts matching the given filters or if an empty filters table is given all alerts are removed. \nParameters\n\n Table with the following fields:  * entity :: LuaEntity (optional)\n * prototype :: LuaEntityPrototype (optional)\n * position :: Position (optional)\n * type :: defines.alert_type (optional)\n * surface :: SurfaceSpecification (optional)\n * icon :: SignalID (optional)\n * message :: LocalisedString (optional)",
+        "doc": "Removes all alerts matching the given filters or if an empty filters table is given all alerts are removed. \n\nParameters\n\n Table with the following fields:  * entity :: LuaEntity (optional)\n * prototype :: LuaEntityPrototype (optional)\n * position :: Position (optional)\n * type :: defines.alert_type (optional)\n * surface :: SurfaceSpecification (optional)\n * icon :: SignalID (optional)\n * message :: LocalisedString (optional)",
         "type": "function"
       },
       "get_alerts": {
@@ -2450,7 +2450,7 @@
             "type": "surface=…"
           }
         },
-        "doc": "Gets all alerts matching the given filters or if no filters are given all alerts are returned. \n A mapping of surface index to an array of arrays of alerts indexed by the alert type. An alert is a table: \n * target :: LuaEntity (optional)\n * prototype :: LuaEntityPrototype (optional)\n * position :: Position (optional)\n * tick :: uint: The tick this alert was created\n * icon :: SignalID (optional): The SignalID used for a custom alert. Only present for custom alerts.\n * message :: LocalisedString (optional): The message for a custom alert. Only present for custom alerts.\nParameters\n\n Table with the following fields:  * entity :: LuaEntity (optional)\n * prototype :: LuaEntityPrototype (optional)\n * position :: Position (optional)\n * type :: defines.alert_type (optional)\n * surface :: SurfaceSpecification (optional)",
+        "doc": "Gets all alerts matching the given filters or if no filters are given all alerts are returned. \n A mapping of surface index to an array of arrays of alerts indexed by the alert type. An alert is a table: \n * target :: LuaEntity (optional)\n * prototype :: LuaEntityPrototype (optional)\n * position :: Position (optional)\n * tick :: uint: The tick this alert was created\n * icon :: SignalID (optional): The SignalID used for a custom alert. Only present for custom alerts.\n * message :: LocalisedString (optional): The message for a custom alert. Only present for custom alerts\n\nParameters\n\n Table with the following fields:  * entity :: LuaEntity (optional)\n * prototype :: LuaEntityPrototype (optional)\n * position :: Position (optional)\n * type :: defines.alert_type (optional)\n * surface :: SurfaceSpecification (optional)",
         "type": "function"
       },
       "mute_alert": {
@@ -2463,7 +2463,7 @@
             "type": "defines.alert_type"
           }
         },
-        "doc": "Mutes alerts for the given alert category. \nParameters\n\nalert_type :: defines.alert_typeReturn value If the alert type was muted (false if it was already muted).",
+        "doc": "Mutes alerts for the given alert category. \n\nParameters\n\nalert_type :: defines.alert_typeReturn value If the alert type was muted (false if it was already muted).",
         "type": "function"
       },
       "unmute_alert": {
@@ -2476,7 +2476,7 @@
             "type": "defines.alert_type"
           }
         },
-        "doc": "Unmutes alerts for the given alert category. \nParameters\n\nalert_type :: defines.alert_typeReturn value If the alert type was unmuted (false if it was wasn't muted).",
+        "doc": "Unmutes alerts for the given alert category. \n\nParameters\n\nalert_type :: defines.alert_typeReturn value If the alert type was unmuted (false if it was wasn't muted).",
         "type": "function"
       },
       "is_alert_muted": {
@@ -2489,7 +2489,7 @@
             "type": "defines.alert_type"
           }
         },
-        "doc": "If the given alert type is currently muted. \nParameters\n\nalert_type :: defines.alert_type",
+        "doc": "If the given alert type is currently muted. \n\nParameters\n\nalert_type :: defines.alert_type",
         "type": "function"
       },
       "enable_alert": {
@@ -2502,7 +2502,7 @@
             "type": "defines.alert_type"
           }
         },
-        "doc": "Enables alerts for the given alert category. \nParameters\n\nalert_type :: defines.alert_typeReturn value If the alert type was enabled (false if it was already enabled).",
+        "doc": "Enables alerts for the given alert category. \n\nParameters\n\nalert_type :: defines.alert_typeReturn value If the alert type was enabled (false if it was already enabled).",
         "type": "function"
       },
       "disable_alert": {
@@ -2515,7 +2515,7 @@
             "type": "defines.alert_type"
           }
         },
-        "doc": "Disables alerts for the given alert category. \nParameters\n\nalert_type :: defines.alert_typeReturn value If the alert type was disabled (false if it was already disabled).",
+        "doc": "Disables alerts for the given alert category. \n\nParameters\n\nalert_type :: defines.alert_typeReturn value If the alert type was disabled (false if it was already disabled).",
         "type": "function"
       },
       "is_alert_enabled": {
@@ -2528,14 +2528,14 @@
             "type": "defines.alert_type"
           }
         },
-        "doc": "If the given alert type is currently enabled. \nParameters\n\nalert_type :: defines.alert_type",
+        "doc": "If the given alert type is currently enabled. \n\nParameters\n\nalert_type :: defines.alert_type",
         "type": "function"
       },
       "character": {
         "name": "character",
         "type": "LuaEntity",
         "mode": "[Read-Write]",
-        "doc": "The character attached to this player, or nil if no character.\n\n\nNote: It is not valid to access this attribute when the player is disconnected (see LuaPlayer::connected)."
+        "doc": "The character attached to this player, or nil if no character\n\nNote: It is not valid to access this attribute when the player is disconnected (see LuaPlayer::connected)."
       },
       "index": {
         "name": "index",
@@ -2656,7 +2656,7 @@
             "type": "string"
           }
         },
-        "doc": "Creates a new permission group. \nParameters\n\nname :: string (optional)\n\nNote: May return nil if the calling player doesn't have permission to make groups.",
+        "doc": "Creates a new permission group. \n\nParameters\n\nname :: string (optional\n\nNote: May return nil if the calling player doesn't have permission to make groups.",
         "type": "function"
       },
       "get_group": {
@@ -2669,7 +2669,7 @@
             "type": "string or uint"
           }
         },
-        "doc": "Gets the permission group with the given name or group ID or nil if there is no matching group. \nParameters\n\ngroup :: string or uint",
+        "doc": "Gets the permission group with the given name or group ID or nil if there is no matching group. \n\nParameters\n\ngroup :: string or uint",
         "type": "function"
       },
       "groups": {
@@ -2695,7 +2695,7 @@
             "type": "PlayerSpecification"
           }
         },
-        "doc": "Adds the given player to this group. \nParameters\n\nplayer :: PlayerSpecificationReturn value If the player was added.",
+        "doc": "Adds the given player to this group. \n\nParameters\n\nplayer :: PlayerSpecificationReturn value If the player was added.",
         "type": "function"
       },
       "remove_player": {
@@ -2708,7 +2708,7 @@
             "type": "PlayerSpecification"
           }
         },
-        "doc": "Removes the given player from this group. \nParameters\n\nplayer :: PlayerSpecificationReturn value If the player was removed.",
+        "doc": "Removes the given player from this group. \n\nParameters\n\nplayer :: PlayerSpecificationReturn value If the player was removed.",
         "type": "function"
       },
       "allows_action": {
@@ -2720,7 +2720,7 @@
             "name": "action"
           }
         },
-        "doc": "If this group allows the given action. \nParameters\n\naction: The defines.input_action value.",
+        "doc": "If this group allows the given action. \n\nParameters\n\naction: The defines.input_action value.",
         "type": "function"
       },
       "set_allows_action": {
@@ -2736,7 +2736,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Sets if the player is allowed to perform the given action. \nParameters\n\naction: The defines.input_action value.Return value If the value was applied.",
+        "doc": "Sets if the player is allowed to perform the given action. \n\nParameters\n\naction: The defines.input_action value.Return value If the value was applied.",
         "type": "function"
       },
       "destroy": {
@@ -2750,7 +2750,7 @@
         "name": "name",
         "type": "string",
         "mode": "[Read-Write]",
-        "doc": "The name of this group. \n\n\nNote: Setting to nil or an empty string sets the name to the default value."
+        "doc": "The name of this group. \n\nNote: Setting to nil or an empty string sets the name to the default value."
       },
       "players": {
         "name": "players",
@@ -2793,7 +2793,7 @@
         "name": "filters",
         "type": "array of LogisticFilter",
         "mode": "[Read-only]",
-        "doc": "The logistic filters for this logistic point or nil if this doesn't use logistic filters. \n\n\nNote: The returned array will always have an entry for each filter and will be indexed in sequence when not nil."
+        "doc": "The logistic filters for this logistic point or nil if this doesn't use logistic filters. \n\nNote: The returned array will always have an entry for each filter and will be indexed in sequence when not nil."
       },
       "mode": {
         "name": "mode",
@@ -2805,7 +2805,7 @@
         "name": "force",
         "type": "LuaForce",
         "mode": "[Read-only]",
-        "doc": "The force of this logistic point. \n\n\nNote: This will always be the same as the LuaLogisticPoint::owner force."
+        "doc": "The force of this logistic point. \n\nNote: This will always be the same as the LuaLogisticPoint::owner force."
       },
       "targeted_items_pickup": {
         "name": "targeted_items_pickup",
@@ -2847,7 +2847,7 @@
             "type": "string"
           }
         },
-        "doc": "Count given or all items in the network or given members.\nParameters\n\nitem :: string (optional): Item name to count. If not given, gives counts of all items in the network.member :: string (optional): Logistic members to check, must be either \"storage\"or \"providers\". If not given, gives count in the entire network.",
+        "doc": "Count given or all items in the network or given members\n\nParameters\n\nitem :: string (optional): Item name to count. If not given, gives counts of all items in the network.member :: string (optional): Logistic members to check, must be either \"storage\"or \"providers\". If not given, gives count in the entire network.",
         "type": "function"
       },
       "get_contents": {
@@ -2872,7 +2872,7 @@
             "type": "string"
           }
         },
-        "doc": "Remove items from the logistic network. This will actually remove the items from some logistic chests.\nParameters\n\nitem :: SimpleItemStack: What to remove.members :: string (optional): Which logistic members to remove from. Must be \"storage\", \"passive-provider\", or \"active-provider\". If not specified, removes from the network in the usual order.Return value Number of items removed.",
+        "doc": "Remove items from the logistic network. This will actually remove the items from some logistic chests\n\nParameters\n\nitem :: SimpleItemStack: What to remove.members :: string (optional): Which logistic members to remove from. Must be \"storage\", \"passive-provider\", or \"active-provider\". If not specified, removes from the network in the usual order.Return value Number of items removed.",
         "type": "function"
       },
       "insert": {
@@ -2890,7 +2890,7 @@
             "type": "string"
           }
         },
-        "doc": "Insert items into the logistic network. This will actually insert the items into some logistic chests.\nParameters\n\nitem :: LuaItemStack: What to insert.members :: string (optional): Which logistic members to insert the items to. Must be \"storage\", \"storage-empty\" (storage chests that are completely empty), \"storage-empty-slot\" (storage chests that have an empty slot), or \"requester\". If not specified, inserts items into the logistic network in the usual order.Return value Number of items actually inserted.",
+        "doc": "Insert items into the logistic network. This will actually insert the items into some logistic chests\n\nParameters\n\nitem :: LuaItemStack: What to insert.members :: string (optional): Which logistic members to insert the items to. Must be \"storage\", \"storage-empty\" (storage chests that are completely empty), \"storage-empty-slot\" (storage chests that have an empty slot), or \"requester\". If not specified, inserts items into the logistic network in the usual order.Return value Number of items actually inserted.",
         "type": "function"
       },
       "find_cell_closest_to": {
@@ -2903,7 +2903,7 @@
             "type": "Position"
           }
         },
-        "doc": "Find logistic cell closest to a given position.\nParameters\n\nposition :: PositionReturn value May be nil if no cell was found.",
+        "doc": "Find logistic cell closest to a given position\n\nParameters\n\nposition :: PositionReturn value May be nil if no cell was found.",
         "type": "function"
       },
       "available_logistic_robots": {
@@ -3025,7 +3025,7 @@
             "type": "Position"
           }
         },
-        "doc": "Is a given position within the logistic range of this cell?\nParameters\n\nposition :: Position",
+        "doc": "Is a given position within the logistic range of this cell\n\nParameters\n\nposition :: Position",
         "type": "function"
       },
       "is_in_construction_range": {
@@ -3038,7 +3038,7 @@
             "type": "Position"
           }
         },
-        "doc": "Is a given position within the construction range of this cell?\nParameters\n\nposition :: Position",
+        "doc": "Is a given position within the construction range of this cell\n\nParameters\n\nposition :: Position",
         "type": "function"
       },
       "is_neighbour_with": {
@@ -3051,7 +3051,7 @@
             "type": "LuaLogisticCell"
           }
         },
-        "doc": "Are two cells neighbours?\nParameters\n\nother :: LuaLogisticCell",
+        "doc": "Are two cells neighbours\n\nParameters\n\nother :: LuaLogisticCell",
         "type": "function"
       },
       "logistic_radius": {
@@ -3168,7 +3168,7 @@
             "type": "array of blueprint entity"
           }
         },
-        "doc": "Set new entities to be a part of this blueprint.\nParameters\n\nentities :: array of blueprint entity: New blueprint entities. The format is the same as in LuaItemStack::get_blueprint_entities.Can only be used if this is BlueprintItem",
+        "doc": "Set new entities to be a part of this blueprint\n\nParameters\n\nentities :: array of blueprint entity: New blueprint entities. The format is the same as in LuaItemStack::get_blueprint_entities.Can only be used if this is BlueprintItem",
         "type": "function"
       },
       "add_ammo": {
@@ -3180,7 +3180,7 @@
             "type": "uint"
           }
         },
-        "doc": "Add ammo to this ammo item.\nParameters\n\namount :: uint: Amount of ammo to add.Can only be used if this is AmmoItem",
+        "doc": "Add ammo to this ammo item\n\nParameters\n\namount :: uint: Amount of ammo to add.Can only be used if this is AmmoItem",
         "type": "function"
       },
       "drain_ammo": {
@@ -3192,7 +3192,7 @@
             "type": "uint"
           }
         },
-        "doc": "Remove ammo from this ammo item.\nParameters\n\namount :: uint: Amount of ammo to remove.Can only be used if this is AmmoItem",
+        "doc": "Remove ammo from this ammo item\n\nParameters\n\namount :: uint: Amount of ammo to remove.Can only be used if this is AmmoItem",
         "type": "function"
       },
       "add_durability": {
@@ -3204,7 +3204,7 @@
             "type": "double"
           }
         },
-        "doc": "Add durability to this tool item.\nParameters\n\namount :: double: Amount of durability to add.Can only be used if this is ToolItem",
+        "doc": "Add durability to this tool item\n\nParameters\n\namount :: double: Amount of durability to add.Can only be used if this is ToolItem",
         "type": "function"
       },
       "drain_durability": {
@@ -3216,7 +3216,7 @@
             "type": "double"
           }
         },
-        "doc": "Remove durability from this tool item.\nParameters\n\namount :: double: Amount of durability to remove.Can only be used if this is ToolItem",
+        "doc": "Remove durability from this tool item\n\nParameters\n\namount :: double: Amount of durability to remove.Can only be used if this is ToolItem",
         "type": "function"
       },
       "can_set_stack": {
@@ -3229,7 +3229,7 @@
             "type": "LuaItemStack or SimpleItemStack"
           }
         },
-        "doc": "Would a call to LuaItemStack::set_stack succeed?\nParameters\n\nstack :: LuaItemStack or SimpleItemStack (optional): Stack that would be set, possibly nil.",
+        "doc": "Would a call to LuaItemStack::set_stack succeed\n\nParameters\n\nstack :: LuaItemStack or SimpleItemStack (optional): Stack that would be set, possibly nil.",
         "type": "function"
       },
       "set_stack": {
@@ -3242,7 +3242,7 @@
             "type": "LuaItemStack or SimpleItemStack"
           }
         },
-        "doc": "Set this item stack to another item stack.\nParameters\n\nstack :: LuaItemStack or SimpleItemStack (optional): Item stack to set this one to. Omitting this parameter or passing nil will clear this item stack, as if by calling LuaItemStack::clear.Return value Was the stack set successfully?",
+        "doc": "Set this item stack to another item stack\n\nParameters\n\nstack :: LuaItemStack or SimpleItemStack (optional): Item stack to set this one to. Omitting this parameter or passing nil will clear this item stack, as if by calling LuaItemStack::clear.Return value Was the stack set successfully?",
         "type": "function"
       },
       "clear": {
@@ -3267,7 +3267,7 @@
             "type": "array of blueprint tile"
           }
         },
-        "doc": "Set tiles in this blueprint \nParameters\n\ntiles :: array of blueprint tile: Tiles to be a part of the blueprint; the format is the same as is returned from the corresponding get function; see LuaItemStack::get_blueprint_tiles.Can only be used if this is BlueprintItem",
+        "doc": "Set tiles in this blueprint \n\nParameters\n\ntiles :: array of blueprint tile: Tiles to be a part of the blueprint; the format is the same as is returned from the corresponding get function; see LuaItemStack::get_blueprint_tiles.Can only be used if this is BlueprintItem",
         "type": "function"
       },
       "get_inventory": {
@@ -3280,7 +3280,7 @@
             "type": "defines.inventory"
           }
         },
-        "doc": "Access the inner inventory of an item.\nParameters\n\ninventory :: defines.inventory: Index of the inventory to access -- currently can only be defines.inventory.item_main.Return value or nil if there is no inventory with the given index.",
+        "doc": "Access the inner inventory of an item\n\nParameters\n\ninventory :: defines.inventory: Index of the inventory to access -- currently can only be defines.inventory.item_main.Return value or nil if there is no inventory with the given index.",
         "type": "function"
       },
       "build_blueprint": {
@@ -3313,7 +3313,7 @@
             "type": "direction=…"
           }
         },
-        "doc": "Build this blueprint\nParameters\n\n Table with the following fields:  * surface :: SurfaceSpecification: Surface to build on\n * force :: string or LuaForce: Force to use for the building\n * position :: Position: The position to build at\n * force_build :: boolean (optional): When true, anything that can be built is else nothing is built if any one thing can't be built\n * direction :: defines.direction (optional): The direction to use when building",
+        "doc": "Build this blueprin\n\nParameters\n\n Table with the following fields:  * surface :: SurfaceSpecification: Surface to build on\n * force :: string or LuaForce: Force to use for the building\n * position :: Position: The position to build at\n * force_build :: boolean (optional): When true, anything that can be built is else nothing is built if any one thing can't be built\n * direction :: defines.direction (optional): The direction to use when building",
         "type": "function"
       },
       "create_blueprint": {
@@ -3341,7 +3341,7 @@
             "type": "always_include_tiles=…"
           }
         },
-        "doc": "Sets up this blueprint using the found blueprintable entities/tiles on the surface.\nParameters\n\n Table with the following fields:  * surface :: SurfaceSpecification: Surface to create from\n * force :: string or LuaForce: Force to use for the creation\n * area :: BoundingBox: The bounding box\n * always_include_tiles :: boolean (optional): When true, blueprintable tiles are always included in the blueprint. When false they're only included if no entities exist in the setup area.",
+        "doc": "Sets up this blueprint using the found blueprintable entities/tiles on the surface\n\nParameters\n\n Table with the following fields:  * surface :: SurfaceSpecification: Surface to create from\n * force :: string or LuaForce: Force to use for the creation\n * area :: BoundingBox: The bounding box\n * always_include_tiles :: boolean (optional): When true, blueprintable tiles are always included in the blueprint. When false they're only included if no entities exist in the setup area.",
         "type": "function"
       },
       "get_tag": {
@@ -3354,7 +3354,7 @@
             "type": "string"
           }
         },
-        "doc": "Gets the tag with the given name or returns nil if it doesn't exist. \nParameters\n\ntag_name :: stringCan only be used if this is ItemWithTags",
+        "doc": "Gets the tag with the given name or returns nil if it doesn't exist. \n\nParameters\n\ntag_name :: stringCan only be used if this is ItemWithTags",
         "type": "function"
       },
       "set_tag": {
@@ -3372,7 +3372,7 @@
             "type": "Any"
           }
         },
-        "doc": "Sets the tag with the given name and value. \nParameters\n\ntag_name :: stringtag :: AnyCan only be used if this is ItemWithTags",
+        "doc": "Sets the tag with the given name and value. \n\nParameters\n\ntag_name :: stringtag :: AnyCan only be used if this is ItemWithTags",
         "type": "function"
       },
       "remove_tag": {
@@ -3398,7 +3398,7 @@
             "type": "uint"
           }
         },
-        "doc": "Gets the entity filter at the given index for this deconstruction item. \nParameters\n\nindex :: uintCan only be used if this is DeconstructionItem",
+        "doc": "Gets the entity filter at the given index for this deconstruction item. \n\nParameters\n\nindex :: uintCan only be used if this is DeconstructionItem",
         "type": "function"
       },
       "set_entity_filter": {
@@ -3420,7 +3420,7 @@
             "type": "DeconstructionItem"
           }
         },
-        "doc": "Sets the entity filter ata the given index for this deconstruction item. \nParameters\n\nindex :: uintfilter :: string or LuaEntityPrototype or LuaEntity: Setting to nil erases the filter.Return value If the new filter was set (was valid.)",
+        "doc": "Sets the entity filter ata the given index for this deconstruction item. \n\nParameters\n\nindex :: uintfilter :: string or LuaEntityPrototype or LuaEntity: Setting to nil erases the filter.Return value If the new filter was set (was valid.)",
         "type": "function"
       },
       "get_tile_filter": {
@@ -3433,7 +3433,7 @@
             "type": "uint"
           }
         },
-        "doc": "Gets the tile filter at the given index for this deconstruction item. \nParameters\n\nindex :: uintCan only be used if this is DeconstructionItem",
+        "doc": "Gets the tile filter at the given index for this deconstruction item. \n\nParameters\n\nindex :: uintCan only be used if this is DeconstructionItem",
         "type": "function"
       },
       "set_tile_filter": {
@@ -3455,7 +3455,7 @@
             "type": "DeconstructionItem"
           }
         },
-        "doc": "Sets the tile filter ata the given index for this deconstruction item. \nParameters\n\nindex :: uintfilter :: string or LuaTilePrototype or LuaTile: Setting to nil erases the filter.Return value If the new filter was set (was valid.)",
+        "doc": "Sets the tile filter ata the given index for this deconstruction item. \n\nParameters\n\nindex :: uintfilter :: string or LuaTilePrototype or LuaTile: Setting to nil erases the filter.Return value If the new filter was set (was valid.)",
         "type": "function"
       },
       "clear_deconstruction_item": {
@@ -3510,7 +3510,7 @@
         "name": "durability",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "Durability of the contained item. Automatically capped at the item's maximum durability. \n\n\nNote: When used on a non-tool item, the value of this attribute is nil."
+        "doc": "Durability of the contained item. Automatically capped at the item's maximum durability. \n\nNote: When used on a non-tool item, the value of this attribute is nil."
       },
       "ammo": {
         "name": "ammo",
@@ -3649,7 +3649,7 @@
             "type": "string"
           }
         },
-        "doc": "Does this prototype have a flag enabled? \nParameters\n\nflag :: string: The flag to check. Can be either \"goes-to-main-inventory\", \"goes-to-quickbar\" or \"hidden\". Any other value will cause an error.",
+        "doc": "Does this prototype have a flag enabled? \n\nParameters\n\nflag :: string: The flag to check. Can be either \"goes-to-main-inventory\", \"goes-to-quickbar\" or \"hidden\". Any other value will cause an error.",
         "type": "function"
       },
       "get_ammo_type": {
@@ -3661,7 +3661,7 @@
             "type": "string"
           }
         },
-        "doc": "Type of this ammo prototype or nil if this is not an ammo prototype. \nParameters\n\nammo_source_type :: string (optional): \"default\", \"player\", \"turret\", or \"vehicle\"",
+        "doc": "Type of this ammo prototype or nil if this is not an ammo prototype. \n\nParameters\n\nammo_source_type :: string (optional): \"default\", \"player\", \"turret\", or \"vehicle\"",
         "type": "function"
       },
       "type": {
@@ -4029,7 +4029,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Can at least some items be inserted?\nParameters\n\nitems :: SimpleItemStack: Items that would be inserted.Return value true if at least a part of the given items could be inserted into this inventory.",
+        "doc": "Can at least some items be inserted\n\nParameters\n\nitems :: SimpleItemStack: Items that would be inserted.Return value true if at least a part of the given items could be inserted into this inventory.",
         "type": "function"
       },
       "insert": {
@@ -4042,7 +4042,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Insert items into this inventory.\nParameters\n\nitems :: SimpleItemStack: Items to insert.Return value Number of items actually inserted.",
+        "doc": "Insert items into this inventory\n\nParameters\n\nitems :: SimpleItemStack: Items to insert.Return value Number of items actually inserted.",
         "type": "function"
       },
       "remove": {
@@ -4055,7 +4055,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Remove items from this inventory.\nParameters\n\nitems :: SimpleItemStack: Items to remove.Return value Number of items actually removed.",
+        "doc": "Remove items from this inventory\n\nParameters\n\nitems :: SimpleItemStack: Items to remove.Return value Number of items actually removed.",
         "type": "function"
       },
       "get_item_count": {
@@ -4068,7 +4068,7 @@
             "type": "string"
           }
         },
-        "doc": "Get the number of all or some items in this inventory.\nParameters\n\nitem :: string (optional): Prototype name of the item to count. If not specified, count all items.",
+        "doc": "Get the number of all or some items in this inventory\n\nParameters\n\nitem :: string (optional): Prototype name of the item to count. If not specified, count all items.",
         "type": "function"
       },
       "is_empty": {
@@ -4089,14 +4089,14 @@
         "name": "hasbar() → boolean",
         "returns": "boolean",
         "args": {},
-        "doc": "Does this inventory have a bar? Bar is the draggable red thing, found for example on chests, that limits the portion of the inventory that may be manipulated by machines.\n\n\nNote: \"Having a bar\" doesn't mean that the bar is set to some nontrivial value. Having a bar means the inventory supports having this limit at all. The character's inventory is an example of an inventory without a bar; the wooden chest's inventory is an example of one with a bar.",
+        "doc": "Does this inventory have a bar? Bar is the draggable red thing, found for example on chests, that limits the portion of the inventory that may be manipulated by machines\n\nNote: \"Having a bar\" doesn't mean that the bar is set to some nontrivial value. Having a bar means the inventory supports having this limit at all. The character's inventory is an example of an inventory without a bar; the wooden chest's inventory is an example of one with a bar.",
         "type": "function"
       },
       "getbar": {
         "name": "getbar() → uint",
         "returns": "uint",
         "args": {},
-        "doc": "Get the current bar. This is the index at which the red area starts.\n\n\nNote: Only useable if this inventory has a bar.",
+        "doc": "Get the current bar. This is the index at which the red area starts\n\nNote: Only useable if this inventory has a bar.",
         "type": "function"
       },
       "setbar": {
@@ -4108,7 +4108,7 @@
             "type": "uint"
           }
         },
-        "doc": "Set the current bar.\nParameters\n\nbar :: uint (optional): The new limit. Ommitting this parameter will clear the limit.\n\nNote: Only useable if this inventory has a bar.",
+        "doc": "Set the current bar\n\nParameters\n\nbar :: uint (optional): The new limit. Ommitting this parameter will clear the limit\n\nNote: Only useable if this inventory has a bar.",
         "type": "function"
       },
       "supports_filters": {
@@ -4140,7 +4140,7 @@
             "type": "string"
           }
         },
-        "doc": "If the given inventory slot filter can be set to the given filter.\nParameters\n\nindex :: uint: The item stack indexfilter :: string: The item name of the filter",
+        "doc": "If the given inventory slot filter can be set to the given filter\n\nParameters\n\nindex :: uint: The item stack indexfilter :: string: The item name of the filter",
         "type": "function"
       },
       "get_filter": {
@@ -4153,7 +4153,7 @@
             "type": "uint"
           }
         },
-        "doc": "Gets the filter for the given item stack index.\nParameters\n\nindex :: uint: The item stack indexReturn value The current filter or nil if none.",
+        "doc": "Gets the filter for the given item stack index\n\nParameters\n\nindex :: uint: The item stack indexReturn value The current filter or nil if none.",
         "type": "function"
       },
       "set_filter": {
@@ -4171,7 +4171,7 @@
             "type": "string"
           }
         },
-        "doc": "Sets the filter for the given item stack index.\nParameters\n\nindex :: uint: The item stack indexfilter :: string: The new filter or nil to erase the filterReturn value If the filter was allowed to be set.\n\nNote: Some inventory slots don't allow some filters (gun ammo can't be filtered for non-ammo).",
+        "doc": "Sets the filter for the given item stack index\n\nParameters\n\nindex :: uint: The item stack indexfilter :: string: The new filter or nil to erase the filterReturn value If the filter was allowed to be set\n\nNote: Some inventory slots don't allow some filters (gun ammo can't be filtered for non-ammo).",
         "type": "function"
       },
       "find_item_stack": {
@@ -4184,7 +4184,7 @@
             "type": "string"
           }
         },
-        "doc": "Gets the first LuaItemStack in the inventory that matches the given item name. \nParameters\n\nitem :: string: The item name to findReturn value or nil.",
+        "doc": "Gets the first LuaItemStack in the inventory that matches the given item name. \n\nParameters\n\nitem :: string: The item name to findReturn value or nil.",
         "type": "function"
       },
       "operator #": {
@@ -4252,7 +4252,7 @@
             "type": "style=…"
           }
         },
-        "doc": "Add a child element.\nParameters\n\n Table with the following fields:  * type :: string: The kind of the element to add. Has to be one of \"button\", \"sprite-button\", \"checkbox\", \"flow\", \"frame\", \"label\", \"table\", \"progressbar\", \"textfield\", \"radio-button\", \"sprite\", \"scroll-pane\", \"camera\", or \"drop-down\".\n * name :: string: Name of the child element.\n * style :: string (optional): Style of the new element.\n *  Other attributes may have to be specified, depending on type * sprite-button * sprite :: SpritePath (optional): Path to the image to display on the button.\n    * checkbox * state :: boolean: Whether the checkbox should be checked by default.\n    * radio-button * state :: boolean: Whether the radio-button should be checked by default.\n    * frame * direction :: string: The initial direction of the frame's layout. See LuaGuiElement::direction.\n    * label * caption :: string (optional): Initial text to display on the label.\n       * single_line :: boolean (optional): If text should be shown on a single line or wrapped based off the max width of the label.\n       * want_ellipsis :: boolean (optional): If text beyond the widget width should be shown as \"...\" instead of clipped. Can't be used with single_line==false\n    * progressbar * size :: uint: Width of the progressbar.\n       * value :: double (optional): Initial value of the progressbar, in range [0, 1]. Defaults to 0 if not given.\n    * table * colspan :: uint: Number of columns\n    * drop-down * items :: array of LocalisedString (optional): The initial items in the dropdown.\n       * selected_index :: uint (optional): The initial selected index.\n    * camera * position :: Position: The position the camera centers on.\n       * surface_index :: uint (optional): The surface the camera will render else if not given the players surface is used.\n       * zoom :: double (optional): The camera zoom - defaults to 0.75.\n    * choose-elem-button * elem_type :: string: \"item\", \"tile\", \"entity\", or \"signal\"\n       * item :: string (optional): If type is \"item\" - the default value for the button\n       * entity :: string (optional): If type is \"entity\" - the default value for the button\n       * tile :: string (optional): If type is \"tile\" - the default value for the button\n       * signal :: SignalID (optional): If type is \"signal\" - the default value for the button\nReturn value The added GUI element.",
+        "doc": "Add a child element\n\nParameters\n\n Table with the following fields:  * type :: string: The kind of the element to add. Has to be one of \"button\", \"sprite-button\", \"checkbox\", \"flow\", \"frame\", \"label\", \"table\", \"progressbar\", \"textfield\", \"radio-button\", \"sprite\", \"scroll-pane\", \"camera\", or \"drop-down\".\n * name :: string: Name of the child element.\n * style :: string (optional): Style of the new element.\n *  Other attributes may have to be specified, depending on type * sprite-button * sprite :: SpritePath (optional): Path to the image to display on the button.\n    * checkbox * state :: boolean: Whether the checkbox should be checked by default.\n    * radio-button * state :: boolean: Whether the radio-button should be checked by default.\n    * frame * direction :: string: The initial direction of the frame's layout. See LuaGuiElement::direction.\n    * label * caption :: string (optional): Initial text to display on the label.\n       * single_line :: boolean (optional): If text should be shown on a single line or wrapped based off the max width of the label.\n       * want_ellipsis :: boolean (optional): If text beyond the widget width should be shown as \"...\" instead of clipped. Can't be used with single_line==false\n    * progressbar * size :: uint: Width of the progressbar.\n       * value :: double (optional): Initial value of the progressbar, in range [0, 1]. Defaults to 0 if not given.\n    * table * colspan :: uint: Number of columns\n    * drop-down * items :: array of LocalisedString (optional): The initial items in the dropdown.\n       * selected_index :: uint (optional): The initial selected index.\n    * camera * position :: Position: The position the camera centers on.\n       * surface_index :: uint (optional): The surface the camera will render else if not given the players surface is used.\n       * zoom :: double (optional): The camera zoom - defaults to 0.75.\n    * choose-elem-button * elem_type :: string: \"item\", \"tile\", \"entity\", or \"signal\"\n       * item :: string (optional): If type is \"item\" - the default value for the button\n       * entity :: string (optional): If type is \"entity\" - the default value for the button\n       * tile :: string (optional): If type is \"tile\" - the default value for the button\n       * signal :: SignalID (optional): If type is \"signal\" - the default value for the button\nReturn value The added GUI element.",
         "type": "function"
       },
       "clear": {
@@ -4264,7 +4264,7 @@
       "destroy": {
         "name": "destroy()",
         "args": {},
-        "doc": "Remove this element, along with its children. Any LuaGuiElement objects referring to the destroyed elements become invalid after this operation.\n\n\nNote: The top-level GUI elements -- LuaGui::top, LuaGui::left, LuaGui::center -- can't be destroyed.Example game.player.gui.top.greeting.destroy()",
+        "doc": "Remove this element, along with its children. Any LuaGuiElement objects referring to the destroyed elements become invalid after this operation\n\nNote: The top-level GUI elements -- LuaGui::top, LuaGui::left, LuaGui::center -- can't be destroyed.Example game.player.gui.top.greeting.destroy()",
         "type": "function"
       },
       "clear_items": {
@@ -4283,7 +4283,7 @@
             "type": "uint"
           }
         },
-        "doc": "Gets an item at the given index from this dropdown. \nParameters\n\nindex :: uint: The index to get.Can only be used if this is drop-down",
+        "doc": "Gets an item at the given index from this dropdown. \n\nParameters\n\nindex :: uint: The index to get.Can only be used if this is drop-down",
         "type": "function"
       },
       "set_item": {
@@ -4299,7 +4299,7 @@
             "name": "LocalisedString"
           }
         },
-        "doc": "Sets an item at the given index in this dropdown. \nParameters\n\nindex :: uint: The indexLocalisedString: The item.Can only be used if this is drop-down",
+        "doc": "Sets an item at the given index in this dropdown. \n\nParameters\n\nindex :: uint: The indexLocalisedString: The item.Can only be used if this is drop-down",
         "type": "function"
       },
       "add_item": {
@@ -4315,7 +4315,7 @@
             "type": "uint"
           }
         },
-        "doc": "Adds an item at the end or at the given index in this dropdown. \nParameters\n\nLocalisedString: The item.index :: uint (optional): The indexCan only be used if this is drop-down",
+        "doc": "Adds an item at the end or at the given index in this dropdown. \n\nParameters\n\nLocalisedString: The item.index :: uint (optional): The indexCan only be used if this is drop-down",
         "type": "function"
       },
       "gui": {
@@ -4340,7 +4340,7 @@
         "name": "caption",
         "type": "LocalisedString",
         "mode": "[Read-Write]",
-        "doc": "The text displayed on the element. For frames, this is the \"heading\". For other elements, like buttons or labels, this is the content.\n\n\nNote: Whilst this attribute may be used on all elements without producing an error, it doesn't make sense for tables and flows as they won't display it."
+        "doc": "The text displayed on the element. For frames, this is the \"heading\". For other elements, like buttons or labels, this is the content\n\nNote: Whilst this attribute may be used on all elements without producing an error, it doesn't make sense for tables and flows as they won't display it."
       },
       "value": {
         "name": "value",
@@ -4472,7 +4472,7 @@
         "name": "elem_value",
         "type": "string or SignalID",
         "mode": "[Read-Write]",
-        "doc": "The elem value of this choose-elem-button or nil if there is no value. \n\n\nNote: Types \"item\", \"entity\", and \"tile\" operate with strings. Type \"signal\" operates with SignalID.Can only be used if this is choose-elem-button"
+        "doc": "The elem value of this choose-elem-button or nil if there is no value. \n\nNote: Types \"item\", \"entity\", and \"tile\" operate with strings. Type \"signal\" operates with SignalID.Can only be used if this is choose-elem-button"
       }
     }
   },
@@ -4491,7 +4491,7 @@
             "type": "SpritePath"
           }
         },
-        "doc": "Returns true if sprite_path is valid and contains loaded sprite, otherwise false. \nParameters\n\nsprite_path :: SpritePath: Path to a image.",
+        "doc": "Returns true if sprite_path is valid and contains loaded sprite, otherwise false. \n\nParameters\n\nsprite_path :: SpritePath: Path to a image.",
         "type": "function"
       },
       "player": {
@@ -4559,7 +4559,7 @@
         "name": "subgroups",
         "type": "array of LuaGroup",
         "mode": "[Read-only]",
-        "doc": "Subgroups of this group.\n\n\nNote: Can only be used on groups, not on subgroups."
+        "doc": "Subgroups of this group\n\nNote: Can only be used on groups, not on subgroups."
       },
       "order": {
         "name": "order",
@@ -4605,7 +4605,7 @@
             "type": "can_continue=…"
           }
         },
-        "doc": "Set scenario state. \nParameters\n\n Table with the following fields:  * game_finished :: boolean\n * player_won :: boolean\n * next_level :: string\n * can_continue :: boolean",
+        "doc": "Set scenario state. \n\nParameters\n\n Table with the following fields:  * game_finished :: boolean\n * player_won :: boolean\n * next_level :: string\n * can_continue :: boolean",
         "type": "function"
       },
       "get_entity_by_tag": {
@@ -4618,7 +4618,7 @@
             "type": "string"
           }
         },
-        "doc": "Parameters\n\ntag :: string",
+        "doc": "Parameterstag :: string",
         "type": "function"
       },
       "show_message_dialog": {
@@ -4642,7 +4642,7 @@
             "type": "point_to=…"
           }
         },
-        "doc": "Show an in-game message dialog. \nParameters\n\n Table with the following fields:  * text :: LocalisedString: What the dialog should say\n * image :: string (optional): Path to an image to show on the dialog\n * point_to :: GuiArrowSpecification (optional): If specified, dialog will show an arrow pointing to this place. When not specified, the arrow will point to the player's position. (Use point_to={type=\"nowhere\"} to remove the arrow entirely.) The dialog itself will be placed near the arrow's target.\n\n\nNote: Can only be used when the map contains exactly one player.",
+        "doc": "Show an in-game message dialog. \n\nParameters\n\n Table with the following fields:  * text :: LocalisedString: What the dialog should say\n * image :: string (optional): Path to an image to show on the dialog\n * point_to :: GuiArrowSpecification (optional): If specified, dialog will show an arrow pointing to this place. When not specified, the arrow will point to the player's position. (Use point_to={type=\"nowhere\"} to remove the arrow entirely.) The dialog itself will be placed near the arrow's target\n\nNote: Can only be used when the map contains exactly one player.",
         "type": "function"
       },
       "disable_tips_and_tricks": {
@@ -4661,19 +4661,19 @@
       "reload_script": {
         "name": "reload_script()",
         "args": {},
-        "doc": "Forces a reload of the scenario script when the save game without the migration is loaded. \n\n\nNote: Useable only in migration scripts.",
+        "doc": "Forces a reload of the scenario script when the save game without the migration is loaded. \n\nNote: Useable only in migration scripts.",
         "type": "function"
       },
       "save_atlas": {
         "name": "save_atlas()",
         "args": {},
-        "doc": "Saves the current configuration of Atlas to a file. This will result in huge file containing all of the game graphics moved to as small space as possible.\n\n\nNote: Exists mainly for debugging reasons.",
+        "doc": "Saves the current configuration of Atlas to a file. This will result in huge file containing all of the game graphics moved to as small space as possible\n\nNote: Exists mainly for debugging reasons.",
         "type": "function"
       },
       "check_consistency": {
         "name": "check_consistency()",
         "args": {},
-        "doc": "Run internal consistency checks. Allegedly prints any errors it finds.\n\n\nNote: Exists mainly for debugging reasons.",
+        "doc": "Run internal consistency checks. Allegedly prints any errors it finds\n\nNote: Exists mainly for debugging reasons.",
         "type": "function"
       },
       "regenerate_entity": {
@@ -4685,7 +4685,7 @@
             "type": "string or array of string"
           }
         },
-        "doc": "Regenerate autoplacement of some entities on all surfaces. This can be used to autoplace newly-added entities.\nParameters\n\nentitites :: string or array of string: Prototype names of entity or entities to autoplace.\n\nNote: All specified entity prototypes must be autoplacable.",
+        "doc": "Regenerate autoplacement of some entities on all surfaces. This can be used to autoplace newly-added entities\n\nParameters\n\nentitites :: string or array of string: Prototype names of entity or entities to autoplace\n\nNote: All specified entity prototypes must be autoplacable.",
         "type": "function"
       },
       "take_screenshot": {
@@ -4733,7 +4733,7 @@
             "type": "anti_alias=…"
           }
         },
-        "doc": "Take a screenshot and save it to a file.\nParameters\n\n Table with the following fields:  * player :: PlayerSpecification (optional)\n * by_player :: PlayerSpecification (optional): If defined, the screenshot will only be taken for this player.\n * position :: Position (optional)\n * resolution :: Position (optional): Maximum allowed resolution is 16384x16384 (resp. 8196x8196 when anti_alias is true), but maximum recommended resolution is 4096x4096 (resp. 2048x2048).\n * zoom :: double (optional)\n * path :: string (optional): Path to save the screenshot in\n * show_gui :: boolean (optional): Include game GUI in the screenshot?\n * show_entity_info :: boolean (optional): Include entity info (alt-mode)?\n * anti_alias :: boolean (optional): Render in double resolution and scale down (including GUI)?\n\n\nNote: If Factorio is running headless, this function will do nothing.",
+        "doc": "Take a screenshot and save it to a file\n\nParameters\n\n Table with the following fields:  * player :: PlayerSpecification (optional)\n * by_player :: PlayerSpecification (optional): If defined, the screenshot will only be taken for this player.\n * position :: Position (optional)\n * resolution :: Position (optional): Maximum allowed resolution is 16384x16384 (resp. 8196x8196 when anti_alias is true), but maximum recommended resolution is 4096x4096 (resp. 2048x2048).\n * zoom :: double (optional)\n * path :: string (optional): Path to save the screenshot in\n * show_gui :: boolean (optional): Include game GUI in the screenshot?\n * show_entity_info :: boolean (optional): Include entity info (alt-mode)?\n * anti_alias :: boolean (optional): Render in double resolution and scale down (including GUI)\n\nNote: If Factorio is running headless, this function will do nothing.",
         "type": "function"
       },
       "write_file": {
@@ -4760,7 +4760,7 @@
             "type": "uint"
           }
         },
-        "doc": "Write a string to a file.\nParameters\n\nfilename :: string: Path to the file to write todata :: string: File contentappend :: boolean (optional): When true, this will append to the end of the file. Defaults to false,for_player :: uint (optional): If given, the file will only be written for this player_index. 0 means only the server if one exists. which will overwrite any pre-existing file with the new data.",
+        "doc": "Write a string to a file\n\nParameters\n\nfilename :: string: Path to the file to write todata :: string: File contentappend :: boolean (optional): When true, this will append to the end of the file. Defaults to false,for_player :: uint (optional): If given, the file will only be written for this player_index. 0 means only the server if one exists. which will overwrite any pre-existing file with the new data.",
         "type": "function"
       },
       "remove_path": {
@@ -4772,7 +4772,7 @@
             "type": "string"
           }
         },
-        "doc": "Remove file or directory. Given path is taken relative to the script output directory. Can be used to remove files created by LuaGameScript::write_file.\nParameters\n\npath :: string: Path to remove, relative to the script output directory",
+        "doc": "Remove file or directory. Given path is taken relative to the script output directory. Can be used to remove files created by LuaGameScript::write_file\n\nParameters\n\npath :: string: Path to remove, relative to the script output directory",
         "type": "function"
       },
       "remove_offline_players": {
@@ -4784,7 +4784,7 @@
             "type": "array of LuaPlayer or string"
           }
         },
-        "doc": "Remove players who are currently not connected from the map. \nParameters\n\nplayers :: array of LuaPlayer or string (optional): List of players to remove. If not specified, remove all offline players.",
+        "doc": "Remove players who are currently not connected from the map. \n\nParameters\n\nplayers :: array of LuaPlayer or string (optional): List of players to remove. If not specified, remove all offline players.",
         "type": "function"
       },
       "force_crc": {
@@ -4803,7 +4803,7 @@
             "type": "string"
           }
         },
-        "doc": "Create a new force.\nParameters\n\nforce :: string: Name of the new forceReturn value The force that was just created\n\nNote: The game currently supports a maximum of 64 forces, including the three built-in forces. This means that a maximum of 61 new forces may be created.\n\nNote: Force names must be unique.",
+        "doc": "Create a new force\n\nParameters\n\nforce :: string: Name of the new forceReturn value The force that was just create\n\nNote: The game currently supports a maximum of 64 forces, including the three built-in forces. This means that a maximum of 61 new forces may be created\n\nNote: Force names must be unique.",
         "type": "function"
       },
       "merge_forces": {
@@ -4820,7 +4820,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Merge two forces together. All entities in the source force will be reassigned to the target force. The source force will then be destroyed.\nParameters\n\nsource :: string or LuaForce: The force to removedestination :: string or LuaForce: The force to reassign all entities to\n\nNote: The three built-in forces -- player, enemy and neutral -- can't be destroyed. I.e. they can't be used as the source argument to this function.",
+        "doc": "Merge two forces together. All entities in the source force will be reassigned to the target force. The source force will then be destroyed\n\nParameters\n\nsource :: string or LuaForce: The force to removedestination :: string or LuaForce: The force to reassign all entities t\n\nNote: The three built-in forces -- player, enemy and neutral -- can't be destroyed. I.e. they can't be used as the source argument to this function.",
         "type": "function"
       },
       "create_surface": {
@@ -4838,7 +4838,7 @@
             "type": "MapGenSettings"
           }
         },
-        "doc": "Create a new surface\nParameters\n\nname :: string: Name of the new surfacesettings :: MapGenSettings (optional): Map generation settingsReturn value The surface that was just created",
+        "doc": "Create a new surfac\n\nParameters\n\nname :: string: Name of the new surfacesettings :: MapGenSettings (optional): Map generation settingsReturn value The surface that was just created",
         "type": "function"
       },
       "server_save": {
@@ -4850,7 +4850,7 @@
             "type": "string"
           }
         },
-        "doc": "Instruct the server to save the map. \nParameters\n\nname :: string (optional): Save name. If not specified, writes into the currently-running save.",
+        "doc": "Instruct the server to save the map. \n\nParameters\n\nname :: string (optional): Save name. If not specified, writes into the currently-running save.",
         "type": "function"
       },
       "delete_surface": {
@@ -4862,7 +4862,7 @@
             "type": "string or LuaSurface"
           }
         },
-        "doc": "Deletes the given surface and all entities on it. \nParameters\n\nsurface :: string or LuaSurface: The surface to be deleted. Currently the primary surface (0, 'nauvis') cannot be deleted.",
+        "doc": "Deletes the given surface and all entities on it. \n\nParameters\n\nsurface :: string or LuaSurface: The surface to be deleted. Currently the primary surface (0, 'nauvis') cannot be deleted.",
         "type": "function"
       },
       "disable_replay": {
@@ -4880,7 +4880,7 @@
             "type": "defines.direction"
           }
         },
-        "doc": "Converts the given direction into the string version of the direction. \nParameters\n\ndirection :: defines.direction",
+        "doc": "Converts the given direction into the string version of the direction. \n\nParameters\n\ndirection :: defines.direction",
         "type": "function"
       },
       "print": {
@@ -4892,7 +4892,7 @@
             "type": "LocalisedString"
           }
         },
-        "doc": "Print text to the chat console all players.\nParameters\n\nmessage :: LocalisedString",
+        "doc": "Print text to the chat console all players\n\nParameters\n\nmessage :: LocalisedString",
         "type": "function"
       },
       "create_random_generator": {
@@ -4905,7 +4905,7 @@
             "type": "uint"
           }
         },
-        "doc": "Creates a deterministic standalone random generator with the given seed or if a seed is not provided the initial map seed is used. \nParameters\n\nseed :: uint (optional)\n\nNote: *Make sure* you actually want to use this over math.random(...) as this provides entirely different functionality over math.random(...).",
+        "doc": "Creates a deterministic standalone random generator with the given seed or if a seed is not provided the initial map seed is used. \n\nParameters\n\nseed :: uint (optional\n\nNote: *Make sure* you actually want to use this over math.random(...) as this provides entirely different functionality over math.random(...).",
         "type": "function"
       },
       "player": {
@@ -4918,7 +4918,7 @@
         "name": "players",
         "type": "custom dictionary uint or string → LuaPlayer",
         "mode": "[Read-only]",
-        "doc": "\n\nNote: This is a sparse table so pairs(), a known player index, or player name should be used to access elements."
+        "doc": "Note: This is a sparse table so pairs(), a known player index, or player name should be used to access elements."
       },
       "map_settings": {
         "name": "map_settings",
@@ -5026,7 +5026,7 @@
         "name": "speed",
         "type": "float",
         "mode": "[Read-Write]",
-        "doc": "Speed to update the map at. 1.0 is normal speed -- 60 UPS. \n\n\nNote: Minimum value is 0.1."
+        "doc": "Speed to update the map at. 1.0 is normal speed -- 60 UPS. \n\nNote: Minimum value is 0.1."
       },
       "surfaces": {
         "name": "surfaces",
@@ -5044,7 +5044,7 @@
         "name": "connected_players",
         "type": "array of LuaPlayer",
         "mode": "[Read-only]",
-        "doc": "The online players \n This is primarally useful when you want to do some action against all online players.\n\n\nNote: This does *not* index using player index. See LuaPlayer::index on each player instance for the player index."
+        "doc": "The online players \n This is primarally useful when you want to do some action against all online players\n\nNote: This does *not* index using player index. See LuaPlayer::index on each player instance for the player index."
       },
       "permissions": {
         "name": "permissions",
@@ -5151,6 +5151,130 @@
       }
     }
   },
+  "LuaFluidBox": {
+    "name": "LuaFluidBox",
+    "type": "LuaFluidBox",
+    "doc": "An array of fluid boxes. Entities may contain more than one fluid box, and some can change the number\n of fluid boxes -- for instance, an assembling machine will change its number of fluid boxes depending\n on its active recipe.",
+    "properties": {
+      "get_capacity": {
+        "name": "get_capacity(index) → double",
+        "returns": "double",
+        "args": {
+          "index": {
+            "doc": "index :: uint",
+            "name": "index",
+            "type": "uint"
+          }
+        },
+        "doc": "The capacity of the given fluidbox index. \n\nParameters\n\nindex :: uint",
+        "type": "function"
+      },
+      "get_connections": {
+        "name": "get_connections() → array of LuaFluidBox",
+        "returns": "array of LuaFluidBox",
+        "args": {},
+        "doc": "The fluidbox connections for the given fluidbox index.",
+        "type": "function"
+      },
+      "operator #": {
+        "name": "operator #",
+        "type": "uint",
+        "mode": "[Read-only]",
+        "doc": "Number of fluid boxes."
+      },
+      "owner": {
+        "name": "owner",
+        "type": "LuaEntity",
+        "mode": "[Read-only]",
+        "doc": "The entity that owns this fluidbox."
+      },
+      "operator []": {
+        "name": "operator []",
+        "mode": "[Read-only]",
+        "doc": "Access, set or clear a fluid box. The index must always be in bounds (see LuaFluidBox::operator #); new fluidboxes may not be added or removed using this operator. If the given fluid box doesn't contain any fluid, nil is returned. Similarly, nil can be written to a fluid box to remove all fluid from it.",
+        "type": "operator []"
+      }
+    }
+  },
+  "LuaFlowStatistics": {
+    "name": "LuaFlowStatistics",
+    "type": "LuaFlowStatistics",
+    "doc": "Encapsulates statistic data for different parts of the game.",
+    "properties": {
+      "get_input_count": {
+        "name": "get_input_count(string)",
+        "args": {
+          "string": {
+            "doc": "string: The prototype name.",
+            "name": "string"
+          }
+        },
+        "doc": "Gets the total input count for a given prototype\n\nParameters\n\nstring: The prototype name.",
+        "type": "function"
+      },
+      "set_input_count": {
+        "name": "set_input_count(string, count)",
+        "args": {
+          "string": {
+            "doc": "string: The prototype name.",
+            "name": "string"
+          },
+          "count": {
+            "doc": "count :: uint64 or double: The new count. The type depends on the instance of the statistics.",
+            "name": "count",
+            "type": "uint64 or double"
+          }
+        },
+        "doc": "Sets the total input count for a given prototype\n\nParameters\n\nstring: The prototype name.count :: uint64 or double: The new count. The type depends on the instance of the statistics.",
+        "type": "function"
+      },
+      "get_output_count": {
+        "name": "get_output_count(string)",
+        "args": {
+          "string": {
+            "doc": "string: The prototype name.",
+            "name": "string"
+          }
+        },
+        "doc": "Gets the total output count for a given prototype\n\nParameters\n\nstring: The prototype name.",
+        "type": "function"
+      },
+      "set_output_count": {
+        "name": "set_output_count(string, count)",
+        "args": {
+          "string": {
+            "doc": "string: The prototype name.",
+            "name": "string"
+          },
+          "count": {
+            "doc": "count :: uint64 or double: The new count. The type depends on the instance of the statistics.",
+            "name": "count",
+            "type": "uint64 or double"
+          }
+        },
+        "doc": "Sets the total output count for a given prototype\n\nParameters\n\nstring: The prototype name.count :: uint64 or double: The new count. The type depends on the instance of the statistics.",
+        "type": "function"
+      },
+      "input_counts": {
+        "name": "input_counts",
+        "type": "dictionary string → array of uint64 or double",
+        "mode": "[Read-only]",
+        "doc": "List of input counts indexed by name <> value."
+      },
+      "output_counts": {
+        "name": "output_counts",
+        "type": "dictionary string → array of uint64 or double",
+        "mode": "[Read-only]",
+        "doc": "List of output counts indexed by name <> value."
+      },
+      "force": {
+        "name": "force",
+        "type": "LuaForce",
+        "mode": "[Read-only]",
+        "doc": "The force these statistics belong to."
+      }
+    }
+  },
   "LuaForce": {
     "name": "LuaForce",
     "type": "LuaForce",
@@ -5166,7 +5290,7 @@
             "type": "string"
           }
         },
-        "doc": "Count entities of given type.\nParameters\n\nname :: string: Prototype name of the entity.Return value Number of entities of given prototype belonging to this force.\n\nNote: This function has O(1) time complexity as entity counts are kept and maintained in the game engine.",
+        "doc": "Count entities of given type\n\nParameters\n\nname :: string: Prototype name of the entity.Return value Number of entities of given prototype belonging to this force\n\nNote: This function has O(1) time complexity as entity counts are kept and maintained in the game engine.",
         "type": "function"
       },
       "disable_research": {
@@ -5213,7 +5337,7 @@
             "name": "include_disabled_prototypes"
           }
         },
-        "doc": "Research all technologies. \nParameters\n\ninclude_disabled_prototypes (optional): If technologies that are explicitly disabled in the prototype are also researched. This defaults to false.",
+        "doc": "Research all technologies. \n\nParameters\n\ninclude_disabled_prototypes (optional): If technologies that are explicitly disabled in the prototype are also researched. This defaults to false.",
         "type": "function"
       },
       "reset_technologies": {
@@ -5248,7 +5372,7 @@
             "type": "BoundingBox"
           }
         },
-        "doc": "Chart a portion of the map. The chart for the given area is refreshed; it creates chart for any parts of the given area that haven't been charted yet.\nParameters\n\nsurface :: SurfaceSpecificationarea :: BoundingBox: The area on the given surface to chart.ExampleCharts a 2048x2048 rectangle centered around the origin. game.player.force.chart(game.player.surface,\n{{x = -1024, y = -1024}, {x = 1024, y = 1024}})",
+        "doc": "Chart a portion of the map. The chart for the given area is refreshed; it creates chart for any parts of the given area that haven't been charted yet\n\nParameters\n\nsurface :: SurfaceSpecificationarea :: BoundingBox: The area on the given surface to chart.ExampleCharts a 2048x2048 rectangle centered around the origin. game.player.force.chart(game.player.surface,\n{{x = -1024, y = -1024}, {x = 1024, y = 1024}})",
         "type": "function"
       },
       "clear_chart": {
@@ -5260,7 +5384,7 @@
             "type": "SurfaceSpecification"
           }
         },
-        "doc": "Erases chart data for this force. \nParameters\n\nsurface :: SurfaceSpecification (optional): Which surface to erase chart data for or if not provided all surfaces charts are erased.",
+        "doc": "Erases chart data for this force. \n\nParameters\n\nsurface :: SurfaceSpecification (optional): Which surface to erase chart data for or if not provided all surfaces charts are erased.",
         "type": "function"
       },
       "rechart": {
@@ -5278,7 +5402,7 @@
             "type": "SurfaceSpecification"
           }
         },
-        "doc": "Chart all generated chunks. \nParameters\n\nsurface :: SurfaceSpecification (optional): Which surface to chart or all if not given.",
+        "doc": "Chart all generated chunks. \n\nParameters\n\nsurface :: SurfaceSpecification (optional): Which surface to chart or all if not given.",
         "type": "function"
       },
       "is_chunk_charted": {
@@ -5296,7 +5420,7 @@
             "type": "ChunkPosition"
           }
         },
-        "doc": "Has a chunk been charted?\nParameters\n\nsurface :: SurfaceSpecificationposition :: ChunkPosition: Position of the chunk.",
+        "doc": "Has a chunk been charted\n\nParameters\n\nsurface :: SurfaceSpecificationposition :: ChunkPosition: Position of the chunk.",
         "type": "function"
       },
       "is_chunk_visible": {
@@ -5314,7 +5438,7 @@
             "type": "ChunkPosition"
           }
         },
-        "doc": "Is the given chunk currently charted and visible (not covered by fogg of war) on the map. \nParameters\n\nsurface :: SurfaceSpecificationposition :: ChunkPosition",
+        "doc": "Is the given chunk currently charted and visible (not covered by fogg of war) on the map. \n\nParameters\n\nsurface :: SurfaceSpecificationposition :: ChunkPosition",
         "type": "function"
       },
       "get_ammo_damage_modifier": {
@@ -5327,7 +5451,7 @@
             "type": "string"
           }
         },
-        "doc": "Parameters\n\nammo :: string: Ammo category",
+        "doc": "Parametersammo :: string: Ammo category",
         "type": "function"
       },
       "set_ammo_damage_modifier": {
@@ -5344,7 +5468,7 @@
             "type": "double"
           }
         },
-        "doc": "Parameters\n\nammo :: string: Ammo categorymodifier :: double",
+        "doc": "Parametersammo :: string: Ammo categorymodifier :: double",
         "type": "function"
       },
       "get_gun_speed_modifier": {
@@ -5357,7 +5481,7 @@
             "type": "string"
           }
         },
-        "doc": "Parameters\n\nammo :: string: Ammo category",
+        "doc": "Parametersammo :: string: Ammo category",
         "type": "function"
       },
       "set_gun_speed_modifier": {
@@ -5374,7 +5498,7 @@
             "type": "double"
           }
         },
-        "doc": "Parameters\n\nammo :: string: Ammo categorymodifier :: double",
+        "doc": "Parametersammo :: string: Ammo categorymodifier :: double",
         "type": "function"
       },
       "get_turret_attack_modifier": {
@@ -5387,7 +5511,7 @@
             "type": "string"
           }
         },
-        "doc": "Parameters\n\nturret :: string: Turret prototype name",
+        "doc": "Parametersturret :: string: Turret prototype name",
         "type": "function"
       },
       "set_turret_attack_modifier": {
@@ -5404,7 +5528,7 @@
             "type": "double"
           }
         },
-        "doc": "Parameters\n\nturret :: string: Turret prototype namemodifier :: double",
+        "doc": "Parametersturret :: string: Turret prototype namemodifier :: double",
         "type": "function"
       },
       "set_cease_fire": {
@@ -5421,7 +5545,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Stop attacking members of a given force.\nParameters\n\nother :: string or LuaForcecease_fire :: boolean: When true, this force won't attack other; otherwise it will.",
+        "doc": "Stop attacking members of a given force\n\nParameters\n\nother :: string or LuaForcecease_fire :: boolean: When true, this force won't attack other; otherwise it will.",
         "type": "function"
       },
       "get_cease_fire": {
@@ -5434,7 +5558,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Will this force attack members of another force?\nParameters\n\nother :: string or LuaForce",
+        "doc": "Will this force attack members of another force\n\nParameters\n\nother :: string or LuaForce",
         "type": "function"
       },
       "set_friend": {
@@ -5451,7 +5575,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Friends have unrestricted access to buildings and turrets won't fire at them.\nParameters\n\nother :: string or LuaForcecease_fire :: boolean",
+        "doc": "Friends have unrestricted access to buildings and turrets won't fire at them\n\nParameters\n\nother :: string or LuaForcecease_fire :: boolean",
         "type": "function"
       },
       "get_friend": {
@@ -5464,7 +5588,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Is this force a friend?\nParameters\n\nother :: string or LuaForce",
+        "doc": "Is this force a friend\n\nParameters\n\nother :: string or LuaForce",
         "type": "function"
       },
       "is_pathfinder_busy": {
@@ -5495,7 +5619,7 @@
             "type": "SurfaceSpecification"
           }
         },
-        "doc": "Parameters\n\nposition :: Position: Position to find a network forsurface :: SurfaceSpecification: Surface to search onReturn value The found network or nil.",
+        "doc": "Parametersposition :: Position: Position to find a network forsurface :: SurfaceSpecification: Surface to search onReturn value The found network or nil.",
         "type": "function"
       },
       "set_spawn_position": {
@@ -5512,7 +5636,7 @@
             "type": "SurfaceSpecification"
           }
         },
-        "doc": "Parameters\n\nposition :: Position: The new position on the given surface.surface :: SurfaceSpecification: Surface to set the spawn position for.",
+        "doc": "Parametersposition :: Position: The new position on the given surface.surface :: SurfaceSpecification: Surface to set the spawn position for.",
         "type": "function"
       },
       "get_spawn_position": {
@@ -5525,7 +5649,7 @@
             "type": "SurfaceSpecification"
           }
         },
-        "doc": "Parameters\n\nsurface :: SurfaceSpecification",
+        "doc": "Parameterssurface :: SurfaceSpecification",
         "type": "function"
       },
       "unchart_chunk": {
@@ -5542,7 +5666,7 @@
             "type": "SurfaceSpecification"
           }
         },
-        "doc": "Parameters\n\nposition :: ChunkPosition: The chunk position to unchart.surface :: SurfaceSpecification: Surface to unchart on.",
+        "doc": "Parametersposition :: ChunkPosition: The chunk position to unchart.surface :: SurfaceSpecification: Surface to unchart on.",
         "type": "function"
       },
       "get_item_launched": {
@@ -5555,7 +5679,7 @@
             "type": "string"
           }
         },
-        "doc": "Gets the count of a given item launched in rockets. \nParameters\n\nitem :: string: The item to getReturn value The count of the item that has been launched.",
+        "doc": "Gets the count of a given item launched in rockets. \n\nParameters\n\nitem :: string: The item to getReturn value The count of the item that has been launched.",
         "type": "function"
       },
       "set_item_launched": {
@@ -5572,7 +5696,7 @@
             "type": "uint"
           }
         },
-        "doc": "Sets the count of a given item launched in rockets. \nParameters\n\nitem :: string: The item to setcount :: uint: The count to set",
+        "doc": "Sets the count of a given item launched in rockets. \n\nParameters\n\nitem :: string: The item to setcount :: uint: The count to set",
         "type": "function"
       },
       "print": {
@@ -5584,7 +5708,7 @@
             "type": "LocalisedString"
           }
         },
-        "doc": "Print text to the chat console of all players on this force.\nParameters\n\nmessage :: LocalisedString",
+        "doc": "Print text to the chat console of all players on this force\n\nParameters\n\nmessage :: LocalisedString",
         "type": "function"
       },
       "get_trains": {
@@ -5597,7 +5721,7 @@
             "type": "SurfaceSpecification"
           }
         },
-        "doc": "Parameters\n\nsurface :: SurfaceSpecification (optional): If given only trains on the surface are returned.",
+        "doc": "Parameterssurface :: SurfaceSpecification (optional): If given only trains on the surface are returned.",
         "type": "function"
       },
       "add_chart_tag": {
@@ -5615,7 +5739,7 @@
             "type": "SignalID"
           }
         },
-        "doc": "Adds a custom chart tag to the given surface and returns the new tag or nil if the given position isn't valid for a chart tag. \nParameters\n\nsurface :: SurfaceSpecification: Which surface to add the tag to.tag: Table with the following fields:  * icon :: SignalID (optional): )\n * position :: Position\n * text :: string (optional)\n * last_user :: PlayerSpecification (optional)\n * orientation :: float (optional)\n * target :: LuaEntity (optional)\n\n\nNote: The chunk must be charted for a tag to be valid at that location.\n\nNote: The icon, text, or both must be provided.",
+        "doc": "Adds a custom chart tag to the given surface and returns the new tag or nil if the given position isn't valid for a chart tag. \n\nParameters\n\nsurface :: SurfaceSpecification: Which surface to add the tag to.tag: Table with the following fields:  * icon :: SignalID (optional): )\n * position :: Position\n * text :: string (optional)\n * last_user :: PlayerSpecification (optional)\n * orientation :: float (optional)\n * target :: LuaEntity (optional\n\nNote: The chunk must be charted for a tag to be valid at that location\n\nNote: The icon, text, or both must be provided.",
         "type": "function"
       },
       "find_chart_tags": {
@@ -5633,7 +5757,7 @@
             "type": "BoundingBox"
           }
         },
-        "doc": "Finds all custom chart tags within the given bounding box on the given surface. \nParameters\n\nsurface :: SurfaceSpecificationarea :: BoundingBox (optional)",
+        "doc": "Finds all custom chart tags within the given bounding box on the given surface. \n\nParameters\n\nsurface :: SurfaceSpecificationarea :: BoundingBox (optional)",
         "type": "function"
       },
       "name": {
@@ -5748,7 +5872,7 @@
         "name": "ai_controllable",
         "type": "boolean",
         "mode": "[Read-Write]",
-        "doc": "Enables some higher-level AI behaviour for this force. When set to true, biters belonging to this force will automatically expand into new territories, build new spawners, and form unit groups. By default, this value is true for the enemy force and false for all others.\n\n\nNote: Setting this to false does not turn off biters' AI. They will still move around and attack players who come close.\n\nNote: It is necessary for a force to be AI controllable in order to be able to create unit groups or build bases from scripts."
+        "doc": "Enables some higher-level AI behaviour for this force. When set to true, biters belonging to this force will automatically expand into new territories, build new spawners, and form unit groups. By default, this value is true for the enemy force and false for all others\n\nNote: Setting this to false does not turn off biters' AI. They will still move around and attack players who come close\n\nNote: It is necessary for a force to be AI controllable in order to be able to create unit groups or build bases from scripts."
       },
       "logistic_networks": {
         "name": "logistic_networks",
@@ -5892,7 +6016,7 @@
         "name": "connected_players",
         "type": "array of LuaPlayer",
         "mode": "[Read-only]",
-        "doc": "The connected players belonging to this force. \n This is primarally useful when you want to do some action against all online players of this force.\n\n\nNote: This does *not* index using player index. See LuaPlayer::index on each player instance for the player index."
+        "doc": "The connected players belonging to this force. \n This is primarally useful when you want to do some action against all online players of this force\n\nNote: This does *not* index using player index. See LuaPlayer::index on each player instance for the player index."
       },
       "mining_drill_productivity_bonus": {
         "name": "mining_drill_productivity_bonus",
@@ -5917,130 +6041,6 @@
         "type": "boolean",
         "mode": "[Read-Write]",
         "doc": "If friendly fire is enabled for this force."
-      }
-    }
-  },
-  "LuaFluidBox": {
-    "name": "LuaFluidBox",
-    "type": "LuaFluidBox",
-    "doc": "An array of fluid boxes. Entities may contain more than one fluid box, and some can change the number\n of fluid boxes -- for instance, an assembling machine will change its number of fluid boxes depending\n on its active recipe.",
-    "properties": {
-      "get_capacity": {
-        "name": "get_capacity(index) → double",
-        "returns": "double",
-        "args": {
-          "index": {
-            "doc": "index :: uint",
-            "name": "index",
-            "type": "uint"
-          }
-        },
-        "doc": "The capacity of the given fluidbox index. \nParameters\n\nindex :: uint",
-        "type": "function"
-      },
-      "get_connections": {
-        "name": "get_connections() → array of LuaFluidBox",
-        "returns": "array of LuaFluidBox",
-        "args": {},
-        "doc": "The fluidbox connections for the given fluidbox index.",
-        "type": "function"
-      },
-      "operator #": {
-        "name": "operator #",
-        "type": "uint",
-        "mode": "[Read-only]",
-        "doc": "Number of fluid boxes."
-      },
-      "owner": {
-        "name": "owner",
-        "type": "LuaEntity",
-        "mode": "[Read-only]",
-        "doc": "The entity that owns this fluidbox."
-      },
-      "operator []": {
-        "name": "operator []",
-        "mode": "[Read-only]",
-        "doc": "Access, set or clear a fluid box. The index must always be in bounds (see LuaFluidBox::operator #); new fluidboxes may not be added or removed using this operator. If the given fluid box doesn't contain any fluid, nil is returned. Similarly, nil can be written to a fluid box to remove all fluid from it.",
-        "type": "operator []"
-      }
-    }
-  },
-  "LuaFlowStatistics": {
-    "name": "LuaFlowStatistics",
-    "type": "LuaFlowStatistics",
-    "doc": "Encapsulates statistic data for different parts of the game.",
-    "properties": {
-      "get_input_count": {
-        "name": "get_input_count(string)",
-        "args": {
-          "string": {
-            "doc": "string: The prototype name.",
-            "name": "string"
-          }
-        },
-        "doc": "Gets the total input count for a given prototype.\nParameters\n\nstring: The prototype name.",
-        "type": "function"
-      },
-      "set_input_count": {
-        "name": "set_input_count(string, count)",
-        "args": {
-          "string": {
-            "doc": "string: The prototype name.",
-            "name": "string"
-          },
-          "count": {
-            "doc": "count :: uint64 or double: The new count. The type depends on the instance of the statistics.",
-            "name": "count",
-            "type": "uint64 or double"
-          }
-        },
-        "doc": "Sets the total input count for a given prototype.\nParameters\n\nstring: The prototype name.count :: uint64 or double: The new count. The type depends on the instance of the statistics.",
-        "type": "function"
-      },
-      "get_output_count": {
-        "name": "get_output_count(string)",
-        "args": {
-          "string": {
-            "doc": "string: The prototype name.",
-            "name": "string"
-          }
-        },
-        "doc": "Gets the total output count for a given prototype.\nParameters\n\nstring: The prototype name.",
-        "type": "function"
-      },
-      "set_output_count": {
-        "name": "set_output_count(string, count)",
-        "args": {
-          "string": {
-            "doc": "string: The prototype name.",
-            "name": "string"
-          },
-          "count": {
-            "doc": "count :: uint64 or double: The new count. The type depends on the instance of the statistics.",
-            "name": "count",
-            "type": "uint64 or double"
-          }
-        },
-        "doc": "Sets the total output count for a given prototype.\nParameters\n\nstring: The prototype name.count :: uint64 or double: The new count. The type depends on the instance of the statistics.",
-        "type": "function"
-      },
-      "input_counts": {
-        "name": "input_counts",
-        "type": "dictionary string → array of uint64 or double",
-        "mode": "[Read-only]",
-        "doc": "List of input counts indexed by name <> value."
-      },
-      "output_counts": {
-        "name": "output_counts",
-        "type": "dictionary string → array of uint64 or double",
-        "mode": "[Read-only]",
-        "doc": "List of output counts indexed by name <> value."
-      },
-      "force": {
-        "name": "force",
-        "type": "LuaForce",
-        "mode": "[Read-only]",
-        "doc": "The force these statistics belong to."
       }
     }
   },
@@ -6219,7 +6219,7 @@
             "type": "equipment=…"
           }
         },
-        "doc": "Remove an equipment from the grid.\nParameters\n\n Table with the following fields:  * position :: Position (optional): Take the equipment that contains this position in the grid.\n * equipment :: LuaEquipment (optional): Take this exact equipment.\nEither position or equipment must be specified.Return value The removed equipment, or nil if no equipment was removed.",
+        "doc": "Remove an equipment from the grid\n\nParameters\n\n Table with the following fields:  * position :: Position (optional): Take the equipment that contains this position in the grid.\n * equipment :: LuaEquipment (optional): Take this exact equipment.\nEither position or equipment must be specified.Return value The removed equipment, or nil if no equipment was removed.",
         "type": "function"
       },
       "take_all": {
@@ -6253,7 +6253,7 @@
             "type": "position=…"
           }
         },
-        "doc": "Insert an equipment into the grid.\nParameters\n\n Table with the following fields:  * name :: string: Equipment prototype name\n * position :: Position (optional): Grid position to put the equipment in.\nReturn value The newly-added equipment, or nil if the equipment could not be added.",
+        "doc": "Insert an equipment into the grid\n\nParameters\n\n Table with the following fields:  * name :: string: Equipment prototype name\n * position :: Position (optional): Grid position to put the equipment in.\nReturn value The newly-added equipment, or nil if the equipment could not be added.",
         "type": "function"
       },
       "can_move": {
@@ -6274,7 +6274,7 @@
             "type": "position=…"
           }
         },
-        "doc": "Check whether moving an equipment would succeed.\nParameters\n\n Table with the following fields:  * equipment :: LuaEquipment: The equipment to move\n * position :: Position: Where to put it",
+        "doc": "Check whether moving an equipment would succeed\n\nParameters\n\n Table with the following fields:  * equipment :: LuaEquipment: The equipment to move\n * position :: Position: Where to put it",
         "type": "function"
       },
       "move": {
@@ -6295,7 +6295,7 @@
             "type": "position=…"
           }
         },
-        "doc": "Move an equipment within this grid.\nParameters\n\n Table with the following fields:  * equipment :: LuaEquipment: The equipment to move\n * position :: Position: Where to put it\nReturn value true if the equipment was successfully moved.",
+        "doc": "Move an equipment within this grid\n\nParameters\n\n Table with the following fields:  * equipment :: LuaEquipment: The equipment to move\n * position :: Position: Where to put it\nReturn value true if the equipment was successfully moved.",
         "type": "function"
       },
       "get": {
@@ -6308,7 +6308,7 @@
             "type": "Position"
           }
         },
-        "doc": "Find equipment in the Equipment Grid based off a position.\nParameters\n\nposition :: Position: The positionReturn value The found equipment, or nil if equipment could not be found at the given position.",
+        "doc": "Find equipment in the Equipment Grid based off a position\n\nParameters\n\nposition :: Position: The positionReturn value The found equipment, or nil if equipment could not be found at the given position.",
         "type": "function"
       },
       "get_contents": {
@@ -6413,7 +6413,7 @@
         "name": "shield",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "Current shield value of the equipment. \n\n\nNote: Can't be set higher than LuaEquipment::max_shield."
+        "doc": "Current shield value of the equipment. \n\nNote: Can't be set higher than LuaEquipment::max_shield."
       },
       "max_shield": {
         "name": "max_shield",
@@ -6474,7 +6474,7 @@
             "type": "string"
           }
         },
-        "doc": "Does this prototype have a flag enabled?\nParameters\n\nflag :: string: The flag to check. Must be one of  *  \"pushable\"\n *  \"placeable-neutral\"\n *  \"placeable-player\"\n *  \"placeable-enemy\"\n *  \"placeable-off-grid\"\n *  \"player-creation\"\n *  \"building-direction-8-way\"\n *  \"filter-directions\"\n *  \"fast-replaceable-no-build-while-moving\"\n *  \"breaths-air\"\n *  \"not-repairable\"\n *  \"not-on-map\"\n *  \"not-blueprintable\"\n *  \"not-deconstructable\"",
+        "doc": "Does this prototype have a flag enabled\n\nParameters\n\nflag :: string: The flag to check. Must be one of  *  \"pushable\"\n *  \"placeable-neutral\"\n *  \"placeable-player\"\n *  \"placeable-enemy\"\n *  \"placeable-off-grid\"\n *  \"player-creation\"\n *  \"building-direction-8-way\"\n *  \"filter-directions\"\n *  \"fast-replaceable-no-build-while-moving\"\n *  \"breaths-air\"\n *  \"not-repairable\"\n *  \"not-on-map\"\n *  \"not-blueprintable\"\n *  \"not-deconstructable\"",
         "type": "function"
       },
       "get_inventory_size": {
@@ -6487,7 +6487,7 @@
             "type": "uint"
           }
         },
-        "doc": "Gets the base size of the given inventory on this entity or nil if the given inventory doesn't exist. \nParameters\n\nindex :: uint",
+        "doc": "Gets the base size of the given inventory on this entity or nil if the given inventory doesn't exist. \n\nParameters\n\nindex :: uint",
         "type": "function"
       },
       "type": {
@@ -6856,14 +6856,14 @@
             "type": "string"
           }
         },
-        "doc": "Damages the entity. \nParameters\n\ndamage :: float: The amount of damage to be doneforce :: string or LuaForce: The force that will be doing the damage.type :: string (optional): The type of damage to be done.Return value the total damage actually applied after resistances.Can only be used if this is EntityWithHealth",
+        "doc": "Damages the entity. \n\nParameters\n\ndamage :: float: The amount of damage to be doneforce :: string or LuaForce: The force that will be doing the damage.type :: string (optional): The type of damage to be done.Return value the total damage actually applied after resistances.Can only be used if this is EntityWithHealth",
         "type": "function"
       },
       "destroy": {
         "name": "destroy() → boolean",
         "returns": "boolean",
         "args": {},
-        "doc": "Destroys the entity. \nReturn value if the entity was actually destroyed.\n\nNote: Not all entities can be destroyed - things such as rails under trains cannot be destroyed until the train is moved or destroyed.",
+        "doc": "Destroys the entity. \nReturn value if the entity was actually destroyed\n\nNote: Not all entities can be destroyed - things such as rails under trains cannot be destroyed until the train is moved or destroyed.",
         "type": "function"
       },
       "set_command": {
@@ -6875,7 +6875,7 @@
             "type": "Command"
           }
         },
-        "doc": "Give the entity a command. \nParameters\n\ncommand :: CommandCan only be used if this is Unit",
+        "doc": "Give the entity a command. \n\nParameters\n\ncommand :: CommandCan only be used if this is Unit",
         "type": "function"
       },
       "has_command": {
@@ -6901,7 +6901,7 @@
             "type": "string"
           }
         },
-        "doc": "Test whether this entity's prototype has a flag set.\nParameters\n\nflag :: string: The flag to testReturn value true if the entity has the given flag set.\n\nNote: entity.has_flag(f) is a shortcut for entity.prototype.has_flag(f).",
+        "doc": "Test whether this entity's prototype has a flag set\n\nParameters\n\nflag :: string: The flag to testReturn value true if the entity has the given flag set\n\nNote: entity.has_flag(f) is a shortcut for entity.prototype.has_flag(f).",
         "type": "function"
       },
       "add_market_item": {
@@ -6921,7 +6921,7 @@
             "type": "offer=…"
           }
         },
-        "doc": "Offer a thing on the market. \nParameters\n\n Table with the following fields:  * price: list of prices, every element is 2 item table, first is the item name, the second is count.\n * offer :: Modifier: The action that will take place when a player accepts the offer. Usuallly a \"give-item\" modifier.\nExampleAdds market offer, 1 copper ore for 10 iron ore. market.add_market_item{price={{\"iron-ore\", 10}}, offer={type=\"give-item\", item=\"copper-ore\"}} ExampleAdds market offer, 1 copper ore for 5 iron ore and 5 stone ore. market.add_market_item{price={{\"iron-ore\", 5}, {\"stone\", 5}}, offer={type=\"give-item\", item=\"copper-ore\"}} Can only be used if this is Market",
+        "doc": "Offer a thing on the market. \n\nParameters\n\n Table with the following fields:  * price: list of prices, every element is 2 item table, first is the item name, the second is count.\n * offer :: Modifier: The action that will take place when a player accepts the offer. Usuallly a \"give-item\" modifier.\nExampleAdds market offer, 1 copper ore for 10 iron ore. market.add_market_item{price={{\"iron-ore\", 10}}, offer={type=\"give-item\", item=\"copper-ore\"}} ExampleAdds market offer, 1 copper ore for 5 iron ore and 5 stone ore. market.add_market_item{price={{\"iron-ore\", 5}, {\"stone\", 5}}, offer={type=\"give-item\", item=\"copper-ore\"}} Can only be used if this is Market",
         "type": "function"
       },
       "remove_market_item": {
@@ -6934,7 +6934,7 @@
             "type": "uint"
           }
         },
-        "doc": "Remove an offer from a market. \nParameters\n\noffer :: uint: Index of offer to remove.Return value true if the offer was successfully removed; false when the given index was not valid.Can only be used if this is Market",
+        "doc": "Remove an offer from a market. \n\nParameters\n\noffer :: uint: Index of offer to remove.Return value true if the offer was successfully removed; false when the given index was not valid.Can only be used if this is Market",
         "type": "function"
       },
       "get_market_items": {
@@ -6953,7 +6953,7 @@
             "type": "LuaEntity or table"
           }
         },
-        "doc": "Connect two devices with wire or cable.\nParameters\n\ntarget :: LuaEntity or table:  *  To connect two electric poles, target has to be a LuaEntity specifying another electric pole. This will connect them with copper cable.\n *  To connect two devices with wire, this parameter is a table:  * wire :: defines.wire_type: Wire colour, either defines.wire_type.red or defines.wire_type.green.\n    * target_entity :: LuaEntity: The entity to connect the wire to\n    * source_circuit_id :: uint (optional): Mandatory if the source entity has more than one circuit connector.\n    * target_circuit_id :: uint (optional): Mandatory if the target entity has more than one circuit connector.",
+        "doc": "Connect two devices with wire or cable\n\nParameters\n\ntarget :: LuaEntity or table:  *  To connect two electric poles, target has to be a LuaEntity specifying another electric pole. This will connect them with copper cable.\n *  To connect two devices with wire, this parameter is a table:  * wire :: defines.wire_type: Wire colour, either defines.wire_type.red or defines.wire_type.green.\n    * target_entity :: LuaEntity: The entity to connect the wire to\n    * source_circuit_id :: uint (optional): Mandatory if the source entity has more than one circuit connector.\n    * target_circuit_id :: uint (optional): Mandatory if the target entity has more than one circuit connector.",
         "type": "function"
       },
       "disconnect_neighbour": {
@@ -6965,7 +6965,7 @@
             "type": "defines.wire_type or LuaEntity or table"
           }
         },
-        "doc": "Disconnect wires or cables.\nParameters\n\ntarget :: defines.wire_type or LuaEntity or table (optional):  *  To remove all copper cables, leave this parameter out: pole.disconnect_neighbour()\n *  To remove all wires of a specific colour, pass defines.wire_type.red or defines.wire_type.green.\n *  To remove a specific copper cable between two poles, target can be a LuaEntityspecifying the other pole. E.g. pole1.disconnect_neighbour(pole2).\n *  To remove a specific red or green wire, pass a table in the same format as for LuaEntity::connect_neighbour:  * wire :: defines.wire_type: Wire colour\n    * target_entity :: LuaEntity\n    * source_circuit_id :: uint (optional)\n    * target_circuit_id :: uint (optional)",
+        "doc": "Disconnect wires or cables\n\nParameters\n\ntarget :: defines.wire_type or LuaEntity or table (optional):  *  To remove all copper cables, leave this parameter out: pole.disconnect_neighbour()\n *  To remove all wires of a specific colour, pass defines.wire_type.red or defines.wire_type.green.\n *  To remove a specific copper cable between two poles, target can be a LuaEntityspecifying the other pole. E.g. pole1.disconnect_neighbour(pole2).\n *  To remove a specific red or green wire, pass a table in the same format as for LuaEntity::connect_neighbour:  * wire :: defines.wire_type: Wire colour\n    * target_entity :: LuaEntity\n    * source_circuit_id :: uint (optional)\n    * target_circuit_id :: uint (optional)",
         "type": "function"
       },
       "order_deconstruction": {
@@ -6978,7 +6978,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Sets the entity to be deconstructed by construction robots. \nParameters\n\nforce :: string or LuaForce: The force whose robots are supposed to do the deconstruction.Return value if the entity was marked for deconstruction.",
+        "doc": "Sets the entity to be deconstructed by construction robots. \n\nParameters\n\nforce :: string or LuaForce: The force whose robots are supposed to do the deconstruction.Return value if the entity was marked for deconstruction.",
         "type": "function"
       },
       "cancel_deconstruction": {
@@ -6990,7 +6990,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Cancels deconstruction if it is scheduled, does nothing otherwise. \nParameters\n\nforce :: string or LuaForce: The force who did the deconstruction order.",
+        "doc": "Cancels deconstruction if it is scheduled, does nothing otherwise. \n\nParameters\n\nforce :: string or LuaForce: The force who did the deconstruction order.",
         "type": "function"
       },
       "to_be_deconstructed": {
@@ -7003,7 +7003,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Is this entity marked for deconstruction? \nParameters\n\nforce :: string or LuaForce: The force which ordered the deconstruction. This parameter is is currently unused; it exists only for forward compatibility of the API.",
+        "doc": "Is this entity marked for deconstruction? \n\nParameters\n\nforce :: string or LuaForce: The force which ordered the deconstruction. This parameter is is currently unused; it exists only for forward compatibility of the API.",
         "type": "function"
       },
       "get_request_slot": {
@@ -7016,7 +7016,7 @@
             "type": "uint"
           }
         },
-        "doc": "Get a logistic requester slot.\nParameters\n\nslot :: uint: The slot index.Return value Contents of the specified slot; nil if the given slot contains no request.\n\nNote: Useable only on entities that have requester slots.",
+        "doc": "Get a logistic requester slot\n\nParameters\n\nslot :: uint: The slot index.Return value Contents of the specified slot; nil if the given slot contains no request\n\nNote: Useable only on entities that have requester slots.",
         "type": "function"
       },
       "set_request_slot": {
@@ -7033,7 +7033,7 @@
             "type": "uint"
           }
         },
-        "doc": "Set a logistic requester slot.\nParameters\n\nrequest :: SimpleItemStack: What to request.slot :: uint: The slot index.\n\nNote: Useable only on entities that have requester slots.",
+        "doc": "Set a logistic requester slot\n\nParameters\n\nrequest :: SimpleItemStack: What to request.slot :: uint: The slot index\n\nNote: Useable only on entities that have requester slots.",
         "type": "function"
       },
       "clear_request_slot": {
@@ -7045,7 +7045,7 @@
             "type": "uint"
           }
         },
-        "doc": "Clear a logistic requester slot.\nParameters\n\nslot :: uint: The slot index.\n\nNote: Useable only on entities that have requester slots.",
+        "doc": "Clear a logistic requester slot\n\nParameters\n\nslot :: uint: The slot index\n\nNote: Useable only on entities that have requester slots.",
         "type": "function"
       },
       "is_crafting": {
@@ -7097,7 +7097,7 @@
             "type": "uint"
           }
         },
-        "doc": "Parameters\n\nforce :: string or LuaForce: The force that requests the gate to be open.extra_time :: uint (optional): Extra ticks to stay open.Can only be used if this is Gate",
+        "doc": "Parametersforce :: string or LuaForce: The force that requests the gate to be open.extra_time :: uint (optional): Extra ticks to stay open.Can only be used if this is Gate",
         "type": "function"
       },
       "request_to_close": {
@@ -7109,7 +7109,7 @@
             "type": "string or LuaForce"
           }
         },
-        "doc": "Parameters\n\nforce :: string or LuaForce: The force that requests the gate to be closed.Can only be used if this is Gate",
+        "doc": "Parametersforce :: string or LuaForce: The force that requests the gate to be closed.Can only be used if this is Gate",
         "type": "function"
       },
       "get_transport_line": {
@@ -7122,7 +7122,7 @@
             "type": "uint"
           }
         },
-        "doc": "Get a transport line of a belt.\nParameters\n\nindex :: uint: Index of the requested transport line.Can only be used if this is TransportBeltConnectable",
+        "doc": "Get a transport line of a belt\n\nParameters\n\nindex :: uint: Index of the requested transport line.Can only be used if this is TransportBeltConnectable",
         "type": "function"
       },
       "launch_rocket": {
@@ -7142,7 +7142,7 @@
             "type": "boolean"
           }
         },
-        "doc": "Revive a ghost. I.e. turn it from a ghost to a real entity or tile.\nParameters\n\nreturn_item_request_proxy :: boolean (optional): If true the function will return item request proxy as the third parameter.Return value Any items the new real entity collided with or nil if the ghost could not be revived.\n\nNote: If this is an entity ghost and it is successfully revived this will also return the revived entity or nil as a second return value and possibly item request proxy as the third parameter depending on value of return_item_request_proxy.",
+        "doc": "Revive a ghost. I.e. turn it from a ghost to a real entity or tile\n\nParameters\n\nreturn_item_request_proxy :: boolean (optional): If true the function will return item request proxy as the third parameter.Return value Any items the new real entity collided with or nil if the ghost could not be revived\n\nNote: If this is an entity ghost and it is successfully revived this will also return the revived entity or nil as a second return value and possibly item request proxy as the third parameter depending on value of return_item_request_proxy.",
         "type": "function"
       },
       "get_connected_rail": {
@@ -7163,7 +7163,7 @@
             "type": "rail_connection_direction=…"
           }
         },
-        "doc": "Parameters\n\n Table with the following fields:  * rail_direction :: defines.rail_direction\n * rail_connection_direction :: defines.rail_connection_direction\nReturn value Rail connected in the specified manner to this one.Can only be used if this is Rail",
+        "doc": "Parameters Table with the following fields:  * rail_direction :: defines.rail_direction\n * rail_connection_direction :: defines.rail_connection_direction\nReturn value Rail connected in the specified manner to this one.Can only be used if this is Rail",
         "type": "function"
       },
       "get_filter": {
@@ -7175,7 +7175,7 @@
             "name": "uint"
           }
         },
-        "doc": "Get the filter for a slot in an inserter or a loader.\nParameters\n\nuint: Slot to get the filter of.Return value Prototype name of the entity being filtered; nil if the given slot has no filter.\n\nNote: The inserter/loader must allow filters.",
+        "doc": "Get the filter for a slot in an inserter or a loader\n\nParameters\n\nuint: Slot to get the filter of.Return value Prototype name of the entity being filtered; nil if the given slot has no filter\n\nNote: The inserter/loader must allow filters.",
         "type": "function"
       },
       "set_filter": {
@@ -7190,7 +7190,7 @@
             "name": "string"
           }
         },
-        "doc": "Set the filter for a slot in an inserter or a loader\nParameters\n\nuint: Slot to set the filter of.string: Prototype name of the entity to filter.\n\nNote: The inserter/loader must allow filters.",
+        "doc": "Set the filter for a slot in an inserter or a loade\n\nParameters\n\nuint: Slot to set the filter of.string: Prototype name of the entity to filter\n\nNote: The inserter/loader must allow filters.",
         "type": "function"
       },
       "get_control_behavior": {
@@ -7222,7 +7222,7 @@
             "type": "defines.circuit_connector_id"
           }
         },
-        "doc": "Parameters\n\nwire :: defines.wire_type: Wire colour of the network connected to this entity.circuit_connector :: defines.circuit_connector_id (optional): The connector to get circuit network for. Must be specified for entities with more than one circuit network connector.Return value The circuit network or nil.",
+        "doc": "Parameterswire :: defines.wire_type: Wire colour of the network connected to this entity.circuit_connector :: defines.circuit_connector_id (optional): The connector to get circuit network for. Must be specified for entities with more than one circuit network connector.Return value The circuit network or nil.",
         "type": "function"
       },
       "supports_backer_name": {
@@ -7242,7 +7242,7 @@
             "type": "LuaEntity"
           }
         },
-        "doc": "Copies settings from the given entity onto this entity. \nParameters\n\nentity :: LuaEntityReturn value Any items removed from this entity as a result of copying the settings.",
+        "doc": "Copies settings from the given entity onto this entity. \n\nParameters\n\nentity :: LuaEntityReturn value Any items removed from this entity as a result of copying the settings.",
         "type": "function"
       },
       "get_logistic_point": {
@@ -7254,7 +7254,7 @@
             "name": "defines.logistic_member_index"
           }
         },
-        "doc": "Gets the LuaLogisticPoint specified by the given index or if not given returns all of the points this entity owns. \nParameters\n\ndefines.logistic_member_index (optional)\n\nNote: When the index is not given for most entities this will be a single entry. For some (such as the player character) this can be zero or more.",
+        "doc": "Gets the LuaLogisticPoint specified by the given index or if not given returns all of the points this entity owns. \n\nParameters\n\ndefines.logistic_member_index (optional\n\nNote: When the index is not given for most entities this will be a single entry. For some (such as the player character) this can be zero or more.",
         "type": "function"
       },
       "play_note": {
@@ -7272,7 +7272,7 @@
             "type": "uint"
           }
         },
-        "doc": "Plays a note with the given instrument and note. \nParameters\n\ninstrument :: uintnote :: uintReturn value If the request was successful.Can only be used if this is ProgrammableSpeaker",
+        "doc": "Plays a note with the given instrument and note. \n\nParameters\n\ninstrument :: uintnote :: uintReturn value If the request was successful.Can only be used if this is ProgrammableSpeaker",
         "type": "function"
       },
       "connect_rolling_stock": {
@@ -7285,7 +7285,7 @@
             "type": "defines.rail_direction"
           }
         },
-        "doc": "Connects the rolling stock in the given direction. \nParameters\n\ndirection :: defines.rail_directionReturn value If any connection was made",
+        "doc": "Connects the rolling stock in the given direction. \n\nParameters\n\ndirection :: defines.rail_directionReturn value If any connection was made",
         "type": "function"
       },
       "disconnect_rolling_stock": {
@@ -7298,14 +7298,14 @@
             "type": "defines.rail_direction"
           }
         },
-        "doc": "Tries to disconnect this rolling stock in the given direciton. \nParameters\n\ndirection :: defines.rail_directionReturn value If anything was disconnected",
+        "doc": "Tries to disconnect this rolling stock in the given direciton. \n\nParameters\n\ndirection :: defines.rail_directionReturn value If anything was disconnected",
         "type": "function"
       },
       "passenger": {
         "name": "passenger",
         "type": "LuaEntity or LuaPlayer",
         "mode": "[Read-Write]",
-        "doc": "Setting to nil forces the character/player out of the vehicle, setting to a new character/player forces any existing passenger out and the given character/player becomes the new passenger.\n\n\nNote: May be nil if the car contains no passenger.Can only be used if this is Vehicle"
+        "doc": "Setting to nil forces the character/player out of the vehicle, setting to a new character/player forces any existing passenger out and the given character/player becomes the new passenger\n\nNote: May be nil if the car contains no passenger.Can only be used if this is Vehicle"
       },
       "name": {
         "name": "name",
@@ -7359,25 +7359,25 @@
         "name": "active",
         "type": "boolean",
         "mode": "[Read-Write]",
-        "doc": "Deactivating an entity will stop all its operations (car will stop moving, inserters will stop working, fish will stop moving etc).\n\n\nNote: Entities that are are not active naturally can't be set to be active (setting it to be active will do nothing)\n\nNote: Ghosts, simple smoke, and corpses can't be modified at this time.\n\nNote: It is even possible to set the player to not be active, so he can't move and perform most of the tasks."
+        "doc": "Deactivating an entity will stop all its operations (car will stop moving, inserters will stop working, fish will stop moving etc)\n\nNote: Entities that are are not active naturally can't be set to be active (setting it to be active will do nothing\n\nNote: Ghosts, simple smoke, and corpses can't be modified at this time\n\nNote: It is even possible to set the player to not be active, so he can't move and perform most of the tasks."
       },
       "destructible": {
         "name": "destructible",
         "type": "boolean",
         "mode": "[Read-Write]",
-        "doc": "When the entity is not destructible it can't be damaged.\n\n\nNote: An indestructible entity can still be mined.\n\nNote: Entities that are indestructible naturally (they have no health, like smoke, resource etc) can't be set to be destructible."
+        "doc": "When the entity is not destructible it can't be damaged\n\nNote: An indestructible entity can still be mined\n\nNote: Entities that are indestructible naturally (they have no health, like smoke, resource etc) can't be set to be destructible."
       },
       "minable": {
         "name": "minable",
         "type": "boolean",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: Not minable entities can still be destroyed.\n\nNote: Entities that are not minable naturally (like smoke, player, enemy units etc) can't be set to minable."
+        "doc": "Note: Not minable entities can still be destroyed\n\nNote: Entities that are not minable naturally (like smoke, player, enemy units etc) can't be set to minable."
       },
       "rotatable": {
         "name": "rotatable",
         "type": "boolean",
         "mode": "[Read-Write]",
-        "doc": "When entity is not to be rotatable (inserter, transport belt etc), it can't be rotated by player using the R key.\n\n\nNote: Entities that are not rotatable naturally (like chest or furnace) can't be set to be rotatable."
+        "doc": "When entity is not to be rotatable (inserter, transport belt etc), it can't be rotated by player using the R key\n\nNote: Entities that are not rotatable naturally (like chest or furnace) can't be set to be rotatable."
       },
       "operable": {
         "name": "operable",
@@ -7389,7 +7389,7 @@
         "name": "health",
         "type": "float",
         "mode": "[Read-Write]",
-        "doc": "Health of the entity. Setting health to less than 0 will set health to 0, entities with 0 health can not be attacked. Setting health to higher than max health will set health to max health.\n\n\nNote: If used on an entity that doesn't support health, this field will be nil."
+        "doc": "Health of the entity. Setting health to less than 0 will set health to 0, entities with 0 health can not be attacked. Setting health to higher than max health will set health to max health\n\nNote: If used on an entity that doesn't support health, this field will be nil."
       },
       "direction": {
         "name": "direction",
@@ -7419,7 +7419,7 @@
         "name": "initial_amount",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "Count of initial resource units contained. \n\n\nNote: If this is not an infinite resource reading will give nil and writing will give an error.Can only be used if this is ResourceEntity"
+        "doc": "Count of initial resource units contained. \n\nNote: If this is not an infinite resource reading will give nil and writing will give an error.Can only be used if this is ResourceEntity"
       },
       "effectivity_modifier": {
         "name": "effectivity_modifier",
@@ -7467,7 +7467,7 @@
         "name": "drop_position",
         "type": "Position",
         "mode": "[Read-Write]",
-        "doc": "Position where the entity puts its stuff. \n\n\nNote: Meaningful only for entities that put stuff somewhere, such as mining drills or inserters."
+        "doc": "Position where the entity puts its stuff. \n\nNote: Meaningful only for entities that put stuff somewhere, such as mining drills or inserters."
       },
       "pickup_position": {
         "name": "pickup_position",
@@ -7479,7 +7479,7 @@
         "name": "drop_target",
         "type": "LuaEntity",
         "mode": "[Read-only]",
-        "doc": "The entity this entity is putting its stuff to or nil if there is no such entity. \n\n\nNote: Meaningful only for entities that put stuff somewhere, such as mining drills or inserters."
+        "doc": "The entity this entity is putting its stuff to or nil if there is no such entity. \n\nNote: Meaningful only for entities that put stuff somewhere, such as mining drills or inserters."
       },
       "pickup_target": {
         "name": "pickup_target",
@@ -7539,7 +7539,7 @@
         "name": "backer_name",
         "type": "string",
         "mode": "[Read-Write]",
-        "doc": "The name of a backer (of Factorio) assigned to a lab or train station / stop. \n\n\nNote: Only useable on entities that support backer names. Returns nil when the entity doesn't support a backer name."
+        "doc": "The name of a backer (of Factorio) assigned to a lab or train station / stop. \n\nNote: Only useable on entities that support backer names. Returns nil when the entity doesn't support a backer name."
       },
       "time_to_live": {
         "name": "time_to_live",
@@ -7653,31 +7653,31 @@
         "name": "electric_buffer_size",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "The buffer size for the electric energy source or nil if the entity doesn't have an electric energy source.\n\n\nNote: Write access is limited to the ElectricEnergyInterface type"
+        "doc": "The buffer size for the electric energy source or nil if the entity doesn't have an electric energy source\n\nNote: Write access is limited to the ElectricEnergyInterface type"
       },
       "electric_input_flow_limit": {
         "name": "electric_input_flow_limit",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "The input flow limit for the electric energy source or nil if the entity doesn't have an electric energy source.\n\n\nNote: Write access is limited to the ElectricEnergyInterface type"
+        "doc": "The input flow limit for the electric energy source or nil if the entity doesn't have an electric energy source\n\nNote: Write access is limited to the ElectricEnergyInterface type"
       },
       "electric_output_flow_limit": {
         "name": "electric_output_flow_limit",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "The output flow limit for the electric energy source or nil if the entity doesn't have an electric energy source.\n\n\nNote: Write access is limited to the ElectricEnergyInterface type"
+        "doc": "The output flow limit for the electric energy source or nil if the entity doesn't have an electric energy source\n\nNote: Write access is limited to the ElectricEnergyInterface type"
       },
       "electric_drain": {
         "name": "electric_drain",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "The electric drain for the electric energy source or nil if the entity doesn't have an electric energy source.\n\n\nNote: Write access is limited to the ElectricEnergyInterface type"
+        "doc": "The electric drain for the electric energy source or nil if the entity doesn't have an electric energy source\n\nNote: Write access is limited to the ElectricEnergyInterface type"
       },
       "electric_emissions": {
         "name": "electric_emissions",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "The emissions size for the electric energy source or nil if the entity doesn't have an electric energy source.\n\n\nNote: Write access is limited to the ElectricEnergyInterface type"
+        "doc": "The emissions size for the electric energy source or nil if the entity doesn't have an electric energy source\n\nNote: Write access is limited to the ElectricEnergyInterface type"
       },
       "unit_number": {
         "name": "unit_number",
@@ -7797,7 +7797,7 @@
         "name": "inserter_stack_size_override",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "Sets the stack size limit on this inserter. If the stack size is > than the force stack size limit the value is ignored. \n\n\nNote: Set to 0 to reset."
+        "doc": "Sets the stack size limit on this inserter. If the stack size is > than the force stack size limit the value is ignored. \n\nNote: Set to 0 to reset."
       },
       "products_finished": {
         "name": "products_finished",
@@ -7982,7 +7982,7 @@
             "type": "defines.inventory"
           }
         },
-        "doc": "Get an inventory belonging to this entity. This can be either the \"main\" inventory or some auxiliary one, like the module slots or logistic trash slots.\nParameters\n\ninventory :: defines.inventoryReturn value or nil if this entity doesn't have an inventory with the given index.",
+        "doc": "Get an inventory belonging to this entity. This can be either the \"main\" inventory or some auxiliary one, like the module slots or logistic trash slots\n\nParameters\n\ninventory :: defines.inventoryReturn value or nil if this entity doesn't have an inventory with the given index.",
         "type": "function"
       },
       "get_quickbar": {
@@ -8002,7 +8002,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Can at least some items be inserted?\nParameters\n\nitems :: SimpleItemStack: Items that would be inserted.Return value true if at least a part of the given items could be inserted into this inventory.",
+        "doc": "Can at least some items be inserted\n\nParameters\n\nitems :: SimpleItemStack: Items that would be inserted.Return value true if at least a part of the given items could be inserted into this inventory.",
         "type": "function"
       },
       "insert": {
@@ -8015,7 +8015,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Insert items into this entity. This works the same way as inserters or shift-clicking: the \"best\" inventory is chosen automatically.\nParameters\n\nitems :: SimpleItemStack: Items to insert.Return value Number of items actually inserted.",
+        "doc": "Insert items into this entity. This works the same way as inserters or shift-clicking: the \"best\" inventory is chosen automatically\n\nParameters\n\nitems :: SimpleItemStack: Items to insert.Return value Number of items actually inserted.",
         "type": "function"
       },
       "set_gui_arrow": {
@@ -8027,7 +8027,7 @@
             "type": "string"
           }
         },
-        "doc": "Create an arrow which points at this entity. This is used in the tutorial. For examples, see control.luain the campaign missions.\nParameters\n\n Table with the following fields:  * type :: string: Where to point to. This field determines what other fields are mandatory. May be \"nowhere\", \"goal\", \"entity_info\", \"active_window\", \"entity\", \"position\", \"crafting_queue\", or \"item_stack\".\n * Additional type-specific parameters * entity * entity :: LuaEntity\n    * position * position :: Position\n    * crafting_queue * crafting_queueindex :: uint\n    * item_stack * inventory_index :: uint\n       * item_stack_index :: uint\n       * source :: string: May be either \"player\" or \"target\".",
+        "doc": "Create an arrow which points at this entity. This is used in the tutorial. For examples, see control.luain the campaign missions\n\nParameters\n\n Table with the following fields:  * type :: string: Where to point to. This field determines what other fields are mandatory. May be \"nowhere\", \"goal\", \"entity_info\", \"active_window\", \"entity\", \"position\", \"crafting_queue\", or \"item_stack\".\n * Additional type-specific parameters * entity * entity :: LuaEntity\n    * position * position :: Position\n    * crafting_queue * crafting_queueindex :: uint\n    * item_stack * inventory_index :: uint\n       * item_stack_index :: uint\n       * source :: string: May be either \"player\" or \"target\".",
         "type": "function"
       },
       "clear_gui_arrow": {
@@ -8046,7 +8046,7 @@
             "type": "string"
           }
         },
-        "doc": "Get the number of all or some items in this entity.\nParameters\n\nitem :: string (optional): Prototype name of the item to count. If not specified, count all items.",
+        "doc": "Get the number of all or some items in this entity\n\nParameters\n\nitem :: string (optional): Prototype name of the item to count. If not specified, count all items.",
         "type": "function"
       },
       "has_items_inside": {
@@ -8066,7 +8066,7 @@
             "type": "LuaEntity"
           }
         },
-        "doc": "Can a given entity be opened or accessed?\nParameters\n\nentity :: LuaEntity",
+        "doc": "Can a given entity be opened or accessed\n\nParameters\n\nentity :: LuaEntity",
         "type": "function"
       },
       "clear_items_inside": {
@@ -8085,7 +8085,7 @@
             "type": "SimpleItemStack"
           }
         },
-        "doc": "Remove items from this entity.\nParameters\n\nitems :: SimpleItemStack: Items to remove.Return value Number of items actually removed.",
+        "doc": "Remove items from this entity\n\nParameters\n\nitems :: SimpleItemStack: Items to remove.Return value Number of items actually removed.",
         "type": "function"
       },
       "teleport": {
@@ -8103,7 +8103,7 @@
             "type": "SurfaceSpecification"
           }
         },
-        "doc": "Teleport the entity to a given position, possibly on another surface.\nParameters\n\nposition :: Position: Where to teleport to.surface :: SurfaceSpecification (optional): Surface to teleport to. If not given, will teleport to the entity's current surface.Return value true when the entity was successfully teleported.\n\nNote: Some entities may not be teleported. For instance, walls, rail signals or entities with fluid boxes won't allow teleportation and this method will always return false when used on any such entity.",
+        "doc": "Teleport the entity to a given position, possibly on another surface\n\nParameters\n\nposition :: Position: Where to teleport to.surface :: SurfaceSpecification (optional): Surface to teleport to. If not given, will teleport to the entity's current surface.Return value true when the entity was successfully teleported\n\nNote: Some entities may not be teleported. For instance, walls, rail signals or entities with fluid boxes won't allow teleportation and this method will always return false when used on any such entity.",
         "type": "function"
       },
       "update_selected_entity": {
@@ -8115,7 +8115,7 @@
             "type": "Position"
           }
         },
-        "doc": "Select an entity, as if by hovering the mouse above it.\nParameters\n\nposition :: Position: Position of the entity to select",
+        "doc": "Select an entity, as if by hovering the mouse above it\n\nParameters\n\nposition :: Position: Position of the entity to select",
         "type": "function"
       },
       "clear_selected_entity": {
@@ -8146,7 +8146,7 @@
             "type": "string or LuaRecipe"
           }
         },
-        "doc": "Gets the count of the given recipe that can be crafted.\nParameters\n\nrecipe :: string or LuaRecipe: The recipe.Return value The count that can be crafted.",
+        "doc": "Gets the count of the given recipe that can be crafted\n\nParameters\n\nrecipe :: string or LuaRecipe: The recipe.Return value The count that can be crafted.",
         "type": "function"
       },
       "begin_crafting": {
@@ -8171,7 +8171,7 @@
             "type": "silent=…"
           }
         },
-        "doc": "Begins crafting the given count of the given recipe\nParameters\n\n  * count :: uint: The count to craft.\n * recipe :: string or LuaRecipe: The recipe to craft.\n * silent :: boolean (optional): If false and the recipe can't be crafted the requested number of times printing the failure is skipped.\nReturn value The count that was actually started crafting.",
+        "doc": "Begins crafting the given count of the given recip\n\nParameters\n\n  * count :: uint: The count to craft.\n * recipe :: string or LuaRecipe: The recipe to craft.\n * silent :: boolean (optional): If false and the recipe can't be crafted the requested number of times printing the failure is skipped.\nReturn value The count that was actually started crafting.",
         "type": "function"
       },
       "cancel_crafting": {
@@ -8183,7 +8183,7 @@
             "type": "uint"
           }
         },
-        "doc": "Cancels crafting the given count of the given crafting queue index\nParameters\n\noptions: :  * index :: uint: The crafting queue index.\n * count :: uint: The count to cancel crafting.",
+        "doc": "Cancels crafting the given count of the given crafting queue inde\n\nParameters\n\noptions: :  * index :: uint: The crafting queue index.\n * count :: uint: The count to cancel crafting.",
         "type": "function"
       },
       "surface": {
@@ -8220,7 +8220,7 @@
         "name": "opened",
         "type": "LuaEntity or LuaItemStack or LuaEquipment or defines.gui_type",
         "mode": "[Read-Write]",
-        "doc": "The GUI target the player currently has open; nil if none. \n\n\nNote: Write supports any of the types. Read will return the entity, equipment or nil."
+        "doc": "The GUI target the player currently has open; nil if none. \n\nNote: Write supports any of the types. Read will return the entity, equipment or nil."
       },
       "crafting_queue_size": {
         "name": "crafting_queue_size",
@@ -8292,97 +8292,97 @@
         "name": "character_crafting_speed_modifier",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_mining_speed_modifier": {
         "name": "character_mining_speed_modifier",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_running_speed_modifier": {
         "name": "character_running_speed_modifier",
         "type": "double",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_build_distance_bonus": {
         "name": "character_build_distance_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_item_drop_distance_bonus": {
         "name": "character_item_drop_distance_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_reach_distance_bonus": {
         "name": "character_reach_distance_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_resource_reach_distance_bonus": {
         "name": "character_resource_reach_distance_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_item_pickup_distance_bonus": {
         "name": "character_item_pickup_distance_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_loot_pickup_distance_bonus": {
         "name": "character_loot_pickup_distance_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "quickbar_count_bonus": {
         "name": "quickbar_count_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_inventory_slots_bonus": {
         "name": "character_inventory_slots_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_logistic_slot_count_bonus": {
         "name": "character_logistic_slot_count_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_trash_slot_count_bonus": {
         "name": "character_trash_slot_count_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_maximum_following_robot_count_bonus": {
         "name": "character_maximum_following_robot_count_bonus",
         "type": "uint",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "character_health_bonus": {
         "name": "character_health_bonus",
         "type": "float",
         "mode": "[Read-Write]",
-        "doc": "\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
+        "doc": "Note: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character)."
       },
       "auto_trash_filters": {
         "name": "auto_trash_filters",
         "type": "dictionary string → uint",
         "mode": "[Read-Write]",
-        "doc": "The auto-trash filters. The keys are item prototype names, the values are the slot values.\n\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character).ExampleThis will set the auto-trash slots to keep only at most 20 iron plates and 42 copper wires in the player's inventory. game.player.auto_trash_filters = {[\"iron-plate\"] = 20, [\"copper-cable\"] = 42}"
+        "doc": "The auto-trash filters. The keys are item prototype names, the values are the slot values\n\nNote: When called on a LuaPlayer, it must be associated with a character (see LuaPlayer::character).ExampleThis will set the auto-trash slots to keep only at most 20 iron plates and 42 copper wires in the player's inventory. game.player.auto_trash_filters = {[\"iron-plate\"] = 20, [\"copper-cable\"] = 42}"
       },
       "opened_gui_type": {
         "name": "opened_gui_type",
@@ -8452,7 +8452,7 @@
             "type": "function"
           }
         },
-        "doc": "Add a command.\nParameters\n\nname :: string: Name of the command (case sensitive).help :: LocalisedString: The localised help message.function :: function: The function that will be called when this command is invoked.\n\nNote: It is an error if the given command name is already registered or already exists as a game command.",
+        "doc": "Add a command\n\nParameters\n\nname :: string: Name of the command (case sensitive).help :: LocalisedString: The localised help message.function :: function: The function that will be called when this command is invoked\n\nNote: It is an error if the given command name is already registered or already exists as a game command.",
         "type": "function"
       },
       "remove_command": {
@@ -8464,7 +8464,7 @@
             "type": "string"
           }
         },
-        "doc": "Removes a registered command \nParameters\n\nReturn value If the command was removed. False if the command didn't exist.",
+        "doc": "Removes a registered command \n\nParameters\n\nReturn value If the command was removed. False if the command didn't exist.",
         "type": "function"
       },
       "commands": {
@@ -8495,7 +8495,7 @@
             "name": "SignalID"
           }
         },
-        "doc": "Parameters\n\nSignalID: The signal to read.Return value The current value of the signal.",
+        "doc": "ParametersSignalID: The signal to read.Return value The current value of the signal.",
         "type": "function"
       },
       "entity": {
