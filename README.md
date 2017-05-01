@@ -14,7 +14,7 @@ Provides autocompletion for the Factorio Lua API
 
 - Better support for functions that take tables as argument
 - Function signature hints (**registerSignatureHelpProvider**)
-- All **LuaControlBehavior** classes are missing due to a different HTML structure of the docs than all other classes
-- Events and defines
+- Hover tooltips (**registerHoverProvider**)
+- Add autocomplete for [LuaControlBehavior](http://lua-api.factorio.com/latest/LuaControlBehavior.html) and [Events](http://lua-api.factorio.com/latest/events.html)
 
-## [Changelog](CHANGELOG.md)
+## [Change log](CHANGELOG.md)
