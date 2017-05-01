@@ -4,7 +4,6 @@ out/test/**
 test/**
 src/**
 scraper/**
-data/**
 **/*.map
 .gitignore
 tsconfig.json
