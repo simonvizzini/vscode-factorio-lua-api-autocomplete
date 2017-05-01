@@ -1,37 +1,52 @@
 const osmosis = require("osmosis")
 const fs = require("fs")
+const htmlToText = require("html-to-text")
 
 const fnParts = /(.+)(?:\(|\{)(.*)(?:\}|\))/
-const output = {}
 
-function debug(context, data, next) {
-    debugger
+const output = {
+    globals: {},
+    classes: {}
 }
 
-function toObject(array) {
-    return array.reduce((obj, item) => {
-        let name = item.name
-        if (fnParts.test(name)) {
-            name = item.name.match(fnParts)[1]
-        }
-        obj[name] = item
-        return obj
-    }, {})
+const htmlToTextConfig = {
+    ignoreHref: true
 }
 
 osmosis
-    .get("http://127.0.0.1:8080/Classes.html")
-    .find("span.type-name > a")
+    .get("http://127.0.0.1:8080")
+    .find("body > ul.field-list:first")
+    .set({
+        globals: osmosis
+                    .find("li")
+                    .set("doc", (context) => {
+                        return htmlToText.fromString(context.innerHTML, htmlToTextConfig)
+                    })
+                    .set({
+                        name: "span.param-name",
+                        type: "span.param-type"
+                    })
+    })
+    .then((context, data, next) => {
+        output.globals = data.globals
+        next(context, {})
+    })
+    .find("body > div.brief-listing:first tr > td.header > a")
     .follow("@href")
-    .then(context => {
+    .then((context) => {
         let name = context.querySelector("body > h1").text()
         console.log(`TRYING :: [${name}]`)
     })
     .set({
         name: "body > h1",
         type: "body > h1",
-        doc: "body > div.element > p",
-        properties: osmosis.find("body > div.element > div.element")
+        doc: osmosis
+                .find("body > div.element > p:not(:empty)")
+                .then(context => {
+                    return htmlToText.fromString(context.innerHTML, htmlToTextConfig)
+                }),
+        properties: osmosis
+                        .find("body > div.element > div.element")
                         .set({
                             name: "span.element-name",
                             doc: "div.element-content",
@@ -40,9 +55,10 @@ osmosis
                             mode: "span.attribute-mode",
                             notes: "span.notes",
                             args: [
-                                osmosis.find("div.element-content .detail-header:contains(Parameters) + .detail-content > div")
+                                osmosis
+                                    .find("div.element-content .detail-header:contains(Parameters) + .detail-content > div")
                                     .set("doc", (context) => {
-                                        return context.text().trim()
+                                        return htmlToText.fromString(context.innerHTML, htmlToTextConfig)
                                     })
                                     .set({
                                         name: "span.param-name",
@@ -62,26 +78,21 @@ osmosis
                                 delete data.args
                             }
 
-                            // TODO: Better way to parse the docs, sometimes they are strange
-                            if (data.doc) {
-                                data.doc = data.doc.split("\n")[0].trim()
-                            }
-
                             if (!data.type) {
                                 data.type = data.name
                             }
 
                             // Filter out args that are strings
                             if (data.args) {
-                                data.args = data.args.filter(s => typeof s !== "string")
+                                data.args = data.args.filter(s => {
+                                    return typeof s !== "string"
+                                })
                             }
 
                             // TODO: Properly parse functions with table params
                             // e.g. LuaControl.set_gui_arrow
                             // LuaGameScript.take_screenshot
 
-                            // TODO: Sometimes not all args are listed, so parse the function string and insert missing args
-                            // BUT WHICH ONE WAS IT ????
                             if (data.type === "function") {
                                 let [_, funcName, params] = data.name.match(fnParts)
                                 params = params.split(", ").filter(Boolean)
@@ -106,12 +117,18 @@ osmosis
     })
     .then((context, data) => {
         console.log(`PROCESSED :: [${data.name}]`)
+
+        // Sometimes docs are wrapped in multiple <p> tags
+        if (Array.isArray(data.doc)) {
+            data.doc = data.doc.join("\n")
+        }
+
         if (data.properties) {
             data.properties = toObject(data.properties)
         }
     })
     .data(data => {
-        output[data.name] = data
+        output.classes[data.name] = data
     })
     .log((...args) => {
         if ((/follow/).test(args[0])) return
@@ -120,7 +137,7 @@ osmosis
     .error(console.log)
     //.debug(console.log)
     .done(() => {
-        console.log(`done: ${Object.keys(output).length} items parsed`)
+        console.log(`done: ${Object.keys(output.classes).length} classes and ${Object.keys(output.globals).length} globals parsed`)
 
         fs.writeFile("./data/factorio-api-data.json", JSON.stringify(output), err => {
             if (err) {
@@ -136,3 +153,19 @@ osmosis
             console.log("ts written")
         })
     })
+
+
+function debug(context, data, next) {
+    debugger
+}
+
+function toObject(array) {
+    return array.reduce((obj, item) => {
+        let name = item.name
+        if (fnParts.test(name)) {
+            name = item.name.match(fnParts)[1]
+        }
+        obj[name] = item
+        return obj
+    }, {})
+}

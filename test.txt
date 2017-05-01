@@ -1,0 +1,23 @@
+Register a function to be run on module load.
+This is called every time a save file is loaded
+*except* for the instance when a mod is loaded
+into a save file that it previously wasn't part
+of. Additionally this is called when connecting to
+any other game in a multiplayer session and should
+never change the game state.
+
+ This is meant for 3 specific reasons and only 3: 
+
+ *  re-register conditional event handlers
+ *  re-setup meta tables
+ *  create local references to tables stored in
+   the global table
+
+ In all other instances the LuaBootstrap::on_init
+[LuaBootstrap.html#LuaBootstrap.on_init], 
+LuaBootstrap::on_configuration_changed
+[LuaBootstrap.html#LuaBootstrap.on_configuration_changed] 
+or migration scripts should be used. Doing any
+other logic when loading a save file can break the
+replay and cause desync issues if the mod is used
+in multiplayer.

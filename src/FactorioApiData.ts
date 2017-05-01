@@ -1,5 +1,7 @@
 import { types } from "../data/factorio-api-data"
 
+const classes = types.classes
+
 let additionalTriggers = {
     game: "LuaGameScript",
     script: "LuaBootstrap",
@@ -16,9 +18,9 @@ let additionalTriggers = {
 
 Object.keys(additionalTriggers).forEach(k => {
     let luaType = additionalTriggers[k]
-    if (types[luaType]) {
-        types[k] = types[luaType]
+    if (classes[luaType]) {
+        classes[k] = classes[luaType]
     }
 })
 
-export { types as FactorioTypes }
+export { classes as FactorioTypes }
