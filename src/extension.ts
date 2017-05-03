@@ -1,12 +1,13 @@
 "use strict"
 
 import vscode = require("vscode")
-import { FactorioCompletionItemProvider } from "./FactorioCompletionItemProvider"
+import { FactorioAutocomplete } from "./FactorioAutocomplete"
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
-        vscode.languages.registerCompletionItemProvider({ language: "lua", scheme: "file" },
-        new FactorioCompletionItemProvider(), '.')
+        vscode.languages.registerCompletionItemProvider(
+        { language: "lua", scheme: "file" },
+        new FactorioAutocomplete(), '.')
     );
 }
 

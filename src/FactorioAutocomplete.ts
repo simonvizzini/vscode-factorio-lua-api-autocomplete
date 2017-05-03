@@ -8,7 +8,7 @@ const { assign, keys } = Object
 
 const wordsRegex = /([\w\[\]]+\.[\w\[\]\.]+)+/
 
-export class FactorioCompletionItemProvider implements vscode.CompletionItemProvider {
+export class FactorioAutocomplete implements vscode.CompletionItemProvider {
     public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
         return FactorioApiData.load().then(({ classes, defines }) => {
             return new Promise<vscode.CompletionItem[]>((resolve, reject) => {
