@@ -6,7 +6,7 @@ import FactorioApiData from "./FactorioApiData"
 const { isArray } = Array
 const { assign, keys } = Object
 
-const wordsRegex = /(?:\=|\s|\()*(\w+\.(?:\w|\.|\[\d\])*)(?:\s|\))*/
+const wordsRegex = /([\w\[\]]+\.[\w\[\]\.]+)+/
 
 export class FactorioCompletionItemProvider implements vscode.CompletionItemProvider {
     public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
@@ -80,11 +80,6 @@ function getFactorioTypesFromPath(path: string[], factorioTypes: any): any {
         if (type.properties) {
             props = type.properties
             continue
-        }
-
-        // e.g. defines don't have a type
-        if (!type.type) {
-            return null
         }
 
         // Then the complete type list
