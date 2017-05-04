@@ -1,20 +1,22 @@
-# Factorio Lua API autocomplete
-
-Provides autocompletion for the Factorio Lua API
-
-## Demo
-
-![Demo](images/demo.gif)
+# Factorio API autocomplete extensions
 
 ## Features
 
 - Autocomplete of all Lua classes and globals
 
-## Roadmap
+  ![autocomplete](images/autocomplete.gif)
+
+- Documentation (toggle with Ctrl+Space between detailed and list view)
+
+  ![documentation](images/documentation.gif)
+
+- Mouse hover tooltips
+
+## Todo
 
 - Better support for functions that take tables as argument
 - Function signature hints (**registerSignatureHelpProvider**)
-- Hover tooltips (**registerHoverProvider**)
-- Add autocomplete for [LuaControlBehavior](http://lua-api.factorio.com/latest/LuaControlBehavior.html) and [Events](http://lua-api.factorio.com/latest/events.html)
+- Add autocomplete for [LuaControlBehavior](http://lua-api.factorio.com/latest/LuaControlBehavior.html)
+- Provide direct links to the official API documentation in tooltips
 
-## [Change log](CHANGELOG.md)
+## [Changelog](CHANGELOG.md)
