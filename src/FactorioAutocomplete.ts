@@ -2,30 +2,30 @@
 
 import vscode = require('vscode')
 import FactorioApiData from "./FactorioApiData"
+import { getLastMatch, keys, assign } from "./utils"
 
-const { isArray } = Array
-const { assign, keys } = Object
-
-const wordsRegex = /([\w\[\]]+\.[\w\[\]\.]+)+/
+const wordsRegex = /([\w\[\]]+\.[\w\[\]\.]*)/g
 
 export class FactorioAutocomplete implements vscode.CompletionItemProvider {
     public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
-        return FactorioApiData.load().then(({ classes, defines }) => {
-            return new Promise<vscode.CompletionItem[]>((resolve, reject) => {
+        return new Promise<vscode.CompletionItem[]>((resolve, reject) => {
+            FactorioApiData.load().then(({ classes, defines }) => {
                 let lineText = document.lineAt(position.line).text
                 let lineTillCurrentPosition = lineText.substr(0, position.character)
-                let match = lineTillCurrentPosition.match(wordsRegex)
+                
+                let match = getLastMatch(wordsRegex, lineTillCurrentPosition)
                 let line = match ? match[1] : ""
+
                 let words = line.split(".")
                 words.pop()
 
-                let types = getFactorioTypesFromPath(words, classes)
+                let type = FactorioApiData.findType(words, classes)
 
-                if (!types) {
+                if (!type || !type.properties) {
                     return resolve([])
                 }
 
-                let suggestions = toCompletionItems(types)
+                let suggestions = toCompletionItems(type.properties)
                 return resolve(suggestions)
             })
         })
@@ -44,58 +44,6 @@ interface FactorioType {
     properties?: FactorioTypeContainer
     args?: FactorioTypeContainer
     returns?: string
-}
-
-let removeBrackets = /((?:\w|\-)+)(\[(?:\d|\w)*\])*/
-
-function getFactorioTypesFromPath(path: string[], factorioTypes: any): any {
-    if (path.length === 0) {
-        return factorioTypes
-    }
-
-    // Clean up path by removing array/dict access brackets (players[0] => players)
-    path = path.map(p => p.match(removeBrackets)[1])
-
-    let type = factorioTypes[path.shift()]
-
-    if (!type) {
-        return null
-    }
-
-    if (!type.properties) {
-        console.log(`${type.name} has no properties`)
-        // debugger
-        return null
-    }
-
-    let props = type.properties
-
-    for (let i = 0; i < path.length; i++) {
-        let type = props[path[i]]
-
-        // Not found
-        if (!type) return null
-
-        // First traverse it's own properties
-        if (type.properties) {
-            props = type.properties
-            continue
-        }
-
-        // Then the complete type list
-        let [ _, nextTypeStr ] = type.type.match(removeBrackets)
-        type = factorioTypes[nextTypeStr]
-
-        if (type && type.properties) {
-            props = type.properties
-            continue
-        }
-
-        // Not found
-        return null
-    }
-
-    return props
 }
 
 function toCompletionItems(types: FactorioTypeContainer): vscode.CompletionItem[] {
@@ -123,16 +71,4 @@ function toCompletionItem(type: FactorioType, key: string): vscode.CompletionIte
     }
 
     return completionItem
-}
-
-function each(data: any[] | {}, callback: (value: any, key: string | number) => any) {
-    isArray(data) ?
-        data.forEach(callback) :
-        keys(data).forEach(k => callback(data[k], k))
-}
-
-function reduce(data: any[] | {}, callback: (prev: any, curr: any, key: string | number) => any, initial?: any): any {
-    return isArray(data) ?
-        data.reduce(callback, initial) :
-        keys(data).reduce((prev, key) => callback(prev, data[key], key), initial)
 }

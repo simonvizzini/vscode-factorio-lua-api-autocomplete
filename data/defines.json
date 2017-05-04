@@ -414,276 +414,344 @@
         "type": "define",
         "properties": {
           "on_tick": {
-            "type": "define",
-            "name": "defines.events.on_tick"
+            "name": "on_tick",
+            "doc": "It is fired once every tick. Since this event is fired every tick, its handler shouldn't include performance heavy code.",
+            "type": "event"
           },
           "on_gui_click": {
-            "type": "define",
-            "name": "defines.events.on_gui_click"
+            "name": "on_gui_click",
+            "doc": "Called when LuaGuiElement is clicked. \n\nContains\n\nelement :: LuaGuiElement: The clicked element.player_index :: uint: The player who did the clicking.button :: defines.mouse_button_type: The mouse button used if any.alt :: boolean: If alt was pressed.control :: boolean: If control was pressed.shift :: boolean: If shift was pressed.",
+            "type": "event"
           },
           "on_gui_text_changed": {
-            "type": "define",
-            "name": "defines.events.on_gui_text_changed"
+            "name": "on_gui_text_changed",
+            "doc": "Called when LuaGuiElement text is changed by the player \n\nContains\n\nelement :: LuaGuiElement: The edited element.player_index :: uint: The player who did the edit.",
+            "type": "event"
           },
           "on_gui_checked_state_changed": {
-            "type": "define",
-            "name": "defines.events.on_gui_checked_state_changed"
+            "name": "on_gui_checked_state_changed",
+            "doc": "Called when LuaGuiElement checked state is changed (related to checkboxes and radio buttons) \n\nContains\n\nelement :: LuaGuiElement: The element whose checked state changedplayer_index :: uint: The player who did the change.",
+            "type": "event"
           },
           "on_entity_died": {
-            "type": "define",
-            "name": "defines.events.on_entity_died"
+            "name": "on_entity_died",
+            "doc": "Called when an entity dies. \n\nContains\n\nentity :: LuaEntitycause :: LuaEntity (optional): The entity that did the killing if available.force :: LuaForce (optional): The force that did the killing if any.",
+            "type": "event"
           },
           "on_picked_up_item": {
-            "type": "define",
-            "name": "defines.events.on_picked_up_item"
+            "name": "on_picked_up_item",
+            "doc": "Called when a player picks up an item. \n\nContains\n\nitem_stack :: SimpleItemStackplayer_index :: uint",
+            "type": "event"
           },
           "on_built_entity": {
-            "type": "define",
-            "name": "defines.events.on_built_entity"
+            "name": "on_built_entity",
+            "doc": "Called when player builds something. \n\nContains\n\ncreated_entity :: LuaEntityplayer_index :: uintitem :: string (optional)tags :: dictionary string → Any (optional)",
+            "type": "event"
           },
           "on_sector_scanned": {
-            "type": "define",
-            "name": "defines.events.on_sector_scanned"
+            "name": "on_sector_scanned",
+            "doc": "Called when the radar finishes scanning a sector. \n\nContains\n\nradar :: LuaEntity: The radar that did the scanning.chunk_position :: Position: The chunk scanned.",
+            "type": "event"
           },
           "on_player_mined_item": {
-            "type": "define",
-            "name": "defines.events.on_player_mined_item"
+            "name": "on_player_mined_item",
+            "doc": "Called when the player mines something. \n\nContains\n\nitem_stack :: SimpleItemStack: The item given to the playerplayer_index :: uint",
+            "type": "event"
           },
           "on_put_item": {
-            "type": "define",
-            "name": "defines.events.on_put_item"
+            "name": "on_put_item",
+            "doc": "Called when players uses item to build something. Called before on_built_entity. \n\nContains\n\nposition :: Position: Where the item was placed.player_index :: uint: The player who did the placing.",
+            "type": "event"
           },
           "on_rocket_launched": {
-            "type": "define",
-            "name": "defines.events.on_rocket_launched"
+            "name": "on_rocket_launched",
+            "doc": "Called when the rocket is launched. \n\nContains\n\nrocket :: LuaEntityrocket_silo :: LuaEntity (optional)",
+            "type": "event"
           },
           "on_preplayer_mined_item": {
-            "type": "define",
-            "name": "defines.events.on_preplayer_mined_item"
+            "name": "on_preplayer_mined_item",
+            "doc": "Called when the player finishes mining an entity, before the entity is removed from map. \n\nContains\n\nentity :: LuaEntity: The entity being minedplayer_index :: uint",
+            "type": "event"
           },
           "on_chunk_generated": {
-            "type": "define",
-            "name": "defines.events.on_chunk_generated"
+            "name": "on_chunk_generated",
+            "doc": "Called when a chunk is generated. \n\nContains\n\narea :: BoundingBox: Area of the chunksurface :: LuaSurface: The surface the chunk is on",
+            "type": "event"
           },
           "on_player_crafted_item": {
-            "type": "define",
-            "name": "defines.events.on_player_crafted_item"
+            "name": "on_player_crafted_item",
+            "doc": "Called when the player crafts an item (upon inserting into player's inventory, not clicking the button to craft). As of 0.11.0, is called for each item crafted as well as what was clicked (\"iron-axe\" triggers both \"iron-stick\" with a count of 2 and \"iron-axe\" with a count of 1, assuming no \"iron-sticks\" are in the player's inventory)\n\nContains\n\nitem_stack :: SimpleItemStack: The crafted itemplayer_index :: uint: The player who did the craftingrecipe :: LuaRecipe: The recipe that resulted in this item being crafted",
+            "type": "event"
           },
           "on_robot_built_entity": {
-            "type": "define",
-            "name": "defines.events.on_robot_built_entity"
+            "name": "on_robot_built_entity",
+            "doc": "Called when a construction robot builds an entity. \n\nContains\n\nrobot :: LuaEntity: The robot that did the building.created_entity :: LuaEntity: The entity built.",
+            "type": "event"
           },
           "on_robot_pre_mined": {
-            "type": "define",
-            "name": "defines.events.on_robot_pre_mined"
+            "name": "on_robot_pre_mined",
+            "doc": "Called before a robot mines an entity. \n\nContains\n\nrobot :: LuaEntity: The robot that's about to do the mining.entity :: LuaEntity: The entity which is about to be mined.",
+            "type": "event"
           },
           "on_robot_mined": {
-            "type": "define",
-            "name": "defines.events.on_robot_mined"
+            "name": "on_robot_mined",
+            "doc": "Called when a robot mines an entity. \n\nContains\n\nrobot :: LuaEntity: The robot that did the mining.item_stack :: SimpleItemStack: The entity the robot just picked up.",
+            "type": "event"
           },
           "on_research_started": {
-            "type": "define",
-            "name": "defines.events.on_research_started"
+            "name": "on_research_started",
+            "doc": "Called when a technology research starts. \n\nContains\n\nresearch :: LuaTechnology: The technology being researched",
+            "type": "event"
           },
           "on_research_finished": {
-            "type": "define",
-            "name": "defines.events.on_research_finished"
+            "name": "on_research_finished",
+            "doc": "Called when a research finishes. \n\nContains\n\nresearch :: LuaTechnology: The researched technologyby_script :: boolean: If the technology was researched by script.",
+            "type": "event"
           },
           "on_player_rotated_entity": {
-            "type": "define",
-            "name": "defines.events.on_player_rotated_entity"
+            "name": "on_player_rotated_entity",
+            "doc": "Called when the player rotates an entity (including some non-obvious rotations such as with the stone furnace, but not the solar-panel). \n\nContains\n\nentity :: LuaEntity: The rotated entity.player_index :: uint",
+            "type": "event"
           },
           "on_marked_for_deconstruction": {
-            "type": "define",
-            "name": "defines.events.on_marked_for_deconstruction"
+            "name": "on_marked_for_deconstruction",
+            "doc": "Called when an entity is marked for deconstruction with the Deconstruction planner or via script. \n\nContains\n\nentity :: LuaEntityplayer_index :: uint (optional)",
+            "type": "event"
           },
           "on_canceled_deconstruction": {
-            "type": "define",
-            "name": "defines.events.on_canceled_deconstruction"
+            "name": "on_canceled_deconstruction",
+            "doc": "Called when the deconstruction of an entity is canceled. \n\nContains\n\nentity :: LuaEntityplayer_index :: uint (optional)",
+            "type": "event"
           },
           "on_trigger_created_entity": {
-            "type": "define",
-            "name": "defines.events.on_trigger_created_entity"
+            "name": "on_trigger_created_entity",
+            "doc": "Called when an entity with a trigger prototype (such as capsules) create an entity AND that trigger prototype defined trigger_created_entity=\"true\". \n\nContains\n\nentity :: LuaEntity",
+            "type": "event"
           },
           "on_train_changed_state": {
-            "type": "define",
-            "name": "defines.events.on_train_changed_state"
+            "name": "on_train_changed_state",
+            "doc": "Called when a train changes state (started to stopped and vice versa) \n\nContains\n\ntrain :: LuaTrain",
+            "type": "event"
           },
           "on_player_created": {
-            "type": "define",
-            "name": "defines.events.on_player_created"
+            "name": "on_player_created",
+            "doc": "Called after the player was created. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_resource_depleted": {
-            "type": "define",
-            "name": "defines.events.on_resource_depleted"
+            "name": "on_resource_depleted",
+            "doc": "Called when a resource entity reaches 0 or its minimum yield for infinite resources. \n\nContains\n\nentity :: LuaEntity",
+            "type": "event"
           },
           "on_player_driving_changed_state": {
-            "type": "define",
-            "name": "defines.events.on_player_driving_changed_state"
+            "name": "on_player_driving_changed_state",
+            "doc": "Called when the player's driving state has changed, this means a player has either entered or left a vehicle. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_force_created": {
-            "type": "define",
-            "name": "defines.events.on_force_created"
+            "name": "on_force_created",
+            "doc": "Called when a new force is created using game.create_force() \n\nContains\n\nforce :: LuaForce: The newly created force.",
+            "type": "event"
           },
           "on_forces_merging": {
-            "type": "define",
-            "name": "defines.events.on_forces_merging"
+            "name": "on_forces_merging",
+            "doc": "Called when two forces are merged using game.merge_forces(). \n\nContains\n\nsource :: LuaForce: The force to be destroyeddestination :: LuaForce: The force to reassign entities to.",
+            "type": "event"
           },
           "on_player_cursor_stack_changed": {
-            "type": "define",
-            "name": "defines.events.on_player_cursor_stack_changed"
+            "name": "on_player_cursor_stack_changed",
+            "doc": "Called after a players cursorstack changed in some way. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_pre_entity_settings_pasted": {
-            "type": "define",
-            "name": "defines.events.on_pre_entity_settings_pasted"
+            "name": "on_pre_entity_settings_pasted",
+            "doc": "Called before entity copy-paste is done. \n\nContains\n\nplayer_index :: uintsource :: LuaEntity: The source entity settings will be copied from.destination :: LuaEntity: The destination entity settings will be copied to.",
+            "type": "event"
           },
           "on_entity_settings_pasted": {
-            "type": "define",
-            "name": "defines.events.on_entity_settings_pasted"
+            "name": "on_entity_settings_pasted",
+            "doc": "Called after entity copy-paste is done. \n\nContains\n\nplayer_index :: uintsource :: LuaEntity: The source entity settings have been copied from.destination :: LuaEntity: The destination entity settings have been copied to.",
+            "type": "event"
           },
           "on_player_main_inventory_changed": {
-            "type": "define",
-            "name": "defines.events.on_player_main_inventory_changed"
+            "name": "on_player_main_inventory_changed",
+            "doc": "Called after a players main inventory changed in some way. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_player_quickbar_inventory_changed": {
-            "type": "define",
-            "name": "defines.events.on_player_quickbar_inventory_changed"
+            "name": "on_player_quickbar_inventory_changed",
+            "doc": "Called after a players quickbar inventory changed in some way. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_player_tool_inventory_changed": {
-            "type": "define",
-            "name": "defines.events.on_player_tool_inventory_changed"
+            "name": "on_player_tool_inventory_changed",
+            "doc": "Called after a players tool inventory changed in some way. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_player_armor_inventory_changed": {
-            "type": "define",
-            "name": "defines.events.on_player_armor_inventory_changed"
+            "name": "on_player_armor_inventory_changed",
+            "doc": "Called after a players armor inventory changed in some way. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_player_ammo_inventory_changed": {
-            "type": "define",
-            "name": "defines.events.on_player_ammo_inventory_changed"
+            "name": "on_player_ammo_inventory_changed",
+            "doc": "Called after a players ammo inventory changed in some way. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_player_gun_inventory_changed": {
-            "type": "define",
-            "name": "defines.events.on_player_gun_inventory_changed"
+            "name": "on_player_gun_inventory_changed",
+            "doc": "Called after a players gun inventory changed in some way. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_player_placed_equipment": {
-            "type": "define",
-            "name": "defines.events.on_player_placed_equipment"
+            "name": "on_player_placed_equipment",
+            "doc": "Called after the player puts equipment in an equipment grid \n\nContains\n\nplayer_index :: uintequipment :: LuaEquipment: The equipment put in the equipment grid.grid :: LuaEquipmentGrid: The equiment grid the equipment was put in.",
+            "type": "event"
           },
           "on_player_removed_equipment": {
-            "type": "define",
-            "name": "defines.events.on_player_removed_equipment"
+            "name": "on_player_removed_equipment",
+            "doc": "Called after the player removes equipment from an equipment grid \n\nContains\n\nplayer_index :: uintgrid :: LuaEquipmentGrid: The equipment grid removed from.equipment :: string: The equipment removed.count :: uint: The count of equipment removed.",
+            "type": "event"
           },
           "on_pre_player_died": {
-            "type": "define",
-            "name": "defines.events.on_pre_player_died"
+            "name": "on_pre_player_died",
+            "doc": "Called before a players dies. \n\nContains\n\nplayer_index :: uintcause :: LuaEntity (optional)",
+            "type": "event"
           },
           "on_player_died": {
-            "type": "define",
-            "name": "defines.events.on_player_died"
+            "name": "on_player_died",
+            "doc": "Called after a player dies. \n\nContains\n\nplayer_index :: uintcause :: LuaEntity (optional)",
+            "type": "event"
           },
           "on_player_respawned": {
-            "type": "define",
-            "name": "defines.events.on_player_respawned"
+            "name": "on_player_respawned",
+            "doc": "Called after a player respawns. \n\nContains\n\nplayer_index :: uintplayer_port :: LuaEntity (optional): The player port used to respawn if one was used.",
+            "type": "event"
           },
           "on_player_joined_game": {
-            "type": "define",
-            "name": "defines.events.on_player_joined_game"
+            "name": "on_player_joined_game",
+            "doc": "Called after a player joins the game. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_player_left_game": {
-            "type": "define",
-            "name": "defines.events.on_player_left_game"
+            "name": "on_player_left_game",
+            "doc": "Called after a player leaves the game. \n\nContains\n\nplayer_index :: uint",
+            "type": "event"
           },
           "on_player_built_tile": {
-            "type": "define",
-            "name": "defines.events.on_player_built_tile"
+            "name": "on_player_built_tile",
+            "doc": "Called after a player builds tiles. \n\nContains\n\nplayer_index :: uintpositions :: array of Position: The tile positions.",
+            "type": "event"
           },
           "on_player_mined_tile": {
-            "type": "define",
-            "name": "defines.events.on_player_mined_tile"
+            "name": "on_player_mined_tile",
+            "doc": "Called after a player mines tiles. \n\nContains\n\nplayer_index :: uintpositions :: array of Position: The tile positions.",
+            "type": "event"
           },
           "on_robot_built_tile": {
-            "type": "define",
-            "name": "defines.events.on_robot_built_tile"
+            "name": "on_robot_built_tile",
+            "doc": "Called after a robot builds tiles. \n\nContains\n\nrobot :: LuaEntity: The robot.positions :: array of Position: The tile positions.",
+            "type": "event"
           },
           "on_robot_mined_tile": {
-            "type": "define",
-            "name": "defines.events.on_robot_mined_tile"
+            "name": "on_robot_mined_tile",
+            "doc": "Called after a robot mines tiles. \n\nContains\n\nrobot :: LuaEntity: The robot.positions :: array of Position: The tile positions.",
+            "type": "event"
           },
           "on_player_selected_area": {
-            "type": "define",
-            "name": "defines.events.on_player_selected_area"
+            "name": "on_player_selected_area",
+            "doc": "Called after a player selects an area with a selection-tool item. \n\nContains\n\nplayer_index :: uint: The player doing the selection.area :: BoundingBox: The area selected.item :: string: The item used to select the area.entities :: array of LuaEntity: The entities selected.tiles :: array of LuaTile: The tiles selected.",
+            "type": "event"
           },
           "on_player_alt_selected_area": {
-            "type": "define",
-            "name": "defines.events.on_player_alt_selected_area"
+            "name": "on_player_alt_selected_area",
+            "doc": "Called after a player alt-selects an area with a selection-tool item. \n\nContains\n\nplayer_index :: uint: The player doing the selection.area :: BoundingBox: The area selected.item :: string: The item used to select the area.entities :: array of LuaEntity: The entities selected.tiles :: array of LuaTile: The tiles selected.",
+            "type": "event"
           },
           "on_player_changed_surface": {
-            "type": "define",
-            "name": "defines.events.on_player_changed_surface"
+            "name": "on_player_changed_surface",
+            "doc": "Called after a player changes surfaces. \n\nContains\n\nplayer_index :: uint: The player who changed surfaces.surface_index :: uint: The surface index the player was on\n\nNote: In the instance a player is moved off a surface due to it being deleted this is not called.",
+            "type": "event"
           },
           "on_selected_entity_changed": {
-            "type": "define",
-            "name": "defines.events.on_selected_entity_changed"
+            "name": "on_selected_entity_changed",
+            "doc": "Called after the selected entity changes for a given player. \n\nContains\n\nplayer_index :: uint: The player whose selected entity changed.last_entity :: LuaEntity (optional): The last selected entity if it still exists and there was one.",
+            "type": "event"
           },
           "on_market_item_purchased": {
-            "type": "define",
-            "name": "defines.events.on_market_item_purchased"
+            "name": "on_market_item_purchased",
+            "doc": "Called after a player purchases some offer from a Market entity. \n\nContains\n\nplayer_index :: uint: The player who did the purchasing.market :: LuaEntity: The market entity.offer_index :: uint: The index of the offer purchased.count :: uint: The count of offers purchased.",
+            "type": "event"
           },
           "on_player_dropped_item": {
-            "type": "define",
-            "name": "defines.events.on_player_dropped_item"
+            "name": "on_player_dropped_item",
+            "doc": "Called when a player drops an item on the ground. \n\nContains\n\nplayer_index :: uintentity :: LuaEntity: The item-on-ground entity.",
+            "type": "event"
           },
           "on_biter_base_built": {
-            "type": "define",
-            "name": "defines.events.on_biter_base_built"
+            "name": "on_biter_base_built",
+            "doc": "Called when a biter migration builds a base. \n\nContains\n\nentity :: LuaEntity: The built entity\n\nNote: This will be called multiple times as each biter in a given migration is sacraficed and builds part of the base.",
+            "type": "event"
           },
           "on_player_changed_force": {
-            "type": "define",
-            "name": "defines.events.on_player_changed_force"
+            "name": "on_player_changed_force",
+            "doc": "Called after a player changes forces. \n\nContains\n\nplayer_index :: uint: The player who changed forces.force :: LuaForce: The old force.",
+            "type": "event"
           },
           "on_entity_renamed": {
-            "type": "define",
-            "name": "defines.events.on_entity_renamed"
+            "name": "on_entity_renamed",
+            "doc": "Called after an entity has been renamed either by the player or through script. \n\nContains\n\nplayer_index :: uint (optional): If by_script is true this will not be includedby_script :: booleanentity :: LuaEntityold_name :: string",
+            "type": "event"
           },
           "on_gui_selection_state_changed": {
-            "type": "define",
-            "name": "defines.events.on_gui_selection_state_changed"
+            "name": "on_gui_selection_state_changed",
+            "doc": "Called when LuaGuiElement selection state is changed (related to drop-downs) \n\nContains\n\nelement :: LuaGuiElement: The element whose selection state changedplayer_index :: uint: The player who did the change.",
+            "type": "event"
           },
           "on_runtime_mod_setting_changed": {
-            "type": "define",
-            "name": "defines.events.on_runtime_mod_setting_changed"
+            "name": "on_runtime_mod_setting_changed",
+            "doc": "Called when a runtime mod setting is changed by a player. \n\nContains\n\nplayer_index :: uint: The player who changed the settingsetting :: string: The setting name that changed",
+            "type": "event"
           },
           "on_difficulty_settings_changed": {
-            "type": "define",
-            "name": "defines.events.on_difficulty_settings_changed"
+            "name": "on_difficulty_settings_changed",
+            "doc": "Called when the map difficulty settings are changed. \n\nContains\n\nold_recipe_difficulty :: uintold_technology_difficulty :: uin\n\nNote: It's not guarenteed that both settings are changed - just that at least one has been changed.",
+            "type": "event"
           },
           "on_surface_created": {
-            "type": "define",
-            "name": "defines.events.on_surface_created"
+            "name": "on_surface_created",
+            "doc": "Called when a surface is created. \n\nContains\n\nsurface_index :: uin\n\nNote: This is not called when the default surface is created as it will always exist.",
+            "type": "event"
           },
           "on_surface_deleted": {
-            "type": "define",
-            "name": "defines.events.on_surface_deleted"
+            "name": "on_surface_deleted",
+            "doc": "Called after a surface is deleted. \n\nContains\n\nsurface_index :: uint",
+            "type": "event"
           },
           "on_pre_surface_deleted": {
-            "type": "define",
-            "name": "defines.events.on_pre_surface_deleted"
+            "name": "on_pre_surface_deleted",
+            "doc": "Called just before a surface is deleted. \n\nContains\n\nsurface_index :: uint",
+            "type": "event"
           },
           "on_player_mined_entity": {
-            "type": "define",
-            "name": "defines.events.on_player_mined_entity"
+            "name": "on_player_mined_entity",
+            "doc": "Called after the results of an entity being mined are collected just before the entity is destroyed. After this event any items in the buffer will be transferred into the player as if they came from mining the entity. \n\nContains\n\nplayer_index :: uint: The index of the player doing the mining.entity :: LuaEntity: The entity that has been mined.buffer :: LuaInventory: The temporary inventory that holds the result of mining the entity\n\nNote: The buffer inventory is special in that it's only valid during this event and has a dynamic size expanding as more items are transferred into it.",
+            "type": "event"
           },
           "on_robot_mined_entity": {
-            "type": "define",
-            "name": "defines.events.on_robot_mined_entity"
+            "name": "on_robot_mined_entity",
+            "doc": "Called after the results of an entity being mined are collected just before the entity is destroyed. After this event any items in the buffer will be transferred into the robot as if they came from mining the entity. \n\nContains\n\nrobot :: LuaEntity: The robot doing the mining.entity :: LuaEntity: The entity that has been mined.buffer :: LuaInventory: The temporary inventory that holds the result of mining the entity\n\nNote: The buffer inventory is special in that it's only valid during this event and has a dynamic size expanding as more items are transferred into it.",
+            "type": "event"
           },
           "on_train_created": {
-            "type": "define",
-            "name": "defines.events.on_train_created"
+            "name": "on_train_created",
+            "doc": "Called when a new train is created either through disconnecting/connecting an existing one or building a new one. \n\nContains\n\ntrain :: LuaTrain",
+            "type": "event"
           },
           "on_gui_elem_changed": {
-            "type": "define",
-            "name": "defines.events.on_gui_elem_changed"
+            "name": "on_gui_elem_changed",
+            "doc": "Called when LuaGuiElement element value is changed (related to choose element buttons) \n\nContains\n\nelement :: LuaGuiElement: The element whose selection state changedplayer_index :: uint: The player who did the change.",
+            "type": "event"
           }
         }
       },

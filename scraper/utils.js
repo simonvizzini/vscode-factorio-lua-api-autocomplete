@@ -10,10 +10,11 @@ const fs = require("fs")
  * "set_tiles(tiles, correct_tiles)".match(...)
  * => [__, "set_tiles", "tiles, correct_tiles"]
  */
-const splitFnRegex = /(\S+)(?:\(|\{)(.*)(?:\}|\))/
-exports.splitFnRegex = splitFnRegex
+exports.splitFnRegex = /(\S+)(?:\(|\{)(.*)(?:\}|\))/
 
-exports.writeJson = function writeJson(fileName, obj) {
+exports.wordsRegex = /([\w\[\]]+\.[\w\[\]\.]+)+/g
+
+exports.writeJson = (fileName, obj) => {
     return new Promise((resolve, reject) => {
         fs.writeFile(fileName, JSON.stringify(obj, null, 2), "utf8", err => {
             if (err) return reject()
@@ -23,25 +24,28 @@ exports.writeJson = function writeJson(fileName, obj) {
     })
 }
 
-exports.arrayToObject = function arrayToObject(array) {
+exports.arrayToObject = (array) => {
     return array.reduce((obj, item) => {
         let { name } = item
         // if it's a function, get rid of the params (??? check again later, needs improvements)
-        if (splitFnRegex.test(name)) {
-            name = item.name.match(splitFnRegex)[1]
+        if (exports.splitFnRegex.test(name)) {
+            name = item.name.match(exports.splitFnRegex)[1]
         }
         obj[name] = item
         return obj
     }, {})
 }
 
-exports.getMatches = function getRegexMatches(regex, str) {
-    let match,
-        matches = []
+exports.getMatches = (regex, str) => {
+    let match = null, matches = []
     while ((match = regex.exec(str)) !== null) {
         matches.push(match[0])
     }
     return matches
+}
+
+exports.getLastMatch = (regex, str) => {
+    return getMatches(regex, str).slice(-1).pop()
 }
 
 exports.debug = function debug(context, data, next) {

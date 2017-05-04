@@ -72,16 +72,13 @@ function scrape() {
                         return htmlToText
                             .fromString(context.innerHTML, htmlToTextConfig)
                             // Some quick and dirty tweaks, should be improved in the future
-                            // Replace multiple newlines with just two
-                            //.replace(/\n\s*\n\s*\n/g, "\n\n")
+                            // Replace multiple newlines with just one
                             .replace(/\n\s*\n/g, "\n")
                             // Add a newline before "Note:"
                             .replace(/[^ ]\n*(Note\:)\n*/g, "\n\n$1")
                             .replace(/[^ ]\n*(Parameters)\n*/g, "\n\n$1\n\n")
                     })
-                    .then((context, data) => {
-
-                        // Some ugly post processing required here...
+                    .then((context, data) => { // Some ugly post processing required here...
                         if (splitFnRegex.test(data.name)) {
                             data.type = "function"
                         } else {
@@ -145,7 +142,7 @@ function scrape() {
                 classes[data.name] = data
             })
             .log((...args) => {
-                if ((/follow/).test(args[0])) return
+                if (/follow/.test(args[0])) return
                 console.log(...args)
             })
             .error(console.log)
