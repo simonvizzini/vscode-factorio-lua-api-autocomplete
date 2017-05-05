@@ -31,11 +31,11 @@ function loadDataFile(fileName: string): Thenable<any> {
     })
 }
 
-function load(): Thenable<any> {
+function load(dataPath: string): Promise<any> {
     return Promise.all([
-        loadDataFile("./data/globals.json"),
-        loadDataFile("./data/classes.json"),
-        loadDataFile("./data/defines.json")
+        loadDataFile(dataPath + "/globals.json"),
+        loadDataFile(dataPath + "/classes.json"),
+        loadDataFile(dataPath + "/defines.json")
     ])
     .then(([globals, classes, defines]) => {
         addAdditionalTriggers(classes)

@@ -7,27 +7,29 @@ import { getLastMatch, keys, assign } from "./utils"
 const wordsRegex = /([\w\[\]]+\.[\w\[\]\.]*)/g
 
 export class FactorioAutocomplete implements vscode.CompletionItemProvider {
+    constructor(private apiData) { }
+
     public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
         return new Promise<vscode.CompletionItem[]>((resolve, reject) => {
-            FactorioApiData.load().then(({ classes, defines }) => {
-                let lineText = document.lineAt(position.line).text
-                let lineTillCurrentPosition = lineText.substr(0, position.character)
-                
-                let match = getLastMatch(wordsRegex, lineTillCurrentPosition)
-                let line = match ? match[1] : ""
+            const { classes, defines } = this.apiData
 
-                let words = line.split(".")
-                words.pop()
+            let lineText = document.lineAt(position.line).text
+            let lineTillCurrentPosition = lineText.substr(0, position.character)
 
-                let type = FactorioApiData.findType(words, classes)
+            let match = getLastMatch(wordsRegex, lineTillCurrentPosition)
+            let line = match ? match[1] : ""
 
-                if (!type || !type.properties) {
-                    return resolve([])
-                }
+            let words = line.split(".")
+            words.pop()
 
-                let suggestions = toCompletionItems(type.properties)
-                return resolve(suggestions)
-            })
+            let type = FactorioApiData.findType(words, classes)
+
+            if (!type || !type.properties) {
+                return resolve([])
+            }
+
+            let suggestions = toCompletionItems(type.properties)
+            return resolve(suggestions)
         })
     }
 }
