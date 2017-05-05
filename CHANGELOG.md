@@ -4,6 +4,12 @@ All notable changes to the "factorio-lua-api-autocomplete" extension will be doc
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.3.2 - 2017-05-05
+- Fixed data file loading issue
+
+## 0.3.1 - 2017-05-04
+- Tried to fix data file loading issue
+
 ## 0.3.0 - 2017-05-04
 - Added mouse hover tooltips
 - Added events documentation
