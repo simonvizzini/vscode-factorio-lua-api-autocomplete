@@ -1,4 +1,4 @@
-# Factorio API autocomplete extensions
+# Factorio API autocomplete extension
 
 ## Features
 
