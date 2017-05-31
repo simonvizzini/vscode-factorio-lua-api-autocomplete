@@ -77,6 +77,14 @@
             "type": "define",
             "name": "defines.inventory.roboport_material"
           },
+          "robot_cargo": {
+            "type": "define",
+            "name": "defines.inventory.robot_cargo"
+          },
+          "robot_repair": {
+            "type": "define",
+            "name": "defines.inventory.robot_repair"
+          },
           "assembling_machine_input": {
             "type": "define",
             "name": "defines.inventory.assembling_machine_input"
@@ -485,7 +493,7 @@
           },
           "on_robot_built_entity": {
             "name": "on_robot_built_entity",
-            "doc": "Called when a construction robot builds an entity. \n\nContains\n\nrobot :: LuaEntity: The robot that did the building.created_entity :: LuaEntity: The entity built.",
+            "doc": "Called when a construction robot builds an entity. \n\nContains\n\nrobot :: LuaEntity: The robot that did the building.created_entity :: LuaEntity: The entity built.item :: string (optional)tags :: dictionary string → Any (optional)",
             "type": "event"
           },
           "on_robot_pre_mined": {
@@ -510,7 +518,7 @@
           },
           "on_player_rotated_entity": {
             "name": "on_player_rotated_entity",
-            "doc": "Called when the player rotates an entity (including some non-obvious rotations such as with the stone furnace, but not the solar-panel). \n\nContains\n\nentity :: LuaEntity: The rotated entity.player_index :: uint",
+            "doc": "Called when the player rotates an entity. This event is only fired when the entity actually changes its orientation -- pressing the rotate key on an entity that can't be rotated won't fire this event. \n\nContains\n\nentity :: LuaEntity: The rotated entity.player_index :: uint",
             "type": "event"
           },
           "on_marked_for_deconstruction": {
@@ -650,7 +658,7 @@
           },
           "on_robot_built_tile": {
             "name": "on_robot_built_tile",
-            "doc": "Called after a robot builds tiles. \n\nContains\n\nrobot :: LuaEntity: The robot.positions :: array of Position: The tile positions.",
+            "doc": "Called after a robot builds tiles. \n\nContains\n\nrobot :: LuaEntity: The robot.positions :: array of Position: The tile positions.item :: string (optional)tags :: dictionary string → Any (optional)",
             "type": "event"
           },
           "on_robot_mined_tile": {
@@ -745,7 +753,7 @@
           },
           "on_train_created": {
             "name": "on_train_created",
-            "doc": "Called when a new train is created either through disconnecting/connecting an existing one or building a new one. \n\nContains\n\ntrain :: LuaTrain",
+            "doc": "Called when a new train is created either through disconnecting/connecting an existing one or building a new one. \n\nContains\n\ntrain :: LuaTrainold_train_id_1 :: uint (optional): The first old train id when splitting/merging trains.old_train_id_2 :: uint (optional): The second old train id when splitting/merging trains.",
             "type": "event"
           },
           "on_gui_elem_changed": {
@@ -1158,6 +1166,10 @@
                   "read_from_train": {
                     "type": "define",
                     "name": "defines.control_behavior.train_stop.circuit_mode_of_operation.read_from_train"
+                  },
+                  "read_stopped_train": {
+                    "type": "define",
+                    "name": "defines.control_behavior.train_stop.circuit_mode_of_operation.read_stopped_train"
                   }
                 }
               }
@@ -1194,6 +1206,24 @@
                   "entire_patch": {
                     "type": "define",
                     "name": "defines.control_behavior.mining_drill.resource_read_mode.entire_patch"
+                  }
+                }
+              }
+            }
+          },
+          "transport_belt": {
+            "type": "define",
+            "properties": {
+              "content_read_mode": {
+                "type": "define",
+                "properties": {
+                  "pulse": {
+                    "type": "define",
+                    "name": "defines.control_behavior.transport_belt.content_read_mode.pulse"
+                  },
+                  "hold": {
+                    "type": "define",
+                    "name": "defines.control_behavior.transport_belt.content_read_mode.hold"
                   }
                 }
               }
@@ -1418,6 +1448,43 @@
                 "name": "defines.deconstruction_item.tile_filter_mode.only"
               }
             }
+          }
+        }
+      },
+      "alert_type": {
+        "type": "define",
+        "properties": {
+          "entity_destroyed": {
+            "type": "define",
+            "name": "defines.alert_type.entity_destroyed"
+          },
+          "entity_under_attack": {
+            "type": "define",
+            "name": "defines.alert_type.entity_under_attack"
+          },
+          "not_enough_construction_robots": {
+            "type": "define",
+            "name": "defines.alert_type.not_enough_construction_robots"
+          },
+          "no_material_for_construction": {
+            "type": "define",
+            "name": "defines.alert_type.no_material_for_construction"
+          },
+          "not_enough_repair_packs": {
+            "type": "define",
+            "name": "defines.alert_type.not_enough_repair_packs"
+          },
+          "turret_fire": {
+            "type": "define",
+            "name": "defines.alert_type.turret_fire"
+          },
+          "custom": {
+            "type": "define",
+            "name": "defines.alert_type.custom"
+          },
+          "no_storage": {
+            "type": "define",
+            "name": "defines.alert_type.no_storage"
           }
         }
       },
@@ -2077,9 +2144,9 @@
             "type": "define",
             "name": "defines.input_action.toggle_deconstruction_item_tile_filter_mode"
           },
-          "set_deconstruction_item_trees_only": {
+          "set_deconstruction_item_trees_and_rocks_only": {
             "type": "define",
-            "name": "defines.input_action.set_deconstruction_item_trees_only"
+            "name": "defines.input_action.set_deconstruction_item_trees_and_rocks_only"
           },
           "set_deconstruction_item_tile_selection_mode": {
             "type": "define",

@@ -17,7 +17,7 @@ exports.wordsRegex = /([\w\[\]]+\.[\w\[\]\.]+)+/g
 exports.writeJson = (fileName, obj) => {
     return new Promise((resolve, reject) => {
         fs.writeFile(fileName, JSON.stringify(obj, null, 2), "utf8", err => {
-            if (err) return reject()
+            if (err) return reject(err)
             console.log(`writeJson: "${fileName}" success`)
             resolve()
         })
@@ -25,15 +25,17 @@ exports.writeJson = (fileName, obj) => {
 }
 
 exports.arrayToObject = (array) => {
-    return array.reduce((obj, item) => {
-        let { name } = item
-        // if it's a function, get rid of the params (??? check again later, needs improvements)
-        if (exports.splitFnRegex.test(name)) {
-            name = item.name.match(exports.splitFnRegex)[1]
-        }
-        obj[name] = item
-        return obj
-    }, {})
+    return array
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .reduce((obj, item) => {
+            let { name } = item
+            // if it's a function, get rid of the params (??? check again later, needs improvements)
+            if (exports.splitFnRegex.test(name)) {
+                name = item.name.match(exports.splitFnRegex)[1]
+            }
+            obj[name] = item
+            return obj
+        }, {})
 }
 
 exports.getMatches = (regex, str) => {
