@@ -1,6 +1,9 @@
-import fs = require("fs")
+import * as fs from"fs"
+import * as _ from "lodash"
 
-let additionalTriggers = {
+const brackets = /\[.*\]/g
+
+const additionalTriggers = {
     game: "LuaGameScript",
     script: "LuaBootstrap",
     remote: "LuaRemote",
@@ -14,91 +17,99 @@ let additionalTriggers = {
     tile: "LuaTile",
 }
 
-function addAdditionalTriggers(classes) {
-    Object.keys(additionalTriggers).forEach(k => {
-        let luaType = additionalTriggers[k]
-        if (classes[luaType]) {
-            classes[k] = classes[luaType]
+export default class FactorioApiData {
+
+    private classes: FactorioTypeMap
+    private defines: FactorioTypeMap
+
+    constructor(private dataPath: string) {
+        this.loadData(dataPath)
+    }
+
+    public findType(words: string[]): FactorioType {
+        if (words.length === 0) {
+            return { properties: this.classes }
         }
-    })
-}
 
-function loadDataFile(fileName: string): Thenable<any> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(fileName, "utf8", (err, data) => {
-            err ? reject(err) : resolve(JSON.parse(data))
-        })
-    })
-}
+        // Clean up path by removing array/dict access brackets (players[0] => players)
+        words = words.map(p => p.replace(brackets, ""))
 
-function load(dataPath: string): Promise<any> {
-    return Promise.all([
-        loadDataFile(dataPath + "/globals.json"),
-        loadDataFile(dataPath + "/classes.json"),
-        loadDataFile(dataPath + "/defines.json")
-    ])
-    .then(([globals, classes, defines]) => {
-        addAdditionalTriggers(classes)
-        Object.assign(classes, defines)
-        return Promise.resolve({ globals, classes, defines })
-    })
-}
+        let type = this.classes[words.shift()]
 
-let brackets = /\[.*\]/g
+        if (!type) {
+            return null
+        }
 
-function findType(words: string[], factorioTypes: any): any {
-    if (words.length === 0) {
-        return { properties: factorioTypes }
-    }
+        if (!type.properties || words.length === 0) {
+            return type
+        }
 
-    // Clean up path by removing array/dict access brackets (players[0] => players)
-    words = words.map(p => p.replace(brackets, ""))
+        let props = type.properties
 
-    let type = factorioTypes[words.shift()]
+        for (let i = 0; i < words.length; i++) {
+            type = props[words[i]]
 
-    if (!type) {
-        return null
-    }
+            // Not found
+            if (!type) return null
 
-    if (!type.properties || words.length === 0) {
+            // First try traverse it's own properties
+            if (type.properties) {
+                props = type.properties
+                continue
+            }
+
+            // Then the complete type list
+            let parentType = type.type
+
+            // Special handling for defines
+            if (/defines/.test(parentType)) {
+                let [__, defineName] = parentType.split(".")
+                //let define = this.defines[defineName]
+                return _.get(this.defines, [defineName, "properties"])
+                // return defineName && this.defines[defineName] || null
+            }
+
+            type = this.classes[parentType]
+
+            if (type && type.properties) {
+                props = type.properties
+                continue
+            }
+        }
+
         return type
     }
 
-    let props = type.properties
+    private loadData(dataPath: string) {
+        const classes = this.loadDataFile(dataPath + "/classes.json")
+        const defines = this.loadDataFile(dataPath + "/defines.json")
 
-    for (let i = 0; i < words.length; i++) {
-        type = props[words[i]]
+        // Add some additional autocomplete triggers (when typing on blank line or pressing ctrl-space)
+        Object.keys(additionalTriggers).forEach(trigger => {
+            let luaType = additionalTriggers[trigger]
+            if (luaType in classes) {
+                classes[trigger] = classes[luaType]
+            }
+        })
 
-        // Not found
-        if (!type) return null
+        // LuaPlayer and LuaEntity inherit from LuaControl
+        // Instead of doing this manually it would be best to adjust the scraper to read the "extends" keyword
+        // in the docs and do this automatically.
+        // Object.assign(classes.LuaPlayer.properties, classes.LuaControl.properties)
+        // Object.assign(classes.LuaEntity.properties, classes.LuaControl.properties)
 
-        // First try traverse it's own properties
-        if (type.properties) {
-            props = type.properties
-            continue
-        }
-
-        // Then the complete type list
-        let parentType = type.type
-
-        // Special handling for defines
-        if (/defines/.test(parentType)) {
-            let defineName = parentType.split(".")[1]
-            return defineName && factorioTypes.defines.properties[defineName] || null
-        }
-
-        type = factorioTypes[parentType]
-
-        if (type && type.properties) {
-            props = type.properties
-            continue
+        this.classes = classes
+        this.defines = defines
+        // todo: revisit this
+        this.classes.defines = {
+            type: "define",
+            properties: defines
         }
     }
 
-    return type
-}
-
-export default {
-    load,
-    findType
+    private loadDataFile(fileName: string): FactorioTypeMap {
+        const jsonStr = fs.readFileSync(fileName, "utf8")
+        const data = JSON.parse(jsonStr)
+        return data
+    }
 }

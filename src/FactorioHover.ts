@@ -10,28 +10,26 @@ const { assign, keys } = Object
 const wordsRegex = /([\w\[\]]+\.*[\w\[\]\.]*)/g
 
 export class FactorioHover implements vscode.HoverProvider {
-    constructor(private apiData: any) { }
+    constructor(private apiData: FactorioApiData) { }
 
     provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.ProviderResult<vscode.Hover>> {
         return new Promise<vscode.Hover>((resolve, reject) => {
-            const { classes, defines } = this.apiData
-
             let lineText = document.lineAt(position.line).text
             let wordRange = document.getWordRangeAtPosition(position)
 
-            if (!wordRange) return resolve(null)
+            if (!wordRange) return reject()
 
             let lineTillCurrentWord = lineText.substr(0, wordRange.end.character)
             let match = getLastMatch(wordsRegex, lineTillCurrentWord)
             let wordsStr = match ? match[1] : null
 
-            if (!wordsStr) return resolve(null)
+            if (!wordsStr) return reject()
 
             let words = wordsStr.split(".")
             let word = words.pop()
-            let type = FactorioApiData.findType(words, classes)
+            let type = this.apiData.findType(words)
 
-            if (!type) return resolve(null)
+            if (!type) return reject()
 
             let target
 
@@ -40,13 +38,13 @@ export class FactorioHover implements vscode.HoverProvider {
             } else if (type[word]) {
                 target = type[word]
             } else if (!target || (!target.type && !target.name)) {
-                return resolve(null)
+                return reject()
             }
 
-            let content = target.type
+            let content = `_${target.type}_`
 
             if (target.name && target.name !== target.type) {
-                content = target.name + ": " + content
+                content = `**${target.name}**` + ": " + content
             }
 
             if (target.doc) {

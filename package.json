@@ -40,12 +40,17 @@
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test"
   },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
   "devDependencies": {
+    "@types/lodash": "^4.14.64",
     "@types/mocha": "^2.2.32",
     "@types/node": "^6.0.40",
     "html-to-text": "^3.2.0",
     "mocha": "^2.3.3",
     "osmosis": "^1.1.4",
+    "ts-node": "^3.0.4",
     "typescript": "^2.0.3",
     "vscode": "^1.0.0"
   }

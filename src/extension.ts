@@ -9,24 +9,22 @@ const LUA_MODE = { language: "lua", scheme: "file" }
 
 export function activate(context: vscode.ExtensionContext) {
     let dataPath = context.asAbsolutePath("./data")
+    const factorioApiData = new FactorioApiData(dataPath)
 
-    FactorioApiData.load(dataPath).then((apiData) => {
-        context.subscriptions.push(
-            vscode.languages.registerCompletionItemProvider(
-                LUA_MODE,
-                new FactorioAutocomplete(apiData),
-                '.'
-            )
+    context.subscriptions.push(
+        vscode.languages.registerCompletionItemProvider(
+            LUA_MODE,
+            new FactorioAutocomplete(factorioApiData),
+            '.'
         )
+    )
 
-        context.subscriptions.push(
-            vscode.languages.registerHoverProvider(
-                LUA_MODE,
-                new FactorioHover(apiData)
-            )
+    context.subscriptions.push(
+        vscode.languages.registerHoverProvider(
+            LUA_MODE,
+            new FactorioHover(factorioApiData)
         )
-    })
-    .catch(console.error)
+    )
 }
 
 // this method is called when your extension is deactivated

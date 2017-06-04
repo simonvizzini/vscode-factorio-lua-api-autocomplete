@@ -2,6 +2,7 @@
 {
     "version": "0.1.0",
     "configurations": [
+        
         {
             "name": "Launch Extension",
             "type": "extensionHost",
@@ -28,8 +29,19 @@
             "type": "node",
             "request": "launch",
             "name": "Launch scraper",
-            "program": "${workspaceRoot}/scraper/index.js",
-            "cwd": "${workspaceRoot}"
+            "program": "${workspaceRoot}/node_modules/ts-node/dist/_bin.js",
+            "args": ["scraper/index.ts"],
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector"
+        },
+        {
+            "name": "Current TS File",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/ts-node/dist/_bin.js",
+            "args": ["${relativeFile}"],
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector"
         }
     ]
 }

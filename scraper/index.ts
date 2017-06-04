@@ -6,15 +6,14 @@ Promise.all([
     classesScraper.scrape(),
     definesScraper.scrape()
 ])
-.then(([{ classes, globals }, defines]) => {
+.then(([ classes, defines ]) => {
     return Promise.all([
         utils.writeJson("./data/classes.json", classes),
-        utils.writeJson("./data/globals.json", globals),
         utils.writeJson("./data/defines.json", defines)
     ])
     .then(() => {
         console.log("all done, exiting now")
-        process.exit()
+        process.exit(0)
     })
 })
 .catch((err) => {
