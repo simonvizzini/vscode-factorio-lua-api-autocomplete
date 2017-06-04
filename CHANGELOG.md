@@ -1,8 +1,10 @@
-# Change Log
-All notable changes to the "factorio-lua-api-autocomplete" extension will be documented in this file.
+# Changelog
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+## 0.4.0 - 2017-06-04
+- Class inheritance is now considered, meaning classes now also suggest properties of their parent classes (e.g. LuaEntity now properly displays properties inherited from LuaControl)
+- Tooltips are now rendered as markdown, including links to the official documentation
+- Added support for all LuaControlBehavior classes
+- Issue: vscode autocomplete items unfortunately don't support markdown strings, and so the raw markdown string will be displayed.
 
 ## 0.3.2 - 2017-05-05
 - Fixed data file loading issue
@@ -16,11 +18,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed wrong type lookup in some cases
 
 ## 0.2.0 - 2017-05-01
-- Add autocomplete for [defines](http://lua-api.factorio.com/latest/defines.html)
+- Added autocomplete for [defines](http://lua-api.factorio.com/latest/defines.html)
 - Prettier type documentation with the help of [html-to-text](https://github.com/werk85/node-html-to-text)
 
 ## 0.1.1 - 2017-04-30
-- Add license and repository
+- Added license and repository
 
 ## 0.1.0 - 2017-04-30
 - Initial release

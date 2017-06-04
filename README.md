@@ -6,17 +6,19 @@
 
   ![autocomplete](images/autocomplete.gif)
 
-- Documentation (toggle with Ctrl+Space between detailed and list view)
+- Mouse hover tooltips, with links to the official documentation at http://lua-api.factorio.com
 
-  ![documentation](images/documentation.gif)
+  ![tooltips](images/tooltips.gif)
 
-- Mouse hover tooltips
 
 ## Todo
 
+#### Features
 - Better support for functions that take tables as argument
 - Function signature hints (**registerSignatureHelpProvider**)
-- Add autocomplete for [LuaControlBehavior](http://lua-api.factorio.com/latest/LuaControlBehavior.html)
-- Provide direct links to the official API documentation in tooltips
+
+#### Technical tasks
+- Instead of storing inherited properties in the data file, they should maybe get looked up during runtime
+- Unit tests
 
 ## [Changelog](CHANGELOG.md)
