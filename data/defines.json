@@ -645,12 +645,12 @@
       },
       "on_player_built_tile": {
         "name": "on_player_built_tile",
-        "doc": "Called after a player builds tile    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \npositions :: array of [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The tile positions.",
+        "doc": "Called after a player builds tile    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The surface the tile(s) were built on.  \npositions :: array of [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The tile positions.",
         "type": "event"
       },
       "on_player_mined_tile": {
         "name": "on_player_mined_tile",
-        "doc": "Called after a player mines tile    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \npositions :: array of [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The tile positions.",
+        "doc": "Called after a player mines tile    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The surface the tile(s) were mined from.  \npositions :: array of [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The tile positions.",
         "type": "event"
       },
       "on_robot_built_tile": {
@@ -715,7 +715,7 @@
       },
       "on_runtime_mod_setting_changed": {
         "name": "on_runtime_mod_setting_changed",
-        "doc": "Called when a runtime mod setting is changed by a playe    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player who changed the setting  \nsetting :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The setting name that changed",
+        "doc": "Called when a runtime mod setting is changed by a playe    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player who changed the setting  \nsetting :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The setting name that changed  \nsetting_type :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The setting type: \"runtime-per-user\", or \"runtime-global\"",
         "type": "event"
       },
       "on_difficulty_settings_changed": {
@@ -756,6 +756,36 @@
       "on_gui_elem_changed": {
         "name": "on_gui_elem_changed",
         "doc": "Called when [LuaGuiElement](http://lua-api.factorio.com/latest/LuaGuiElement.html) element value is changed (related to choose element button    \n\n**Contains**  \nelement :: [LuaGuiElement](http://lua-api.factorio.com/latest/LuaGuiElement.html): The element whose selection state changed  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player who did the change.",
+        "type": "event"
+      },
+      "on_player_setup_blueprint": {
+        "name": "on_player_setup_blueprint",
+        "doc": "Called when a player selects an area with a blueprin    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player doing the selection.  \narea :: [BoundingBox](http://lua-api.factorio.com/latest/Concepts.html#BoundingBox): The area selected.  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The item used to select the area.  \nalt :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): If normal selection or alt selection was used.",
+        "type": "event"
+      },
+      "on_player_deconstructed_area": {
+        "name": "on_player_deconstructed_area",
+        "doc": "Called when a player selects an area with a deconstruction planne    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player doing the selection.  \narea :: [BoundingBox](http://lua-api.factorio.com/latest/Concepts.html#BoundingBox): The area selected.  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The item used to select the area.  \nalt :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): If normal selection or alt selection was used.",
+        "type": "event"
+      },
+      "on_player_configured_blueprint": {
+        "name": "on_player_configured_blueprint",
+        "doc": "Called when a player clicks the \"confirm\" button in the configure Blueprint GU    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.",
+        "type": "event"
+      },
+      "on_console_chat": {
+        "name": "on_console_chat",
+        "doc": "Called when someone talks in-game either a player or through the server interfac    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The player if any.  \nmessage :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The chat message.",
+        "type": "event"
+      },
+      "on_console_command": {
+        "name": "on_console_command",
+        "doc": "Called when someone enters a command-like message regardless of it being a valid comman    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The player if any.  \ncommand :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The command as typed without the preceeding forward slash ('/').  \nparameters :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The parameters provided if any.",
+        "type": "event"
+      },
+      "on_player_removed": {
+        "name": "on_player_removed",
+        "doc": "Called when a player is removed (deleted) from the gam  \nNot to be confused with the player logging of this is different in that the player is deleted as if he never existed in the save fil    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player index that was removed",
         "type": "event"
       }
     }
@@ -921,6 +951,23 @@
       "pump": {
         "type": "define",
         "name": "defines.circuit_condition_index.pump"
+      }
+    }
+  },
+  "wire_connection_id": {
+    "type": "define",
+    "properties": {
+      "electric_pole": {
+        "type": "define",
+        "name": "defines.wire_connection_id.electric_pole"
+      },
+      "power_switch_left": {
+        "type": "define",
+        "name": "defines.wire_connection_id.power_switch_left"
+      },
+      "power_switch_right": {
+        "type": "define",
+        "name": "defines.wire_connection_id.power_switch_right"
       }
     }
   },
@@ -1427,22 +1474,27 @@
           "blacklist": {
             "type": "define",
             "name": "defines.deconstruction_item.tile_filter_mode.blacklist"
-          },
+          }
+        }
+      },
+      "tile_selection_mode": {
+        "type": "define",
+        "properties": {
           "normal": {
             "type": "define",
-            "name": "defines.deconstruction_item.tile_filter_mode.normal"
+            "name": "defines.deconstruction_item.tile_selection_mode.normal"
           },
           "always": {
             "type": "define",
-            "name": "defines.deconstruction_item.tile_filter_mode.always"
+            "name": "defines.deconstruction_item.tile_selection_mode.always"
           },
           "never": {
             "type": "define",
-            "name": "defines.deconstruction_item.tile_filter_mode.never"
+            "name": "defines.deconstruction_item.tile_selection_mode.never"
           },
           "only": {
             "type": "define",
-            "name": "defines.deconstruction_item.tile_filter_mode.only"
+            "name": "defines.deconstruction_item.tile_selection_mode.only"
           }
         }
       }
@@ -2208,6 +2260,10 @@
       "gui_elem_selected": {
         "type": "define",
         "name": "defines.input_action.gui_elem_selected"
+      },
+      "blueprint_transfer_queue_update": {
+        "type": "define",
+        "name": "defines.input_action.blueprint_transfer_queue_update"
       }
     }
   },

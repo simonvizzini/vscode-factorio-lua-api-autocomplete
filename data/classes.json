@@ -403,13 +403,13 @@
         "type": "function",
         "returns": "int",
         "args": {
-          "SignalID": {
-            "name": "SignalID",
-            "doc": "SignalID: The signal to read.",
-            "type": "SignalID"
+          "signal": {
+            "name": "signal",
+            "type": "SignalID",
+            "doc": "signal :: [SignalID](http://lua-api.factorio.com/latest/Concepts.html#SignalID): The signal to read."
           }
         },
-        "doc": "**Parameters**  \nSignalID: The signal to read.  \n\n**Return value**  \nThe current value of the signal."
+        "doc": "**Parameters**  \nsignal :: [SignalID](http://lua-api.factorio.com/latest/Concepts.html#SignalID): The signal to read.  \n\n**Return value**  \nThe current value of the signal."
       },
       "help": {
         "name": "help",
@@ -426,7 +426,7 @@
         "name": "signals",
         "type": "array of Signal",
         "mode": "[R]",
-        "doc": "The circuit network signals last tick."
+        "doc": "The circuit network signals last tick. ````\nnil````\nif there are no signals."
       },
       "valid": {
         "name": "valid",
@@ -562,7 +562,7 @@
       },
       "get_signal": {
         "name": "get_signal",
-        "doc": "Gets the signal at the given index or ````\nnil````\nif there is non    \n\n**Parameters**  \nindex :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)",
+        "doc": "Gets the signal at the given index. Returned [ConstantCombiantorSignal](http://lua-api.factorio.com/latest/Concepts.html#ConstantCombiantorSignal) will not contain signal if none is set for the inde    \n\n**Parameters**  \nindex :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)",
         "type": "function",
         "args": {
           "index": {
@@ -579,9 +579,8 @@
       },
       "parameters": {
         "name": "parameters",
-        "type": "ConstantCombinatorParameters",
         "mode": "[RW]",
-        "doc": "The constant combinator parameters   \n\n**Note: ** ````\nparameters````\nmay be ````\nnil````\nin order to clear the parameters."
+        "doc": "The constant combinator paramete    \n\n**Note: ** ````\nparameters````\nmay be ````\nnil````\nin order to clear the parameters.  \n\n**Example**  \nbehavior.parameters = {parameters = new_parameter"
       },
       "set_signal": {
         "name": "set_signal",
@@ -980,6 +979,19 @@
             "name": "force",
             "type": "boolean",
             "doc": "force :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): Forces mining the entity even if the items can't fit in the player."
+          }
+        }
+      },
+      "mine_tile": {
+        "name": "mine_tile",
+        "type": "function",
+        "doc": "Mines the given tile as if this player (or character) mined i    \n\n**Parameters**  \ntile :: [LuaTile](http://lua-api.factorio.com/latest/LuaTile.html): The tile to mine.  \n\n**Return value**  \nIf the mining succeeded.",
+        "returns": "boolean",
+        "args": {
+          "tile": {
+            "name": "tile",
+            "type": "LuaTile",
+            "doc": "tile :: [LuaTile](http://lua-api.factorio.com/latest/LuaTile.html): The tile to mine."
           }
         }
       },
@@ -1518,7 +1530,7 @@
     "name": "LuaEntity",
     "type": "LuaEntity",
     "inherits": [
-      "Inherited from LuaControl: get_inventory, get_quickbar, can_insert, insert, set_gui_arrow, clear_gui_arrow, get_item_count, has_items_inside, can_reach_entity, clear_items_inside, remove_item, teleport, update_selected_entity, clear_selected_entity, disable_flashlight, enable_flashlight, get_craftable_count, begin_crafting, cancel_crafting, mine_entity, surface, position, vehicle, force, selected, opened, crafting_queue_size, walking_state, riding_state, mining_state, shooting_state, picking_state, repair_state, cursor_stack, driving, crafting_queue, cheat_mode, character_crafting_speed_modifier, character_mining_speed_modifier, character_running_speed_modifier, character_build_distance_bonus, character_item_drop_distance_bonus, character_reach_distance_bonus, character_resource_reach_distance_bonus, character_item_pickup_distance_bonus, character_loot_pickup_distance_bonus, quickbar_count_bonus, character_inventory_slots_bonus, character_logistic_slot_count_bonus, character_trash_slot_count_bonus, character_maximum_following_robot_count_bonus, character_health_bonus, auto_trash_filters, opened_gui_type, build_distance, drop_item_distance, reach_distance, item_pickup_distance, loot_pickup_distance, resource_reach_distance"
+      "Inherited from LuaControl: get_inventory, get_quickbar, can_insert, insert, set_gui_arrow, clear_gui_arrow, get_item_count, has_items_inside, can_reach_entity, clear_items_inside, remove_item, teleport, update_selected_entity, clear_selected_entity, disable_flashlight, enable_flashlight, get_craftable_count, begin_crafting, cancel_crafting, mine_entity, mine_tile, surface, position, vehicle, force, selected, opened, crafting_queue_size, walking_state, riding_state, mining_state, shooting_state, picking_state, repair_state, cursor_stack, driving, crafting_queue, cheat_mode, character_crafting_speed_modifier, character_mining_speed_modifier, character_running_speed_modifier, character_build_distance_bonus, character_item_drop_distance_bonus, character_reach_distance_bonus, character_resource_reach_distance_bonus, character_item_pickup_distance_bonus, character_loot_pickup_distance_bonus, quickbar_count_bonus, character_inventory_slots_bonus, character_logistic_slot_count_bonus, character_trash_slot_count_bonus, character_maximum_following_robot_count_bonus, character_health_bonus, auto_trash_filters, opened_gui_type, build_distance, drop_item_distance, reach_distance, item_pickup_distance, loot_pickup_distance, resource_reach_distance"
     ],
     "properties": {
       "active": {
@@ -2456,6 +2468,19 @@
           }
         }
       },
+      "mine_tile": {
+        "name": "mine_tile",
+        "type": "function",
+        "doc": "Mines the given tile as if this player (or character) mined i    \n\n**Parameters**  \ntile :: [LuaTile](http://lua-api.factorio.com/latest/LuaTile.html): The tile to mine.  \n\n**Return value**  \nIf the mining succeeded.",
+        "returns": "boolean",
+        "args": {
+          "tile": {
+            "name": "tile",
+            "type": "LuaTile",
+            "doc": "tile :: [LuaTile](http://lua-api.factorio.com/latest/LuaTile.html): The tile to mine."
+          }
+        }
+      },
       "mining_progress": {
         "name": "mining_progress",
         "type": "double",
@@ -2740,6 +2765,12 @@
         "mode": "[RW]",
         "doc": "When entity is not to be rotatable (inserter, transport belt etc), it can't be rotat  \nby player using the R key.   \n\n**Note: ** Entities that are not rotatable naturally (like chest or furnace) can't be set   \nbe rotatable."
       },
+      "secondary_bounding_box": {
+        "name": "secondary_bounding_box",
+        "type": "BoundingBox",
+        "mode": "[R]",
+        "doc": "The secondary bounding box of this entity or ````\nnil````\nif it doesn't have on"
+      },
       "selected": {
         "name": "selected",
         "type": "LuaEntity",
@@ -2827,6 +2858,12 @@
         "type": "defines.signal_state",
         "mode": "[R]",
         "doc": "The state of this rail signa    \n_Can only be used if this is RailSignal_"
+      },
+      "spawner": {
+        "name": "spawner",
+        "type": "LuaEntity",
+        "mode": "[R]",
+        "doc": "The spawner associated with this unit entity or ````\nnil````\nif the unit has no associated spawne"
       },
       "speed": {
         "name": "speed",
@@ -2942,6 +2979,12 @@
         "type": "uint",
         "mode": "[R]",
         "doc": "The unit number or nil if the entity doesn't have one. This is universally unique for every entity that has one, for the lifetime of a whole game."
+      },
+      "units": {
+        "name": "units",
+        "type": "array of LuaEntity",
+        "mode": "[R]",
+        "doc": "The units associated with this spawner entit"
       },
       "update_connections": {
         "name": "update_connections",
@@ -3074,6 +3117,12 @@
         "mode": "[R]",
         "doc": "Corpses used when this entity is destroyed. It is a dictionary indexed by the corpse's prototy  \nname."
       },
+      "count_as_rock_for_filtered_deconstruction": {
+        "name": "count_as_rock_for_filtered_deconstruction",
+        "type": "boolean",
+        "mode": "[R]",
+        "doc": "If this simple-entity is counted as a rock for the deconstruction planner \"trees and rocks only\" filte"
+      },
       "crafting_categories": {
         "name": "crafting_categories",
         "type": "dictionary string → boolean",
@@ -3150,6 +3199,12 @@
         "mode": "[R]",
         "doc": "The group of mutually fast-replaceable entities. Possibly ````\nnil````\n."
       },
+      "filter_count": {
+        "name": "filter_count",
+        "type": "uint",
+        "mode": "[R]",
+        "doc": "The filter count of this inserter, loader, or requester chest or ````\nnil````"
+      },
       "final_attack_result": {
         "name": "final_attack_result",
         "mode": "[R]",
@@ -3166,6 +3221,12 @@
         "type": "LuaFluidPrototype",
         "mode": "[R]",
         "doc": "The fluid this offshore pump produces or ````\nnil````"
+      },
+      "fluid_capacity": {
+        "name": "fluid_capacity",
+        "type": "double",
+        "mode": "[R]",
+        "doc": "The fluid capacity of this entity or 0 if this entity doesn't support fluid    \n\n**Note: ** Crafting machines will report 0 due to their fluid capacity being what ever a given recipe needs."
       },
       "fluid_usage_per_tick": {
         "name": "fluid_usage_per_tick",
@@ -3225,7 +3286,7 @@
       },
       "healing_per_tick": {
         "name": "healing_per_tick",
-        "type": "uint",
+        "type": "float",
         "mode": "[R]",
         "doc": "Amount this entity can heal per tick."
       },
@@ -3411,6 +3472,12 @@
         "type": "string",
         "mode": "[R]",
         "doc": "Order string of this prototype."
+      },
+      "production": {
+        "name": "production",
+        "type": "double",
+        "mode": "[R]",
+        "doc": "The max production this solar panel prototype produces or ````\nnil````"
       },
       "pumping_speed": {
         "name": "pumping_speed",
@@ -5017,6 +5084,11 @@
         "mode": "[R]",
         "doc": "Is this object valid?"
       },
+      "worker_robots_battery_modifier": {
+        "name": "worker_robots_battery_modifier",
+        "type": "double",
+        "mode": "[RW]"
+      },
       "worker_robots_speed_modifier": {
         "name": "worker_robots_speed_modifier",
         "type": "double",
@@ -5662,13 +5734,13 @@
       "add": {
         "name": "add",
         "type": "function",
-        "doc": "Add a child element.   \n\n**Parameters**  \nTable with the following fields:   \ntype :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The kind of the element to add. Has to be one of ````\n\"button\"````\n, ````\n\"sprite-button\"````  \n````\n\"checkbox\"````\n, ````\n\"flow\"````\n, ````\n\"frame\"````\n, ````\n\"label\"````\n, ````\n\"table\"````\n, ````\n\"progressbar\"````\n, ````\n\"textfield\"````\n, ````\n\"radio-button\"````\n, ````\n\"sprite\"````\n, ````\n\"scroll-pane\"````\n, ````\n\"camera\"````\n, ````\n\"drop-down\"````\n, or ````\n\"text-box\"````\n.  \nname :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): Name of the child element.  \nstyle :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): Style of the new element.  \nOther attributes may have to be specified, depending on ````\ntype````  \nsprite-button  \nsprite :: [SpritePath](http://lua-api.factorio.com/latest/Concepts.html#SpritePath) (optional): Path to the image to display on the button.  \ncheckbox  \nstate :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Whether the checkbox should be checked by default.  \nradio-button  \nstate :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Whether the radio-button should be checked by default.  \nframe  \ndirection :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The initial direction of the frame's layout. See [LuaGuiElement::direction](http://lua-api.factorio.com/latest/LuaGuiElement.html#LuaGuiElement.direction).  \nlabel  \ncaption :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): Initial text to display on the label.  \nsingle_line :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If text should be shown on a single line or wrapped based off the max width of the label.  \nwant_ellipsis :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If text beyond the widget width should be shown as \"...\" instead of clipped. Can't be used with single_line==false  \nprogressbar  \nsize :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): Width of the progressbar.  \nvalue :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): Initial value of the progressbar, in range [0, 1]. Defaults to 0 if not given.  \ntable  \ncolspan :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): Number of columns  \ndrop-down  \nitems :: array of [LocalisedString](http://lua-api.factorio.com/latest/Concepts.html#LocalisedString) (optional): The initial items in the dropdown.  \nselected_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The initial selected index.  \ncamera  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The position the camera centers on.  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The surface the camera will render else if not given the players surface is used.  \nzoom :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): The camera zoom - defaults to 0.75.  \nchoose-elem-button  \nelem_type :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): \"item\", \"tile\", \"entity\", or \"signal\"  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"item\" - the default value for the button  \nentity :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"entity\" - the default value for the button  \ntile :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"tile\" - the default value for the button  \nsignal :: [SignalID](http://lua-api.factorio.com/latest/Concepts.html#SignalID) (optional): If type is \"signal\" - the default value for the button  \n\n**Return value**  \nThe added GUI element.",
+        "doc": "Add a child element.   \n\n**Parameters**  \nTable with the following fields:   \ntype :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The kind of the element to add. Has to be one of ````\n\"button\"````\n, ````\n\"sprite-button\"````  \n````\n\"checkbox\"````\n, ````\n\"flow\"````\n, ````\n\"frame\"````\n, ````\n\"label\"````\n, ````\n\"table\"````\n, ````\n\"progressbar\"````\n, ````\n\"textfield\"````\n, ````\n\"radiobutton\"````\n, ````\n\"sprite\"````\n, ````\n\"scroll-pane\"````\n, ````\n\"camera\"````\n, ````\n\"drop-down\"````\n, or ````\n\"text-box\"````\n.  \nname :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): Name of the child element.  \nstyle :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): Style of the new element.  \nOther attributes may have to be specified, depending on ````\ntype````  \nsprite-button  \nsprite :: [SpritePath](http://lua-api.factorio.com/latest/Concepts.html#SpritePath) (optional): Path to the image to display on the button.  \ncheckbox  \nstate :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Whether the checkbox should be checked by default.  \nradiobutton  \nstate :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Whether the radiobutton should be checked by default.  \nframe  \ndirection :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The initial direction of the frame's layout. See [LuaGuiElement::direction](http://lua-api.factorio.com/latest/LuaGuiElement.html#LuaGuiElement.direction).  \nlabel  \ncaption :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): Initial text to display on the label.  \nsingle_line :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If text should be shown on a single line or wrapped based off the max width of the label.  \nwant_ellipsis :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If text beyond the widget width should be shown as \"...\" instead of clipped. Can't be used with single_line==false  \nprogressbar  \nsize :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): Width of the progressbar.  \nvalue :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): Initial value of the progressbar, in range [0, 1]. Defaults to 0 if not given.  \ntable  \ncolspan :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): Number of columns  \ndrop-down  \nitems :: array of [LocalisedString](http://lua-api.factorio.com/latest/Concepts.html#LocalisedString) (optional): The initial items in the dropdown.  \nselected_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The initial selected index.  \ncamera  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The position the camera centers on.  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The surface the camera will render else if not given the players surface is used.  \nzoom :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): The camera zoom - defaults to 0.75.  \nchoose-elem-button  \nelem_type :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): \"item\", \"tile\", \"entity\", or \"signal\"  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"item\" - the default value for the button  \nentity :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"entity\" - the default value for the button  \ntile :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"tile\" - the default value for the button  \nsignal :: [SignalID](http://lua-api.factorio.com/latest/Concepts.html#SignalID) (optional): If type is \"signal\" - the default value for the button  \n\n**Return value**  \nThe added GUI element.",
         "returns": "LuaGuiElement",
         "args": {
           "type": {
             "name": "type",
             "type": "string",
-            "doc": "Table with the following fields:   \ntype :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The kind of the element to add. Has to be one of ````\n\"button\"````\n, ````\n\"sprite-button\"````  \n````\n\"checkbox\"````\n, ````\n\"flow\"````\n, ````\n\"frame\"````\n, ````\n\"label\"````\n, ````\n\"table\"````\n, ````\n\"progressbar\"````\n, ````\n\"textfield\"````\n, ````\n\"radio-button\"````\n, ````\n\"sprite\"````\n, ````\n\"scroll-pane\"````\n, ````\n\"camera\"````\n, ````\n\"drop-down\"````\n, or ````\n\"text-box\"````\n.  \nname :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): Name of the child element.  \nstyle :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): Style of the new element.  \nOther attributes may have to be specified, depending on ````\ntype````  \nsprite-button  \nsprite :: [SpritePath](http://lua-api.factorio.com/latest/Concepts.html#SpritePath) (optional): Path to the image to display on the button.  \ncheckbox  \nstate :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Whether the checkbox should be checked by default.  \nradio-button  \nstate :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Whether the radio-button should be checked by default.  \nframe  \ndirection :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The initial direction of the frame's layout. See [LuaGuiElement::direction](http://lua-api.factorio.com/latest/LuaGuiElement.html#LuaGuiElement.direction).  \nlabel  \ncaption :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): Initial text to display on the label.  \nsingle_line :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If text should be shown on a single line or wrapped based off the max width of the label.  \nwant_ellipsis :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If text beyond the widget width should be shown as \"...\" instead of clipped. Can't be used with single_line==false  \nprogressbar  \nsize :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): Width of the progressbar.  \nvalue :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): Initial value of the progressbar, in range [0, 1]. Defaults to 0 if not given.  \ntable  \ncolspan :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): Number of columns  \ndrop-down  \nitems :: array of [LocalisedString](http://lua-api.factorio.com/latest/Concepts.html#LocalisedString) (optional): The initial items in the dropdown.  \nselected_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The initial selected index.  \ncamera  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The position the camera centers on.  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The surface the camera will render else if not given the players surface is used.  \nzoom :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): The camera zoom - defaults to 0.75.  \nchoose-elem-button  \nelem_type :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): \"item\", \"tile\", \"entity\", or \"signal\"  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"item\" - the default value for the button  \nentity :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"entity\" - the default value for the button  \ntile :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"tile\" - the default value for the button  \nsignal :: [SignalID](http://lua-api.factorio.com/latest/Concepts.html#SignalID) (optional): If type is \"signal\" - the default value for the button"
+            "doc": "Table with the following fields:   \ntype :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The kind of the element to add. Has to be one of ````\n\"button\"````\n, ````\n\"sprite-button\"````  \n````\n\"checkbox\"````\n, ````\n\"flow\"````\n, ````\n\"frame\"````\n, ````\n\"label\"````\n, ````\n\"table\"````\n, ````\n\"progressbar\"````\n, ````\n\"textfield\"````\n, ````\n\"radiobutton\"````\n, ````\n\"sprite\"````\n, ````\n\"scroll-pane\"````\n, ````\n\"camera\"````\n, ````\n\"drop-down\"````\n, or ````\n\"text-box\"````\n.  \nname :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): Name of the child element.  \nstyle :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): Style of the new element.  \nOther attributes may have to be specified, depending on ````\ntype````  \nsprite-button  \nsprite :: [SpritePath](http://lua-api.factorio.com/latest/Concepts.html#SpritePath) (optional): Path to the image to display on the button.  \ncheckbox  \nstate :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Whether the checkbox should be checked by default.  \nradiobutton  \nstate :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Whether the radiobutton should be checked by default.  \nframe  \ndirection :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The initial direction of the frame's layout. See [LuaGuiElement::direction](http://lua-api.factorio.com/latest/LuaGuiElement.html#LuaGuiElement.direction).  \nlabel  \ncaption :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): Initial text to display on the label.  \nsingle_line :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If text should be shown on a single line or wrapped based off the max width of the label.  \nwant_ellipsis :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If text beyond the widget width should be shown as \"...\" instead of clipped. Can't be used with single_line==false  \nprogressbar  \nsize :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): Width of the progressbar.  \nvalue :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): Initial value of the progressbar, in range [0, 1]. Defaults to 0 if not given.  \ntable  \ncolspan :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): Number of columns  \ndrop-down  \nitems :: array of [LocalisedString](http://lua-api.factorio.com/latest/Concepts.html#LocalisedString) (optional): The initial items in the dropdown.  \nselected_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The initial selected index.  \ncamera  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The position the camera centers on.  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The surface the camera will render else if not given the players surface is used.  \nzoom :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): The camera zoom - defaults to 0.75.  \nchoose-elem-button  \nelem_type :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): \"item\", \"tile\", \"entity\", or \"signal\"  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"item\" - the default value for the button  \nentity :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"entity\" - the default value for the button  \ntile :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): If type is \"tile\" - the default value for the button  \nsignal :: [SignalID](http://lua-api.factorio.com/latest/Concepts.html#SignalID) (optional): If type is \"signal\" - the default value for the button"
           }
         }
       },
@@ -5740,6 +5812,12 @@
         "mode": "[RW]",
         "doc": "The elem value of this choose-elem-button or ````\nnil````\nif there is no valu    \n\n**Note: ** Types \"item\", \"entity\", and \"tile\" operate with strings. Type \"signal\" operates with [SignalID](http://lua-api.factorio.com/latest/Concepts.html#SignalID).  \n_Can only be used if this is choose-elem-button_"
       },
+      "enabled": {
+        "name": "enabled",
+        "type": "boolean",
+        "mode": "[RW]",
+        "doc": "If this GUI element is enable"
+      },
       "get_item": {
         "name": "get_item",
         "type": "function",
@@ -5805,6 +5883,18 @@
         "type": "boolean",
         "mode": "[RW]",
         "doc": "If this text-box is read-onl    \n_Can only be used if this is text-box_"
+      },
+      "remove_item": {
+        "name": "remove_item",
+        "doc": "Removes an item at the given index in this dropdow    \n\n**Parameters**  \nindex :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The index  \n_Can only be used if this is drop-down_",
+        "type": "function",
+        "args": {
+          "index": {
+            "name": "index",
+            "type": "uint",
+            "doc": "index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The index"
+          }
+        }
       },
       "selectable": {
         "name": "selectable",
@@ -7036,6 +7126,19 @@
           }
         }
       },
+      "swap_stack": {
+        "name": "swap_stack",
+        "type": "function",
+        "doc": "Swaps this item stack with the given item stack if allowed.   \n\n**Parameters**  \nstack :: [LuaItemStack](http://lua-api.factorio.com/latest/LuaItemStack.html)  \n\n**Return value**  \nif the 2 stacks were swapped successfully.",
+        "returns": "boolean",
+        "args": {
+          "stack": {
+            "name": "stack",
+            "type": "LuaItemStack",
+            "doc": "stack :: [LuaItemStack](http://lua-api.factorio.com/latest/LuaItemStack.html)"
+          }
+        }
+      },
       "tags": {
         "name": "tags",
         "type": "dictionary string → Any",
@@ -7062,7 +7165,7 @@
       },
       "tile_selection_mode": {
         "name": "tile_selection_mode",
-        "type": "defines.deconstruction_item.tile_filter_mode",
+        "type": "defines.deconstruction_item.tile_selection_mode",
         "mode": "[RW]",
         "doc": "The tile selection mode for this deconstruction ite    \n_Can only be used if this is DeconstructionItem_"
       },
@@ -7899,7 +8002,7 @@
     "name": "LuaPlayer",
     "type": "LuaPlayer",
     "inherits": [
-      "Inherited from LuaControl: get_inventory, get_quickbar, can_insert, insert, set_gui_arrow, clear_gui_arrow, get_item_count, has_items_inside, can_reach_entity, clear_items_inside, remove_item, teleport, update_selected_entity, clear_selected_entity, disable_flashlight, enable_flashlight, get_craftable_count, begin_crafting, cancel_crafting, mine_entity, surface, position, vehicle, force, selected, opened, crafting_queue_size, walking_state, riding_state, mining_state, shooting_state, picking_state, repair_state, cursor_stack, driving, crafting_queue, cheat_mode, character_crafting_speed_modifier, character_mining_speed_modifier, character_running_speed_modifier, character_build_distance_bonus, character_item_drop_distance_bonus, character_reach_distance_bonus, character_resource_reach_distance_bonus, character_item_pickup_distance_bonus, character_loot_pickup_distance_bonus, quickbar_count_bonus, character_inventory_slots_bonus, character_logistic_slot_count_bonus, character_trash_slot_count_bonus, character_maximum_following_robot_count_bonus, character_health_bonus, auto_trash_filters, opened_gui_type, build_distance, drop_item_distance, reach_distance, item_pickup_distance, loot_pickup_distance, resource_reach_distance"
+      "Inherited from LuaControl: get_inventory, get_quickbar, can_insert, insert, set_gui_arrow, clear_gui_arrow, get_item_count, has_items_inside, can_reach_entity, clear_items_inside, remove_item, teleport, update_selected_entity, clear_selected_entity, disable_flashlight, enable_flashlight, get_craftable_count, begin_crafting, cancel_crafting, mine_entity, mine_tile, surface, position, vehicle, force, selected, opened, crafting_queue_size, walking_state, riding_state, mining_state, shooting_state, picking_state, repair_state, cursor_stack, driving, crafting_queue, cheat_mode, character_crafting_speed_modifier, character_mining_speed_modifier, character_running_speed_modifier, character_build_distance_bonus, character_item_drop_distance_bonus, character_reach_distance_bonus, character_resource_reach_distance_bonus, character_item_pickup_distance_bonus, character_loot_pickup_distance_bonus, quickbar_count_bonus, character_inventory_slots_bonus, character_logistic_slot_count_bonus, character_trash_slot_count_bonus, character_maximum_following_robot_count_bonus, character_health_bonus, auto_trash_filters, opened_gui_type, build_distance, drop_item_distance, reach_distance, item_pickup_distance, loot_pickup_distance, resource_reach_distance"
     ],
     "properties": {
       "add_alert": {
@@ -8421,6 +8524,19 @@
           }
         }
       },
+      "mine_tile": {
+        "name": "mine_tile",
+        "type": "function",
+        "doc": "Mines the given tile as if this player (or character) mined i    \n\n**Parameters**  \ntile :: [LuaTile](http://lua-api.factorio.com/latest/LuaTile.html): The tile to mine.  \n\n**Return value**  \nIf the mining succeeded.",
+        "returns": "boolean",
+        "args": {
+          "tile": {
+            "name": "tile",
+            "type": "LuaTile",
+            "doc": "tile :: [LuaTile](http://lua-api.factorio.com/latest/LuaTile.html): The tile to mine."
+          }
+        }
+      },
       "minimap_enabled": {
         "name": "minimap_enabled",
         "type": "boolean",
@@ -8894,7 +9010,7 @@
       "()": {
         "name": "()",
         "type": "function",
-        "doc": "Generates a random numbe  \nIf no parameters are given a number in the [0, 1) range is returne  \nIf a single parameter is given a floored number in the [0, N) range is returne  \nIf 2 parameters are given a floored number in the [N1, N2) range is returne    \n\n**Parameters**  \nlower :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): Inclusive lower bound on the result  \nupper :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): Exclusive upper bound on the result",
+        "doc": "Generates a random numbe  \nIf no parameters are given a number in the [0, 1) range is returne  \nIf a single parameter is given a floored number in the [0, N] range is returne  \nIf 2 parameters are given a floored number in the [N1, N2] range is returne    \n\n**Parameters**  \nlower :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): Inclusive lower bound on the result  \nupper :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double) (optional): Exclusive upper bound on the result",
         "returns": "double",
         "args": {
           "lower": {
@@ -9639,6 +9755,11 @@
           }
         }
       },
+      "clear_pollution": {
+        "name": "clear_pollution",
+        "doc": "Clears all pollution on this surface.",
+        "type": "function"
+      },
       "count_entities_filtered": {
         "name": "count_entities_filtered",
         "type": "function",
@@ -9667,13 +9788,13 @@
       "create_entity": {
         "name": "create_entity",
         "type": "function",
-        "doc": "Create an entity on this surface    \n\n**Parameters**  \nTable with the following fields:   \nname :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The entity prototype name to create.  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): Where to create the entity.  \ndirection :: [defines.direction](http://lua-api.factorio.com/latest/defines.html#defines.direction) (optional): Desired orientation of the entity after creation.  \nforce :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) or [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html) (optional): Force of the entity, default is enemy.  \ntarget :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): Entity with health for the new entity to target.  \nsource :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): Source entity. Used for beams.  \nfast_replace :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If true, building will attempt to simulate fast-replace building.  \nplayer :: [PlayerSpecification](http://lua-api.factorio.com/latest/Concepts.html#PlayerSpecification) (optional): If given along with fast_replace being true, fast-replace will simulate using this player.  \nspill :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If false while fast_replace is true any excess items from fast-replacing will be deleted instead of dropped on the ground.  \nAdditional entity-specific parameters  \nassembling-machine  \nrecipe :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional)  \ncontainer  \nbar :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): Inventory index where the red limiting bar should be set.  \nflying-text  \ntext :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The string to show.  \ncolor :: [Color](http://lua-api.factorio.com/latest/Concepts.html#Color): Color of the displayed text.  \nentity-ghost  \ninner_name :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The prototype name of the entity contained in the ghost.  \nexpires :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If ````\nfalse````\nthe ghost entity will not expire. Default is ````\ntrue````\n.  \nfire  \ninitial_ground_flame_count :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): With how many small flames should the fire on ground be created.  \ninserter  \nconditions: Table with the following fields:   \ncircuit :: [CircuitCondition](http://lua-api.factorio.com/latest/Concepts.html#CircuitCondition) (optional)  \nlogistics :: [CircuitCondition](http://lua-api.factorio.com/latest/Concepts.html#CircuitCondition) (optional)  \nfilters :: array of [Filter](http://lua-api.factorio.com/latest/Concepts.html#Filter)  \nitem-entity  \nstack :: [SimpleItemStack](http://lua-api.factorio.com/latest/Concepts.html#SimpleItemStack): The stack of items to create. This must be a table, i.e. a single stri  \nis not allowed here.  \nitem-request-proxy  \nmodules :: dictionary [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) → [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The stacks of items to be delivered to target entity from logist  \nnetwork. Each stack must be table. If empty, the item request proxy won't be created.  \nlogistic-container  \nrequest_filters :: array of [Filter](http://lua-api.factorio.com/latest/Concepts.html#Filter) (optional)  \nparticle  \nmovement :: [Vector](http://lua-api.factorio.com/latest/Concepts.html#Vector)  \nheight :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nvertical_speed :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nframe_speed :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nprojectile  \nspeed :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double)  \nresource  \namount :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nunderground-belt  \ntype :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): ````\n\"output\"````\nor ````\n\"input\"````\n; default is ````\n\"input\"````\n.  \nprogrammable-speaker  \nparameters :: [ProgrammableSpeaker\n\n**Parameters**  \n](http://lua-api.factorio.com/latest/Concepts.html#ProgrammableSpeaker\n\n**Parameters**  \n) (optional)  \nalert_parameters :: [ProgrammableSpeakerAlert\n\n**Parameters**  \n](http://lua-api.factorio.com/latest/Concepts.html#ProgrammableSpeakerAlert\n\n**Parameters**  \n) (optional)  \ncharacter-corpse  \ninventory_size :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional)  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional)  \n\n**Return value**  \nThe created entity or ````\nnil````\nif the creation failed.  \n\n**Example**  \n````\nasm = game.surfaces[1].create_entity{name = \"assembling-machine-1\", position = {15, 3}, force=game.forces.player, recipe = \"iron-stick\"}````  \n\n**Example**  \nCreates a smart inserter with circuit conditions and a filt    \n````\ngame.surfaces[1].create_entity{  \n  name = \"filter-inserter\", position = {20, 15}, force=game.player.force,  \n  conditions={red={name=\"wood\", count=3, operator=\"&gt;\"},  \n              green={name=\"iron-ore\", count=1, operator  \n  logistics={name=\"wood\", count=3, operator=\"=\"}},  \n  filters={ {index=1, name=\"iron-ore\"} }  \n}````  \n\n**Example**  \nCreates a requester chest already set to request 128 iron plate    \n````\ngame.surfaces[1].create_entity{  \n  name = \"logistic-chest-requester\", position = {game.player.position.x+3, game.player.position.y},  \n  force=game.player.force, request_filters={ {index=1, name=\"iron-plate\", count=128} }  \n}````  \n\n**Example**  \n````\ngame.surfaces[1].create_entity{name = \"big-biter\", position= {15, 3}, force = game.forces.player} -- Friendly biter  \ngame.surfaces[1].create_entity{name = \"medium-biter\", position= {15, 3}, force = game.forces.enemy} -- Enemy biter````  \n\n**Example**  \nCreates a basic inserter at the player's location facing nor    \n````\ngame.surfaces[1].create_entity{name = \"inserter\", position = game.player.position, direction = defines.direction.north}````",
+        "doc": "Create an entity on this surface    \n\n**Parameters**  \nTable with the following fields:   \nname :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The entity prototype name to create.  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): Where to create the entity.  \ndirection :: [defines.direction](http://lua-api.factorio.com/latest/defines.html#defines.direction) (optional): Desired orientation of the entity after creation.  \nforce :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) or [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html) (optional): Force of the entity, default is enemy.  \ntarget :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): Entity with health for the new entity to target.  \nsource :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): Source entity. Used for beams.  \nfast_replace :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If true, building will attempt to simulate fast-replace building.  \nplayer :: [PlayerSpecification](http://lua-api.factorio.com/latest/Concepts.html#PlayerSpecification) (optional): If given along with fast_replace being true, fast-replace will simulate using this player.  \nspill :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If false while fast_replace is true any excess items from fast-replacing will be deleted instead of dropped on the ground.  \nAdditional entity-specific parameters  \nassembling-machine  \nrecipe :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional)  \ncontainer  \nbar :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): Inventory index where the red limiting bar should be set.  \nflying-text  \ntext :: [LocalisedString](http://lua-api.factorio.com/latest/Concepts.html#LocalisedString): The string to show.  \ncolor :: [Color](http://lua-api.factorio.com/latest/Concepts.html#Color): Color of the displayed text.  \nentity-ghost  \ninner_name :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The prototype name of the entity contained in the ghost.  \nexpires :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If ````\nfalse````\nthe ghost entity will not expire. Default is ````\ntrue````\n.  \nfire  \ninitial_ground_flame_count :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): With how many small flames should the fire on ground be created.  \ninserter  \nconditions: Table with the following fields:   \ncircuit :: [CircuitCondition](http://lua-api.factorio.com/latest/Concepts.html#CircuitCondition) (optional)  \nlogistics :: [CircuitCondition](http://lua-api.factorio.com/latest/Concepts.html#CircuitCondition) (optional)  \nfilters :: array of [Filter](http://lua-api.factorio.com/latest/Concepts.html#Filter)  \nitem-entity  \nstack :: [SimpleItemStack](http://lua-api.factorio.com/latest/Concepts.html#SimpleItemStack): The stack of items to create. This must be a table, i.e. a single stri  \nis not allowed here.  \nitem-request-proxy  \nmodules :: dictionary [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) → [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The stacks of items to be delivered to target entity from logist  \nnetwork. Each stack must be table. If empty, the item request proxy won't be created.  \nlogistic-container  \nrequest_filters :: array of [Filter](http://lua-api.factorio.com/latest/Concepts.html#Filter) (optional)  \nparticle  \nmovement :: [Vector](http://lua-api.factorio.com/latest/Concepts.html#Vector)  \nheight :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nvertical_speed :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nframe_speed :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nprojectile  \nspeed :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double)  \nresource  \namount :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nunderground-belt  \ntype :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): ````\n\"output\"````\nor ````\n\"input\"````\n; default is ````\n\"input\"````\n.  \nprogrammable-speaker  \nparameters :: [ProgrammableSpeaker\n\n**Parameters**  \n](http://lua-api.factorio.com/latest/Concepts.html#ProgrammableSpeaker\n\n**Parameters**  \n) (optional)  \nalert_parameters :: [ProgrammableSpeakerAlert\n\n**Parameters**  \n](http://lua-api.factorio.com/latest/Concepts.html#ProgrammableSpeakerAlert\n\n**Parameters**  \n) (optional)  \ncharacter-corpse  \ninventory_size :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional)  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional)  \n\n**Return value**  \nThe created entity or ````\nnil````\nif the creation failed.  \n\n**Example**  \n````\nasm = game.surfaces[1].create_entity{name = \"assembling-machine-1\", position = {15, 3}, force=game.forces.player, recipe = \"iron-stick\"}````  \n\n**Example**  \nCreates a smart inserter with circuit conditions and a filt    \n````\ngame.surfaces[1].create_entity{  \n  name = \"filter-inserter\", position = {20, 15}, force=game.player.force,  \n  conditions={red={name=\"wood\", count=3, operator=\"&gt;\"},  \n              green={name=\"iron-ore\", count=1, operator  \n  logistics={name=\"wood\", count=3, operator=\"=\"}},  \n  filters={ {index=1, name=\"iron-ore\"} }  \n}````  \n\n**Example**  \nCreates a requester chest already set to request 128 iron plate    \n````\ngame.surfaces[1].create_entity{  \n  name = \"logistic-chest-requester\", position = {game.player.position.x+3, game.player.position.y},  \n  force=game.player.force, request_filters={ {index=1, name=\"iron-plate\", count=128} }  \n}````  \n\n**Example**  \n````\ngame.surfaces[1].create_entity{name = \"big-biter\", position= {15, 3}, force = game.forces.player} -- Friendly biter  \ngame.surfaces[1].create_entity{name = \"medium-biter\", position= {15, 3}, force = game.forces.enemy} -- Enemy biter````  \n\n**Example**  \nCreates a basic inserter at the player's location facing nor    \n````\ngame.surfaces[1].create_entity{name = \"inserter\", position = game.player.position, direction = defines.direction.north}````",
         "returns": "LuaEntity",
         "args": {
           "name": {
             "name": "name",
             "type": "string",
-            "doc": "Table with the following fields:   \nname :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The entity prototype name to create.  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): Where to create the entity.  \ndirection :: [defines.direction](http://lua-api.factorio.com/latest/defines.html#defines.direction) (optional): Desired orientation of the entity after creation.  \nforce :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) or [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html) (optional): Force of the entity, default is enemy.  \ntarget :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): Entity with health for the new entity to target.  \nsource :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): Source entity. Used for beams.  \nfast_replace :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If true, building will attempt to simulate fast-replace building.  \nplayer :: [PlayerSpecification](http://lua-api.factorio.com/latest/Concepts.html#PlayerSpecification) (optional): If given along with fast_replace being true, fast-replace will simulate using this player.  \nspill :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If false while fast_replace is true any excess items from fast-replacing will be deleted instead of dropped on the ground.  \nAdditional entity-specific parameters  \nassembling-machine  \nrecipe :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional)  \ncontainer  \nbar :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): Inventory index where the red limiting bar should be set.  \nflying-text  \ntext :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The string to show.  \ncolor :: [Color](http://lua-api.factorio.com/latest/Concepts.html#Color): Color of the displayed text.  \nentity-ghost  \ninner_name :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The prototype name of the entity contained in the ghost.  \nexpires :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If ````\nfalse````\nthe ghost entity will not expire. Default is ````\ntrue````\n.  \nfire  \ninitial_ground_flame_count :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): With how many small flames should the fire on ground be created.  \ninserter  \nconditions: Table with the following fields:   \ncircuit :: [CircuitCondition](http://lua-api.factorio.com/latest/Concepts.html#CircuitCondition) (optional)  \nlogistics :: [CircuitCondition](http://lua-api.factorio.com/latest/Concepts.html#CircuitCondition) (optional)  \nfilters :: array of [Filter](http://lua-api.factorio.com/latest/Concepts.html#Filter)  \nitem-entity  \nstack :: [SimpleItemStack](http://lua-api.factorio.com/latest/Concepts.html#SimpleItemStack): The stack of items to create. This must be a table, i.e. a single stri  \nis not allowed here.  \nitem-request-proxy  \nmodules :: dictionary [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) → [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The stacks of items to be delivered to target entity from logist  \nnetwork. Each stack must be table. If empty, the item request proxy won't be created.  \nlogistic-container  \nrequest_filters :: array of [Filter](http://lua-api.factorio.com/latest/Concepts.html#Filter) (optional)  \nparticle  \nmovement :: [Vector](http://lua-api.factorio.com/latest/Concepts.html#Vector)  \nheight :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nvertical_speed :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nframe_speed :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nprojectile  \nspeed :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double)  \nresource  \namount :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nunderground-belt  \ntype :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): ````\n\"output\"````\nor ````\n\"input\"````\n; default is ````\n\"input\"````\n.  \nprogrammable-speaker  \nparameters :: [ProgrammableSpeaker\n\n**Parameters**  \n](http://lua-api.factorio.com/latest/Concepts.html#ProgrammableSpeaker\n\n**Parameters**  \n) (optional)  \nalert_parameters :: [ProgrammableSpeakerAlert\n\n**Parameters**  \n](http://lua-api.factorio.com/latest/Concepts.html#ProgrammableSpeakerAlert\n\n**Parameters**  \n) (optional)  \ncharacter-corpse  \ninventory_size :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional)  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional)"
+            "doc": "Table with the following fields:   \nname :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The entity prototype name to create.  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): Where to create the entity.  \ndirection :: [defines.direction](http://lua-api.factorio.com/latest/defines.html#defines.direction) (optional): Desired orientation of the entity after creation.  \nforce :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) or [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html) (optional): Force of the entity, default is enemy.  \ntarget :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): Entity with health for the new entity to target.  \nsource :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): Source entity. Used for beams.  \nfast_replace :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If true, building will attempt to simulate fast-replace building.  \nplayer :: [PlayerSpecification](http://lua-api.factorio.com/latest/Concepts.html#PlayerSpecification) (optional): If given along with fast_replace being true, fast-replace will simulate using this player.  \nspill :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If false while fast_replace is true any excess items from fast-replacing will be deleted instead of dropped on the ground.  \nAdditional entity-specific parameters  \nassembling-machine  \nrecipe :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional)  \ncontainer  \nbar :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): Inventory index where the red limiting bar should be set.  \nflying-text  \ntext :: [LocalisedString](http://lua-api.factorio.com/latest/Concepts.html#LocalisedString): The string to show.  \ncolor :: [Color](http://lua-api.factorio.com/latest/Concepts.html#Color): Color of the displayed text.  \nentity-ghost  \ninner_name :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The prototype name of the entity contained in the ghost.  \nexpires :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean) (optional): If ````\nfalse````\nthe ghost entity will not expire. Default is ````\ntrue````\n.  \nfire  \ninitial_ground_flame_count :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): With how many small flames should the fire on ground be created.  \ninserter  \nconditions: Table with the following fields:   \ncircuit :: [CircuitCondition](http://lua-api.factorio.com/latest/Concepts.html#CircuitCondition) (optional)  \nlogistics :: [CircuitCondition](http://lua-api.factorio.com/latest/Concepts.html#CircuitCondition) (optional)  \nfilters :: array of [Filter](http://lua-api.factorio.com/latest/Concepts.html#Filter)  \nitem-entity  \nstack :: [SimpleItemStack](http://lua-api.factorio.com/latest/Concepts.html#SimpleItemStack): The stack of items to create. This must be a table, i.e. a single stri  \nis not allowed here.  \nitem-request-proxy  \nmodules :: dictionary [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) → [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The stacks of items to be delivered to target entity from logist  \nnetwork. Each stack must be table. If empty, the item request proxy won't be created.  \nlogistic-container  \nrequest_filters :: array of [Filter](http://lua-api.factorio.com/latest/Concepts.html#Filter) (optional)  \nparticle  \nmovement :: [Vector](http://lua-api.factorio.com/latest/Concepts.html#Vector)  \nheight :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nvertical_speed :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nframe_speed :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nprojectile  \nspeed :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double)  \nresource  \namount :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nunderground-belt  \ntype :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional): ````\n\"output\"````\nor ````\n\"input\"````\n; default is ````\n\"input\"````\n.  \nprogrammable-speaker  \nparameters :: [ProgrammableSpeaker\n\n**Parameters**  \n](http://lua-api.factorio.com/latest/Concepts.html#ProgrammableSpeaker\n\n**Parameters**  \n) (optional)  \nalert_parameters :: [ProgrammableSpeakerAlert\n\n**Parameters**  \n](http://lua-api.factorio.com/latest/Concepts.html#ProgrammableSpeakerAlert\n\n**Parameters**  \n) (optional)  \ncharacter-corpse  \ninventory_size :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional)  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional)"
           }
         }
       },
@@ -10207,7 +10328,7 @@
         "name": "force",
         "type": "LuaForce",
         "mode": "[R]",
-        "doc": "The force this technology blongs to."
+        "doc": "The force this technology belongs to."
       },
       "help": {
         "name": "help",
@@ -10217,8 +10338,8 @@
       "level": {
         "name": "level",
         "type": "uint",
-        "mode": "[R]",
-        "doc": "The current level of this technolog"
+        "mode": "[RW]",
+        "doc": "The current level of this technology. For level-based technology writing to this is the same as researching the technology to the *previous* leve"
       },
       "localised_description": {
         "name": "localised_description",
@@ -10343,6 +10464,12 @@
         "type": "LocalisedString",
         "mode": "[R]",
         "doc": "Localised name of this technology."
+      },
+      "max_level": {
+        "name": "max_level",
+        "type": "uint",
+        "mode": "[R]",
+        "doc": "The max level of this research."
       },
       "name": {
         "name": "name",
