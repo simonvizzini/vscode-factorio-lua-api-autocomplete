@@ -2,7 +2,7 @@
   "name": "factorio-lua-api-autocomplete",
   "displayName": "Factorio Lua API autocomplete",
   "description": "Autocompletion for the Factorio Lua API",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "publisher": "svizzini",
   "repository": {
     "type": "git",

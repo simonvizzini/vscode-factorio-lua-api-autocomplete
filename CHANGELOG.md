@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.0 - 2017-07-31
+- Update to Factorio 0.15.31
+
 ## 0.4.0 - 2017-06-04
 - Class inheritance is now considered, meaning classes now also suggest properties of their parent classes (e.g. LuaEntity now properly displays properties inherited from LuaControl)
 - Tooltips are now rendered as markdown, including links to the official documentation
