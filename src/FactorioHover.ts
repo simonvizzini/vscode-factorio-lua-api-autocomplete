@@ -12,7 +12,7 @@ const wordsRegex = /([\w\[\]]+\.*[\w\[\]\.]*)/g
 export class FactorioHover implements vscode.HoverProvider {
     constructor(private apiData: FactorioApiData) { }
 
-    provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.ProviderResult<vscode.Hover>> {
+    provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Hover> {
         return new Promise<vscode.Hover>((resolve, reject) => {
             let lineText = document.lineAt(position.line).text
             let wordRange = document.getWordRangeAtPosition(position)
