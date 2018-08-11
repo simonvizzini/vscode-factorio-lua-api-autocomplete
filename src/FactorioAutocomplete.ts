@@ -40,7 +40,7 @@ export class FactorioAutocomplete implements vscode.CompletionItemProvider {
 
         let completionItem = assign(new vscode.CompletionItem(key), {
             detail: type.type,
-            documentation: [doc, mode].filter(Boolean).join("\n\n"),
+            documentation: new vscode.MarkdownString([doc, mode].filter(Boolean).join("\n\n")),
             kind: vscode.CompletionItemKind.Property
         })
 
