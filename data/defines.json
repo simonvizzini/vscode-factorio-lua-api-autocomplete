@@ -118,6 +118,10 @@
         "type": "define",
         "name": "defines.inventory.rocket_silo_result"
       },
+      "rocket": {
+        "type": "define",
+        "name": "defines.inventory.rocket"
+      },
       "car_trunk": {
         "type": "define",
         "name": "defines.inventory.car_trunk"
@@ -137,6 +141,10 @@
       "beacon_modules": {
         "type": "define",
         "name": "defines.inventory.beacon_modules"
+      },
+      "character_corpse": {
+        "type": "define",
+        "name": "defines.inventory.character_corpse"
       }
     }
   },
@@ -315,6 +323,11 @@
         "name": "defines.command.wander",
         "doc": "Chill."
       },
+      "flee": {
+        "type": "define",
+        "name": "defines.command.flee",
+        "doc": "Flee from another entity."
+      },
       "build_base": {
         "type": "define",
         "name": "defines.command.build_base",
@@ -443,6 +456,11 @@
         "doc": "Called when an entity die    \n\n**Contains**  \nentity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html)  \ncause :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): The entity that did the killing if available.  \nforce :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html) (optional): The force that did the killing if any.",
         "type": "event"
       },
+      "on_entity_damaged": {
+        "name": "on_entity_damaged",
+        "doc": "Called when an entity is damage    \n\n**Contains**  \nentity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html)  \ndamage_type :: [LuaDamagePrototype](http://lua-api.factorio.com/latest/LuaDamagePrototype.html)  \noriginal_damage_amount :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \nfinal_damage_amount :: [float](http://lua-api.factorio.com/latest/Builtin-Types.html#float)  \ncause :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): The entity that did the attacking if available.  \nforce :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html) (optional): The force that did the attacking if any.  \n\n**Note: ** This is not called when an entities health is set directly by another mod.",
+        "type": "event"
+      },
       "on_picked_up_item": {
         "name": "on_picked_up_item",
         "doc": "Called when a player picks up an ite    \n\n**Contains**  \nitem_stack :: [SimpleItemStack](http://lua-api.factorio.com/latest/Concepts.html#SimpleItemStack)  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)",
@@ -450,7 +468,7 @@
       },
       "on_built_entity": {
         "name": "on_built_entity",
-        "doc": "Called when player builds somethin    \n\n**Contains**  \ncreated_entity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html)  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional)  \ntags :: dictionary [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) → [Any](http://lua-api.factorio.com/latest/Concepts.html#Any) (optional)",
+        "doc": "Called when player builds somethin    \n\n**Contains**  \ncreated_entity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html)  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nstack :: [LuaItemStack](http://lua-api.factorio.com/latest/LuaItemStack.html)",
         "type": "event"
       },
       "on_sector_scanned": {
@@ -465,7 +483,7 @@
       },
       "on_put_item": {
         "name": "on_put_item",
-        "doc": "Called when players uses item to build something. Called before [on_built_entity](http://lua-api.factorio.com/latest/events.html#on_built_entity    \n\n**Contains**  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): Where the item was placed.  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player who did the placing.",
+        "doc": "Called when players uses an item to build something. Called before [on_built_entity](http://lua-api.factorio.com/latest/events.html#on_built_entity    \n\n**Contains**  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): Where the item was placed.  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player who did the placing.  \nshift_build :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Item was placed using shift building.  \nbuilt_by_moving :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): Item was placed while moving.  \ndirection :: [defines.direction](http://lua-api.factorio.com/latest/defines.html#defines.direction): The direction the item was facing when placed.",
         "type": "event"
       },
       "on_rocket_launched": {
@@ -473,8 +491,8 @@
         "doc": "Called when the rocket is launche    \n\n**Contains**  \nrocket :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html)  \nrocket_silo :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional)",
         "type": "event"
       },
-      "on_preplayer_mined_item": {
-        "name": "on_preplayer_mined_item",
+      "on_pre_player_mined_item": {
+        "name": "on_pre_player_mined_item",
         "doc": "Called when the player finishes mining an entity, before the entity is removed from ma    \n\n**Contains**  \nentity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The entity being mined  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)",
         "type": "event"
       },
@@ -490,7 +508,7 @@
       },
       "on_robot_built_entity": {
         "name": "on_robot_built_entity",
-        "doc": "Called when a construction robot builds an entit    \n\n**Contains**  \nrobot :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The robot that did the building.  \ncreated_entity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The entity built.  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional)  \ntags :: dictionary [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) → [Any](http://lua-api.factorio.com/latest/Concepts.html#Any) (optional)",
+        "doc": "Called when a construction robot builds an entit    \n\n**Contains**  \nrobot :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The robot that did the building.  \ncreated_entity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The entity built.  \nstack :: [LuaItemStack](http://lua-api.factorio.com/latest/LuaItemStack.html): The item used to do the building.",
         "type": "event"
       },
       "on_robot_pre_mined": {
@@ -505,7 +523,7 @@
       },
       "on_research_started": {
         "name": "on_research_started",
-        "doc": "Called when a technology research start    \n\n**Contains**  \nresearch :: [LuaTechnology](http://lua-api.factorio.com/latest/LuaTechnology.html): The technology being researched",
+        "doc": "Called when a technology research start    \n\n**Contains**  \nresearch :: [LuaTechnology](http://lua-api.factorio.com/latest/LuaTechnology.html): The technology being researched  \nlast_research :: [LuaTechnology](http://lua-api.factorio.com/latest/LuaTechnology.html) (optional)",
         "type": "event"
       },
       "on_research_finished": {
@@ -535,7 +553,7 @@
       },
       "on_train_changed_state": {
         "name": "on_train_changed_state",
-        "doc": "Called when a train changes state (started to stopped and vice vers    \n\n**Contains**  \ntrain :: [LuaTrain](http://lua-api.factorio.com/latest/LuaTrain.html)",
+        "doc": "Called when a train changes state (started to stopped and vice vers    \n\n**Contains**  \ntrain :: [LuaTrain](http://lua-api.factorio.com/latest/LuaTrain.html)  \nold_state :: [defines.train_state](http://lua-api.factorio.com/latest/defines.html#defines.train_state)",
         "type": "event"
       },
       "on_player_created": {
@@ -550,7 +568,7 @@
       },
       "on_player_driving_changed_state": {
         "name": "on_player_driving_changed_state",
-        "doc": "Called when the player's driving state has changed, this means a player has eith  \nentered or left a vehicl    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)",
+        "doc": "Called when the player's driving state has changed, this means a player has eith  \nentered or left a vehicl    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nentity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): The vehicle if any.",
         "type": "event"
       },
       "on_force_created": {
@@ -560,7 +578,7 @@
       },
       "on_forces_merging": {
         "name": "on_forces_merging",
-        "doc": "Called when two forces are merged using ````\ngame.merge_forces()````    \n\n**Contains**  \nsource :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html): The force to be destroyed  \ndestination :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html): The force to reassign entities to.",
+        "doc": "Called when two forces are about to be merged using ````\ngame.merge_forces()````    \n\n**Contains**  \nsource :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html): The force to be destroyed  \ndestination :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html): The force to reassign entities to.",
         "type": "event"
       },
       "on_player_cursor_stack_changed": {
@@ -610,7 +628,7 @@
       },
       "on_player_placed_equipment": {
         "name": "on_player_placed_equipment",
-        "doc": "Called after the player puts equipment in an equipment gr    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nequipment :: [LuaEquipment](http://lua-api.factorio.com/latest/LuaEquipment.html): The equipment put in the equipment grid.  \ngrid :: [LuaEquipmentGrid](http://lua-api.factorio.com/latest/LuaEquipmentGrid.html): The equiment grid the equipment was put in.",
+        "doc": "Called after the player puts equipment in an equipment gr    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nequipment :: [LuaEquipment](http://lua-api.factorio.com/latest/LuaEquipment.html): The equipment put in the equipment grid.  \ngrid :: [LuaEquipmentGrid](http://lua-api.factorio.com/latest/LuaEquipmentGrid.html): The equipment grid the equipment was put in.",
         "type": "event"
       },
       "on_player_removed_equipment": {
@@ -645,22 +663,22 @@
       },
       "on_player_built_tile": {
         "name": "on_player_built_tile",
-        "doc": "Called after a player builds tile    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The surface the tile(s) were built on.  \npositions :: array of [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The tile positions.",
+        "doc": "Called after a player builds tile    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The surface the tile(s) were built on.  \ntiles :: array of [OldTileAndPosition](http://lua-api.factorio.com/latest/Concepts.html#OldTileAndPosition): The position data.  \nitem :: [LuaItemPrototype](http://lua-api.factorio.com/latest/LuaItemPrototype.html): The item type used to build the tiles  \nstack :: [LuaItemStack](http://lua-api.factorio.com/latest/LuaItemStack.html): The stack used to build the tiles (may be empty if all of the items where used to build the tiles).",
         "type": "event"
       },
       "on_player_mined_tile": {
         "name": "on_player_mined_tile",
-        "doc": "Called after a player mines tile    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The surface the tile(s) were mined from.  \npositions :: array of [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The tile positions.",
+        "doc": "Called after a player mines tile    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The surface the tile(s) were mined from.  \ntiles :: array of [OldTileAndPosition](http://lua-api.factorio.com/latest/Concepts.html#OldTileAndPosition): The position data.",
         "type": "event"
       },
       "on_robot_built_tile": {
         "name": "on_robot_built_tile",
-        "doc": "Called after a robot builds tile    \n\n**Contains**  \nrobot :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The robot.  \npositions :: array of [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The tile positions.  \nitem :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) (optional)  \ntags :: dictionary [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string) → [Any](http://lua-api.factorio.com/latest/Concepts.html#Any) (optional)",
+        "doc": "Called after a robot builds tile    \n\n**Contains**  \nrobot :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The robot.  \ntiles :: array of [OldTileAndPosition](http://lua-api.factorio.com/latest/Concepts.html#OldTileAndPosition): The position data.  \nitem :: [LuaItemPrototype](http://lua-api.factorio.com/latest/LuaItemPrototype.html): The item type used to build the tiles  \nstack :: [LuaItemStack](http://lua-api.factorio.com/latest/LuaItemStack.html): The stack used to build the tiles (may be empty if all of the items where used to build the tiles).",
         "type": "event"
       },
       "on_robot_mined_tile": {
         "name": "on_robot_mined_tile",
-        "doc": "Called after a robot mines tile    \n\n**Contains**  \nrobot :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The robot.  \npositions :: array of [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The tile positions.",
+        "doc": "Called after a robot mines tile    \n\n**Contains**  \nrobot :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The robot.  \ntiles :: array of [OldTileAndPosition](http://lua-api.factorio.com/latest/Concepts.html#OldTileAndPosition): The position data.",
         "type": "event"
       },
       "on_player_selected_area": {
@@ -695,7 +713,7 @@
       },
       "on_biter_base_built": {
         "name": "on_biter_base_built",
-        "doc": "Called when a biter migration builds a bas    \n\n**Contains**  \nentity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The built entity.  \n\n**Note: ** This will be called multiple times as each biter in a given migration is sacraficed and builds part of the base.",
+        "doc": "Called when a biter migration builds a bas    \n\n**Contains**  \nentity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The built entity.  \n\n**Note: ** This will be called multiple times as each biter in a given migration is sacrificed and builds part of the base.",
         "type": "event"
       },
       "on_player_changed_force": {
@@ -720,7 +738,7 @@
       },
       "on_difficulty_settings_changed": {
         "name": "on_difficulty_settings_changed",
-        "doc": "Called when the map difficulty settings are change    \n\n**Contains**  \nold_recipe_difficulty :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nold_technology_difficulty :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \n\n**Note: ** It's not guarenteed that both settings are changed - just that at least one has been changed.",
+        "doc": "Called when the map difficulty settings are change    \n\n**Contains**  \nold_recipe_difficulty :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nold_technology_difficulty :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \n\n**Note: ** It's not guaranteed that both settings are changed - just that at least one has been changed.",
         "type": "event"
       },
       "on_surface_created": {
@@ -780,12 +798,157 @@
       },
       "on_console_command": {
         "name": "on_console_command",
-        "doc": "Called when someone enters a command-like message regardless of it being a valid comman    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The player if any.  \ncommand :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The command as typed without the preceeding forward slash ('/').  \nparameters :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The parameters provided if any.",
+        "doc": "Called when someone enters a command-like message regardless of it being a valid comman    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The player if any.  \ncommand :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The command as typed without the preceding forward slash ('/').  \nparameters :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The parameters provided if any.",
         "type": "event"
       },
       "on_player_removed": {
         "name": "on_player_removed",
         "doc": "Called when a player is removed (deleted) from the gam  \nNot to be confused with the player logging of this is different in that the player is deleted as if he never existed in the save fil    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player index that was removed",
+        "type": "event"
+      },
+      "on_player_used_capsule": {
+        "name": "on_player_used_capsule",
+        "doc": "Called when a player uses a capsule that results in some game actio    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.  \nitem :: [LuaItemPrototype](http://lua-api.factorio.com/latest/LuaItemPrototype.html): The capsule item used.  \nposition :: [Position](http://lua-api.factorio.com/latest/Concepts.html#Position): The position the capsule was used.",
+        "type": "event"
+      },
+      "script_raised_built": {
+        "name": "script_raised_built",
+        "doc": "A static event ID mods can use to tell other mods they built something with a script. This is event is only raised if a mod uses it with script.raise_event(  \nNothing passed with this event is validated and it is up to mod authors to che  \nfor the existence of and validity of anything passed with it. This is provided as a mea  \nfor mods needing a similar event to not have to generate their own event name and remote api for i",
+        "type": "event"
+      },
+      "script_raised_destroy": {
+        "name": "script_raised_destroy",
+        "doc": "A static event ID mods can use to tell other mods they destroyed something with a script. This is event is only raised if a mod uses it with script.raise_event(  \nNothing passed with this event is validated and it is up to mod authors to che  \nfor the existence of and validity of anything passed with it. This is provided as a mea  \nfor mods needing a similar event to not have to generate their own event name and remote api for i",
+        "type": "event"
+      },
+      "script_raised_revive": {
+        "name": "script_raised_revive",
+        "doc": "A static event ID mods can use to tell other mods they revived something with a script. This is event is only raised if a mod uses it with script.raise_event(  \nNothing passed with this event is validated and it is up to mod authors to che  \nfor the existence of and validity of anything passed with it. This is provided as a mea  \nfor mods needing a similar event to not have to generate their own event name and remote api for i",
+        "type": "event"
+      },
+      "on_player_promoted": {
+        "name": "on_player_promoted",
+        "doc": "Called when a player is promote    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.",
+        "type": "event"
+      },
+      "on_player_demoted": {
+        "name": "on_player_demoted",
+        "doc": "Called when a player is demote    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.",
+        "type": "event"
+      },
+      "on_combat_robot_expired": {
+        "name": "on_combat_robot_expired",
+        "doc": "Called when a combat robot expires through a lack of energy, or timeou    \n\n**Contains**  \nrobot :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html)  \nowner :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): The entity that owns the robot if any.",
+        "type": "event"
+      },
+      "on_player_changed_position": {
+        "name": "on_player_changed_position",
+        "doc": "Called when the tile position a player is located at change    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.",
+        "type": "event"
+      },
+      "on_mod_item_opened": {
+        "name": "on_mod_item_opened",
+        "doc": "Called when the player uses the 'Open item GUI' control on an item defined with 'can_be_mod_opened' as tr    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.  \nitem :: [LuaItemPrototype](http://lua-api.factorio.com/latest/LuaItemPrototype.html): The item clicked on.",
+        "type": "event"
+      },
+      "on_gui_opened": {
+        "name": "on_gui_opened",
+        "doc": "Called when the player opens a GU    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.  \ngui_type :: [defines.gui_type](http://lua-api.factorio.com/latest/defines.html#defines.gui_type): The GUI type that was opened.  \nentity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): The entity that was opened  \nitem :: [LuaItemStack](http://lua-api.factorio.com/latest/LuaItemStack.html) (optional): The item that was opened  \nequipment :: [LuaEquipment](http://lua-api.factorio.com/latest/LuaEquipment.html) (optional): The equipment that was opened  \nother_player :: [LuaPlayer](http://lua-api.factorio.com/latest/LuaPlayer.html) (optional): The other player that was opened  \nelement :: [LuaGuiElement](http://lua-api.factorio.com/latest/LuaGuiElement.html) (optional): The custom GUI element that was opened",
+        "type": "event"
+      },
+      "on_gui_closed": {
+        "name": "on_gui_closed",
+        "doc": "Called when the player closes the GUI they have ope    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.  \ngui_type :: [defines.gui_type](http://lua-api.factorio.com/latest/defines.html#defines.gui_type): The GUI type that was open.  \nentity :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html) (optional): The entity that was open  \nitem :: [LuaItemStack](http://lua-api.factorio.com/latest/LuaItemStack.html) (optional): The item that was open  \nequipment :: [LuaEquipment](http://lua-api.factorio.com/latest/LuaEquipment.html) (optional): The equipment that was open  \nother_player :: [LuaPlayer](http://lua-api.factorio.com/latest/LuaPlayer.html) (optional): The other player that was open  \nelement :: [LuaGuiElement](http://lua-api.factorio.com/latest/LuaGuiElement.html) (optional): The custom GUI element that was open  \n\n**Note: ** This is only called if the player explicitly closed the GUI.  \n\n**Note: ** It's not advised to open any other GUI during this event because if this is run as a request to open a different GUI the game will force close the new opened GUI without notice to ensure the original requested GUI is opened.",
+        "type": "event"
+      },
+      "on_gui_value_changed": {
+        "name": "on_gui_value_changed",
+        "doc": "Called when [LuaGuiElement](http://lua-api.factorio.com/latest/LuaGuiElement.html) slider value is changed (related to the slider elemen    \n\n**Contains**  \nelement :: [LuaGuiElement](http://lua-api.factorio.com/latest/LuaGuiElement.html): The element whose value changed  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player who did the change.",
+        "type": "event"
+      },
+      "on_player_muted": {
+        "name": "on_player_muted",
+        "doc": "Called when a player is mute    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.",
+        "type": "event"
+      },
+      "on_player_unmuted": {
+        "name": "on_player_unmuted",
+        "doc": "Called when a player is unmute    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.",
+        "type": "event"
+      },
+      "on_player_cheat_mode_enabled": {
+        "name": "on_player_cheat_mode_enabled",
+        "doc": "Called when cheat mode is enabled on a playe    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.",
+        "type": "event"
+      },
+      "on_player_cheat_mode_disabled": {
+        "name": "on_player_cheat_mode_disabled",
+        "doc": "Called when cheat mode is disabled on a playe    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.",
+        "type": "event"
+      },
+      "on_character_corpse_expired": {
+        "name": "on_character_corpse_expired",
+        "doc": "Called when a character corpse expires due to timeout or all of the items being removed from i    \n\n**Contains**  \ncorpse :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html): The corpse.  \n\n**Note: ** this is not called if the corpse is mined. See [defines.events.on_pre_player_mined_item](http://lua-api.factorio.com/latest/defines.html#defines.events.on_pre_player_mined_item) to detect that.",
+        "type": "event"
+      },
+      "on_pre_ghost_deconstructed": {
+        "name": "on_pre_ghost_deconstructed",
+        "doc": "Called before a ghost entity is destroyed as a result of being marked for deconstructio    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint) (optional): The player that did the deconstruction if any.  \nghost :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html)",
+        "type": "event"
+      },
+      "on_player_pipette": {
+        "name": "on_player_pipette",
+        "doc": "Called when a player invokes the \"smart pipette\" over an entit    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player  \nitem :: [LuaItemPrototype](http://lua-api.factorio.com/latest/LuaItemPrototype.html): The item put in the cursor  \nused_cheat_mode :: [boolean](http://lua-api.factorio.com/latest/Builtin-Types.html#boolean): If cheat mode was used to give a free stack of the item.",
+        "type": "event"
+      },
+      "on_player_display_resolution_changed": {
+        "name": "on_player_display_resolution_changed",
+        "doc": "Called when the display resolution changes for a given playe    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player  \nold_resolution :: [DisplayResolution](http://lua-api.factorio.com/latest/Concepts.html#DisplayResolution): The old display resolution",
+        "type": "event"
+      },
+      "on_player_display_scale_changed": {
+        "name": "on_player_display_scale_changed",
+        "doc": "Called when the display scale changes for a given playe    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player  \nold_scale :: [double](http://lua-api.factorio.com/latest/Builtin-Types.html#double): The old display scale",
+        "type": "event"
+      },
+      "on_pre_player_crafted_item": {
+        "name": "on_pre_player_crafted_item",
+        "doc": "Called when a player queues something to be crafte    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint): The player.  \nrecipe :: [LuaRecipe](http://lua-api.factorio.com/latest/LuaRecipe.html): The recipe.  \nitems :: [LuaInventory](http://lua-api.factorio.com/latest/LuaInventory.html): The items removed from the players inventory to do the crafting.",
+        "type": "event"
+      },
+      "on_player_cancelled_crafting": {
+        "name": "on_player_cancelled_crafting",
+        "doc": "Called when a player cancels craftin    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nitems :: [LuaInventory](http://lua-api.factorio.com/latest/LuaInventory.html)  \nrecipe :: [LuaRecipe](http://lua-api.factorio.com/latest/LuaRecipe.html)  \ncancel_count :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)",
+        "type": "event"
+      },
+      "on_chunk_charted": {
+        "name": "on_chunk_charted",
+        "doc": "Called when a chunk is charted or re-charte    \n\n**Contains**  \nsurface_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)  \nposition :: [ChunkPosition](http://lua-api.factorio.com/latest/Concepts.html#ChunkPosition)  \nforce :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html)",
+        "type": "event"
+      },
+      "on_technology_effects_reset": {
+        "name": "on_technology_effects_reset",
+        "doc": "Called when [LuaForce::reset_technology_effects](http://lua-api.factorio.com/latest/LuaForce.html#LuaForce.reset_technology_effects) is finishe    \n\n**Contains**  \nforce :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html)",
+        "type": "event"
+      },
+      "on_land_mine_armed": {
+        "name": "on_land_mine_armed",
+        "doc": "Called when a land mine is arme    \n\n**Contains**  \nmine :: [LuaEntity](http://lua-api.factorio.com/latest/LuaEntity.html)",
+        "type": "event"
+      },
+      "on_forces_merged": {
+        "name": "on_forces_merged",
+        "doc": "Called after two forces have been merged using ````\ngame.merge_forces()````    \n\n**Contains**  \nsource_name :: [string](http://lua-api.factorio.com/latest/Builtin-Types.html#string): The force destroyed.  \ndestination :: [LuaForce](http://lua-api.factorio.com/latest/LuaForce.html): The force entities where reassigned to.  \n\n**Note: ** The source force is invalidated before this event is called and the name can be re-used in this event if desired.",
+        "type": "event"
+      },
+      "on_player_trash_inventory_changed": {
+        "name": "on_player_trash_inventory_changed",
+        "doc": "Called after a players trash inventory changed in some wa    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)",
+        "type": "event"
+      },
+      "on_pre_player_left_game": {
+        "name": "on_pre_player_left_game",
+        "doc": "Called before a player leaves the gam    \n\n**Contains**  \nplayer_index :: [uint](http://lua-api.factorio.com/latest/Builtin-Types.html#uint)",
         "type": "event"
       }
     }
@@ -874,6 +1037,10 @@
       "rail_signal": {
         "type": "define",
         "name": "defines.circuit_connector_id.rail_signal"
+      },
+      "rail_chain_signal": {
+        "type": "define",
+        "name": "defines.circuit_connector_id.rail_chain_signal"
       },
       "roboport": {
         "type": "define",
@@ -1023,11 +1190,6 @@
         "type": "define",
         "name": "defines.train_state.manual_control",
         "doc": "Can move if user explicitly sits in and rides the train."
-      },
-      "stop_for_auto_control": {
-        "type": "define",
-        "name": "defines.train_state.stop_for_auto_control",
-        "doc": "Train was switched to auto control but it is moving and needs to be stopped."
       }
     }
   },
@@ -1346,6 +1508,11 @@
             "name": "defines.control_behavior.type.rail_signal",
             "doc": "LuaRailSignalControlBehavior"
           },
+          "rail_chain_signal": {
+            "type": "define",
+            "name": "defines.control_behavior.type.rail_chain_signal",
+            "doc": "LuaRailChainSignalControlBehavior"
+          },
           "wall": {
             "type": "define",
             "name": "defines.control_behavior.type.wall",
@@ -1416,6 +1583,10 @@
       "passive_provider": {
         "type": "define",
         "name": "defines.logistic_mode.passive_provider"
+      },
+      "buffer": {
+        "type": "define",
+        "name": "defines.logistic_mode.buffer"
       }
     }
   },
@@ -1561,29 +1732,17 @@
   "input_action": {
     "type": "define",
     "properties": {
-      "nothing": {
+      "add_permission_group": {
         "type": "define",
-        "name": "defines.input_action.nothing"
+        "name": "defines.input_action.add_permission_group"
       },
-      "change_picking_state": {
+      "alt_select_area": {
         "type": "define",
-        "name": "defines.input_action.change_picking_state"
+        "name": "defines.input_action.alt_select_area"
       },
-      "drop_item": {
+      "alt_select_blueprint_entities": {
         "type": "define",
-        "name": "defines.input_action.drop_item"
-      },
-      "build_item": {
-        "type": "define",
-        "name": "defines.input_action.build_item"
-      },
-      "start_walking": {
-        "type": "define",
-        "name": "defines.input_action.start_walking"
-      },
-      "stop_walking": {
-        "type": "define",
-        "name": "defines.input_action.stop_walking"
+        "name": "defines.input_action.alt_select_blueprint_entities"
       },
       "begin_mining": {
         "type": "define",
@@ -1593,193 +1752,65 @@
         "type": "define",
         "name": "defines.input_action.begin_mining_terrain"
       },
-      "stop_mining": {
+      "build_item": {
         "type": "define",
-        "name": "defines.input_action.stop_mining"
+        "name": "defines.input_action.build_item"
       },
-      "rotate_entity": {
+      "build_rail": {
         "type": "define",
-        "name": "defines.input_action.rotate_entity"
+        "name": "defines.input_action.build_rail"
       },
-      "reverse_rotate_entity": {
+      "build_terrain": {
         "type": "define",
-        "name": "defines.input_action.reverse_rotate_entity"
-      },
-      "toggle_driving": {
-        "type": "define",
-        "name": "defines.input_action.toggle_driving"
-      },
-      "change_riding_state": {
-        "type": "define",
-        "name": "defines.input_action.change_riding_state"
-      },
-      "open_gui": {
-        "type": "define",
-        "name": "defines.input_action.open_gui"
-      },
-      "open_item": {
-        "type": "define",
-        "name": "defines.input_action.open_item"
-      },
-      "close_gui": {
-        "type": "define",
-        "name": "defines.input_action.close_gui"
-      },
-      "open_character_gui": {
-        "type": "define",
-        "name": "defines.input_action.open_character_gui"
-      },
-      "cursor_transfer": {
-        "type": "define",
-        "name": "defines.input_action.cursor_transfer"
-      },
-      "cursor_split": {
-        "type": "define",
-        "name": "defines.input_action.cursor_split"
-      },
-      "stack_transfer": {
-        "type": "define",
-        "name": "defines.input_action.stack_transfer"
-      },
-      "inventory_transfer": {
-        "type": "define",
-        "name": "defines.input_action.inventory_transfer"
-      },
-      "check_c_r_c_heuristic": {
-        "type": "define",
-        "name": "defines.input_action.check_c_r_c_heuristic"
-      },
-      "craft": {
-        "type": "define",
-        "name": "defines.input_action.craft"
-      },
-      "wire_dragging": {
-        "type": "define",
-        "name": "defines.input_action.wire_dragging"
-      },
-      "connect_rolling_stock": {
-        "type": "define",
-        "name": "defines.input_action.connect_rolling_stock"
-      },
-      "disconnect_rolling_stock": {
-        "type": "define",
-        "name": "defines.input_action.disconnect_rolling_stock"
-      },
-      "change_shooting_state": {
-        "type": "define",
-        "name": "defines.input_action.change_shooting_state"
-      },
-      "toggle_entity_on_off_state": {
-        "type": "define",
-        "name": "defines.input_action.toggle_entity_on_off_state"
-      },
-      "setup_assembling_machine": {
-        "type": "define",
-        "name": "defines.input_action.setup_assembling_machine"
-      },
-      "selected_entity_changed": {
-        "type": "define",
-        "name": "defines.input_action.selected_entity_changed"
-      },
-      "selected_entity_changed_very_close": {
-        "type": "define",
-        "name": "defines.input_action.selected_entity_changed_very_close"
-      },
-      "selected_entity_changed_very_close_precise": {
-        "type": "define",
-        "name": "defines.input_action.selected_entity_changed_very_close_precise"
-      },
-      "selected_entity_changed_relative": {
-        "type": "define",
-        "name": "defines.input_action.selected_entity_changed_relative"
-      },
-      "selected_entity_changed_based_on_unit_number": {
-        "type": "define",
-        "name": "defines.input_action.selected_entity_changed_based_on_unit_number"
-      },
-      "selected_entity_cleared": {
-        "type": "define",
-        "name": "defines.input_action.selected_entity_cleared"
-      },
-      "shortcut_quick_bar_transfer": {
-        "type": "define",
-        "name": "defines.input_action.shortcut_quick_bar_transfer"
-      },
-      "clean_cursor_stack": {
-        "type": "define",
-        "name": "defines.input_action.clean_cursor_stack"
-      },
-      "smart_pipette": {
-        "type": "define",
-        "name": "defines.input_action.smart_pipette"
-      },
-      "select_item": {
-        "type": "define",
-        "name": "defines.input_action.select_item"
-      },
-      "reset_assembling_machine": {
-        "type": "define",
-        "name": "defines.input_action.reset_assembling_machine"
-      },
-      "select_gun": {
-        "type": "define",
-        "name": "defines.input_action.select_gun"
-      },
-      "stack_split": {
-        "type": "define",
-        "name": "defines.input_action.stack_split"
-      },
-      "inventory_split": {
-        "type": "define",
-        "name": "defines.input_action.inventory_split"
+        "name": "defines.input_action.build_terrain"
       },
       "cancel_craft": {
         "type": "define",
         "name": "defines.input_action.cancel_craft"
       },
-      "set_filter": {
+      "cancel_deconstruct": {
         "type": "define",
-        "name": "defines.input_action.set_filter"
+        "name": "defines.input_action.cancel_deconstruct"
       },
-      "set_autosort_inventory": {
+      "cancel_new_blueprint": {
         "type": "define",
-        "name": "defines.input_action.set_autosort_inventory"
-      },
-      "check_c_r_c": {
-        "type": "define",
-        "name": "defines.input_action.check_c_r_c"
-      },
-      "open_technology_gui": {
-        "type": "define",
-        "name": "defines.input_action.open_technology_gui"
-      },
-      "set_circuit_condition": {
-        "type": "define",
-        "name": "defines.input_action.set_circuit_condition"
-      },
-      "set_signal": {
-        "type": "define",
-        "name": "defines.input_action.set_signal"
-      },
-      "start_research": {
-        "type": "define",
-        "name": "defines.input_action.start_research"
+        "name": "defines.input_action.cancel_new_blueprint"
       },
       "cancel_research": {
         "type": "define",
         "name": "defines.input_action.cancel_research"
       },
+      "change_active_item_group_for_crafting": {
+        "type": "define",
+        "name": "defines.input_action.change_active_item_group_for_crafting"
+      },
+      "change_active_item_group_for_filters": {
+        "type": "define",
+        "name": "defines.input_action.change_active_item_group_for_filters"
+      },
+      "change_active_quick_bar": {
+        "type": "define",
+        "name": "defines.input_action.change_active_quick_bar"
+      },
       "change_arithmetic_combinator_parameters": {
         "type": "define",
         "name": "defines.input_action.change_arithmetic_combinator_parameters"
+      },
+      "change_blueprint_book_record_label": {
+        "type": "define",
+        "name": "defines.input_action.change_blueprint_book_record_label"
       },
       "change_decider_combinator_parameters": {
         "type": "define",
         "name": "defines.input_action.change_decider_combinator_parameters"
       },
-      "change_programmable_speaker_parameters": {
+      "change_item_label": {
         "type": "define",
-        "name": "defines.input_action.change_programmable_speaker_parameters"
+        "name": "defines.input_action.change_item_label"
+      },
+      "change_picking_state": {
+        "type": "define",
+        "name": "defines.input_action.change_picking_state"
       },
       "change_programmable_speaker_alert_parameters": {
         "type": "define",
@@ -1789,309 +1820,25 @@
         "type": "define",
         "name": "defines.input_action.change_programmable_speaker_circuit_parameters"
       },
-      "set_inserter_max_stack_size": {
+      "change_programmable_speaker_parameters": {
         "type": "define",
-        "name": "defines.input_action.set_inserter_max_stack_size"
+        "name": "defines.input_action.change_programmable_speaker_parameters"
       },
-      "launch_rocket": {
+      "change_riding_state": {
         "type": "define",
-        "name": "defines.input_action.launch_rocket"
+        "name": "defines.input_action.change_riding_state"
       },
-      "set_logistic_filter_item": {
+      "change_shooting_state": {
         "type": "define",
-        "name": "defines.input_action.set_logistic_filter_item"
-      },
-      "set_logistic_trash_filter_item": {
-        "type": "define",
-        "name": "defines.input_action.set_logistic_trash_filter_item"
-      },
-      "set_logistic_filter_signal": {
-        "type": "define",
-        "name": "defines.input_action.set_logistic_filter_signal"
-      },
-      "switch_constant_combinator_state": {
-        "type": "define",
-        "name": "defines.input_action.switch_constant_combinator_state"
-      },
-      "switch_power_switch_state": {
-        "type": "define",
-        "name": "defines.input_action.switch_power_switch_state"
-      },
-      "switch_connect_to_logistic_network": {
-        "type": "define",
-        "name": "defines.input_action.switch_connect_to_logistic_network"
-      },
-      "set_circuit_mode_of_operation": {
-        "type": "define",
-        "name": "defines.input_action.set_circuit_mode_of_operation"
-      },
-      "set_behavior_mode": {
-        "type": "define",
-        "name": "defines.input_action.set_behavior_mode"
-      },
-      "fast_entity_transfer": {
-        "type": "define",
-        "name": "defines.input_action.fast_entity_transfer"
-      },
-      "fast_entity_split": {
-        "type": "define",
-        "name": "defines.input_action.fast_entity_split"
-      },
-      "gui_click": {
-        "type": "define",
-        "name": "defines.input_action.gui_click"
-      },
-      "write_to_console": {
-        "type": "define",
-        "name": "defines.input_action.write_to_console"
-      },
-      "market_offer": {
-        "type": "define",
-        "name": "defines.input_action.market_offer"
-      },
-      "edit_train_schedule": {
-        "type": "define",
-        "name": "defines.input_action.edit_train_schedule"
-      },
-      "set_train_stopped": {
-        "type": "define",
-        "name": "defines.input_action.set_train_stopped"
-      },
-      "change_train_stop_station": {
-        "type": "define",
-        "name": "defines.input_action.change_train_stop_station"
-      },
-      "change_active_item_group_for_crafting": {
-        "type": "define",
-        "name": "defines.input_action.change_active_item_group_for_crafting"
-      },
-      "set_use_item_groups": {
-        "type": "define",
-        "name": "defines.input_action.set_use_item_groups"
-      },
-      "change_controller_speed": {
-        "type": "define",
-        "name": "defines.input_action.change_controller_speed"
-      },
-      "gui_text_changed": {
-        "type": "define",
-        "name": "defines.input_action.gui_text_changed"
-      },
-      "gui_checked_state_changed": {
-        "type": "define",
-        "name": "defines.input_action.gui_checked_state_changed"
-      },
-      "gui_selection_state_changed": {
-        "type": "define",
-        "name": "defines.input_action.gui_selection_state_changed"
-      },
-      "place_equipment": {
-        "type": "define",
-        "name": "defines.input_action.place_equipment"
-      },
-      "take_equipment": {
-        "type": "define",
-        "name": "defines.input_action.take_equipment"
-      },
-      "use_ability": {
-        "type": "define",
-        "name": "defines.input_action.use_ability"
-      },
-      "use_item": {
-        "type": "define",
-        "name": "defines.input_action.use_item"
-      },
-      "change_active_quick_bar": {
-        "type": "define",
-        "name": "defines.input_action.change_active_quick_bar"
-      },
-      "close_blueprint_record": {
-        "type": "define",
-        "name": "defines.input_action.close_blueprint_record"
-      },
-      "close_blueprint_book": {
-        "type": "define",
-        "name": "defines.input_action.close_blueprint_book"
-      },
-      "open_blueprint_library_gui": {
-        "type": "define",
-        "name": "defines.input_action.open_blueprint_library_gui"
-      },
-      "open_blueprint_record": {
-        "type": "define",
-        "name": "defines.input_action.open_blueprint_record"
-      },
-      "craft_blueprint_record": {
-        "type": "define",
-        "name": "defines.input_action.craft_blueprint_record"
-      },
-      "drop_blueprint_record": {
-        "type": "define",
-        "name": "defines.input_action.drop_blueprint_record"
-      },
-      "grab_blueprint_record": {
-        "type": "define",
-        "name": "defines.input_action.grab_blueprint_record"
-      },
-      "delete_blueprint_record": {
-        "type": "define",
-        "name": "defines.input_action.delete_blueprint_record"
-      },
-      "create_blueprint_like": {
-        "type": "define",
-        "name": "defines.input_action.create_blueprint_like"
-      },
-      "create_blueprint_like_stack_transfer": {
-        "type": "define",
-        "name": "defines.input_action.create_blueprint_like_stack_transfer"
-      },
-      "cancel_drop_blueprint_record": {
-        "type": "define",
-        "name": "defines.input_action.cancel_drop_blueprint_record"
-      },
-      "open_production_gui": {
-        "type": "define",
-        "name": "defines.input_action.open_production_gui"
-      },
-      "open_kills_gui": {
-        "type": "define",
-        "name": "defines.input_action.open_kills_gui"
-      },
-      "set_inventory_bar": {
-        "type": "define",
-        "name": "defines.input_action.set_inventory_bar"
-      },
-      "change_active_item_group_for_filters": {
-        "type": "define",
-        "name": "defines.input_action.change_active_item_group_for_filters"
-      },
-      "move_on_zoom": {
-        "type": "define",
-        "name": "defines.input_action.move_on_zoom"
-      },
-      "start_repair": {
-        "type": "define",
-        "name": "defines.input_action.start_repair"
-      },
-      "stop_repair": {
-        "type": "define",
-        "name": "defines.input_action.stop_repair"
-      },
-      "select_blueprint_entities": {
-        "type": "define",
-        "name": "defines.input_action.select_blueprint_entities"
-      },
-      "alt_select_blueprint_entities": {
-        "type": "define",
-        "name": "defines.input_action.alt_select_blueprint_entities"
-      },
-      "setup_blueprint": {
-        "type": "define",
-        "name": "defines.input_action.setup_blueprint"
-      },
-      "setup_single_blueprint_record": {
-        "type": "define",
-        "name": "defines.input_action.setup_single_blueprint_record"
-      },
-      "deconstruct": {
-        "type": "define",
-        "name": "defines.input_action.deconstruct"
-      },
-      "cancel_deconstruct": {
-        "type": "define",
-        "name": "defines.input_action.cancel_deconstruct"
-      },
-      "set_blueprint_icon": {
-        "type": "define",
-        "name": "defines.input_action.set_blueprint_icon"
-      },
-      "set_single_blueprint_record_icon": {
-        "type": "define",
-        "name": "defines.input_action.set_single_blueprint_record_icon"
+        "name": "defines.input_action.change_shooting_state"
       },
       "change_single_blueprint_record_label": {
         "type": "define",
         "name": "defines.input_action.change_single_blueprint_record_label"
       },
-      "update_blueprint_shelf": {
+      "change_train_stop_station": {
         "type": "define",
-        "name": "defines.input_action.update_blueprint_shelf"
-      },
-      "transfer_blueprint": {
-        "type": "define",
-        "name": "defines.input_action.transfer_blueprint"
-      },
-      "transfer_blueprint_immediately": {
-        "type": "define",
-        "name": "defines.input_action.transfer_blueprint_immediately"
-      },
-      "change_blueprint_book_record_label": {
-        "type": "define",
-        "name": "defines.input_action.change_blueprint_book_record_label"
-      },
-      "cancel_new_blueprint": {
-        "type": "define",
-        "name": "defines.input_action.cancel_new_blueprint"
-      },
-      "copy_entity_settings": {
-        "type": "define",
-        "name": "defines.input_action.copy_entity_settings"
-      },
-      "paste_entity_settings": {
-        "type": "define",
-        "name": "defines.input_action.paste_entity_settings"
-      },
-      "multiplayer_init": {
-        "type": "define",
-        "name": "defines.input_action.multiplayer_init"
-      },
-      "custom_input": {
-        "type": "define",
-        "name": "defines.input_action.custom_input"
-      },
-      "remove_cables": {
-        "type": "define",
-        "name": "defines.input_action.remove_cables"
-      },
-      "clear_blueprint": {
-        "type": "define",
-        "name": "defines.input_action.clear_blueprint"
-      },
-      "destroy_opened_item": {
-        "type": "define",
-        "name": "defines.input_action.destroy_opened_item"
-      },
-      "export_blueprint": {
-        "type": "define",
-        "name": "defines.input_action.export_blueprint"
-      },
-      "import_blueprint": {
-        "type": "define",
-        "name": "defines.input_action.import_blueprint"
-      },
-      "toggle_show_entity_info": {
-        "type": "define",
-        "name": "defines.input_action.toggle_show_entity_info"
-      },
-      "player_join_game": {
-        "type": "define",
-        "name": "defines.input_action.player_join_game"
-      },
-      "player_leave_game": {
-        "type": "define",
-        "name": "defines.input_action.player_leave_game"
-      },
-      "set_allow_commands": {
-        "type": "define",
-        "name": "defines.input_action.set_allow_commands"
-      },
-      "set_research_finished_stops_game": {
-        "type": "define",
-        "name": "defines.input_action.set_research_finished_stops_game"
-      },
-      "build_terrain": {
-        "type": "define",
-        "name": "defines.input_action.build_terrain"
+        "name": "defines.input_action.change_train_stop_station"
       },
       "change_train_wait_condition": {
         "type": "define",
@@ -2101,13 +1848,229 @@
         "type": "define",
         "name": "defines.input_action.change_train_wait_condition_data"
       },
-      "change_item_label": {
+      "clean_cursor_stack": {
         "type": "define",
-        "name": "defines.input_action.change_item_label"
+        "name": "defines.input_action.clean_cursor_stack"
       },
-      "build_rail": {
+      "clear_selected_blueprint": {
         "type": "define",
-        "name": "defines.input_action.build_rail"
+        "name": "defines.input_action.clear_selected_blueprint"
+      },
+      "clear_selected_deconstruction_item": {
+        "type": "define",
+        "name": "defines.input_action.clear_selected_deconstruction_item"
+      },
+      "connect_rolling_stock": {
+        "type": "define",
+        "name": "defines.input_action.connect_rolling_stock"
+      },
+      "copy_entity_settings": {
+        "type": "define",
+        "name": "defines.input_action.copy_entity_settings"
+      },
+      "craft": {
+        "type": "define",
+        "name": "defines.input_action.craft"
+      },
+      "create_blueprint_like": {
+        "type": "define",
+        "name": "defines.input_action.create_blueprint_like"
+      },
+      "cursor_split": {
+        "type": "define",
+        "name": "defines.input_action.cursor_split"
+      },
+      "cursor_transfer": {
+        "type": "define",
+        "name": "defines.input_action.cursor_transfer"
+      },
+      "custom_input": {
+        "type": "define",
+        "name": "defines.input_action.custom_input"
+      },
+      "cycle_blueprint_book_backwards": {
+        "type": "define",
+        "name": "defines.input_action.cycle_blueprint_book_backwards"
+      },
+      "cycle_blueprint_book_forwards": {
+        "type": "define",
+        "name": "defines.input_action.cycle_blueprint_book_forwards"
+      },
+      "deconstruct": {
+        "type": "define",
+        "name": "defines.input_action.deconstruct"
+      },
+      "delete_blueprint_record": {
+        "type": "define",
+        "name": "defines.input_action.delete_blueprint_record"
+      },
+      "delete_custom_tag": {
+        "type": "define",
+        "name": "defines.input_action.delete_custom_tag"
+      },
+      "delete_permission_group": {
+        "type": "define",
+        "name": "defines.input_action.delete_permission_group"
+      },
+      "destroy_opened_item": {
+        "type": "define",
+        "name": "defines.input_action.destroy_opened_item"
+      },
+      "disconnect_rolling_stock": {
+        "type": "define",
+        "name": "defines.input_action.disconnect_rolling_stock"
+      },
+      "drag_train_schedule": {
+        "type": "define",
+        "name": "defines.input_action.drag_train_schedule"
+      },
+      "drag_train_wait_condition": {
+        "type": "define",
+        "name": "defines.input_action.drag_train_wait_condition"
+      },
+      "drop_blueprint_record": {
+        "type": "define",
+        "name": "defines.input_action.drop_blueprint_record"
+      },
+      "drop_item": {
+        "type": "define",
+        "name": "defines.input_action.drop_item"
+      },
+      "drop_to_blueprint_book": {
+        "type": "define",
+        "name": "defines.input_action.drop_to_blueprint_book"
+      },
+      "edit_custom_tag": {
+        "type": "define",
+        "name": "defines.input_action.edit_custom_tag"
+      },
+      "edit_permission_group": {
+        "type": "define",
+        "name": "defines.input_action.edit_permission_group"
+      },
+      "edit_train_schedule": {
+        "type": "define",
+        "name": "defines.input_action.edit_train_schedule"
+      },
+      "export_blueprint": {
+        "type": "define",
+        "name": "defines.input_action.export_blueprint"
+      },
+      "fast_entity_split": {
+        "type": "define",
+        "name": "defines.input_action.fast_entity_split"
+      },
+      "fast_entity_transfer": {
+        "type": "define",
+        "name": "defines.input_action.fast_entity_transfer"
+      },
+      "grab_blueprint_record": {
+        "type": "define",
+        "name": "defines.input_action.grab_blueprint_record"
+      },
+      "gui_checked_state_changed": {
+        "type": "define",
+        "name": "defines.input_action.gui_checked_state_changed"
+      },
+      "gui_click": {
+        "type": "define",
+        "name": "defines.input_action.gui_click"
+      },
+      "gui_elem_changed": {
+        "type": "define",
+        "name": "defines.input_action.gui_elem_changed"
+      },
+      "gui_selection_state_changed": {
+        "type": "define",
+        "name": "defines.input_action.gui_selection_state_changed"
+      },
+      "gui_text_changed": {
+        "type": "define",
+        "name": "defines.input_action.gui_text_changed"
+      },
+      "gui_value_changed": {
+        "type": "define",
+        "name": "defines.input_action.gui_value_changed"
+      },
+      "import_blueprint": {
+        "type": "define",
+        "name": "defines.input_action.import_blueprint"
+      },
+      "import_blueprint_string": {
+        "type": "define",
+        "name": "defines.input_action.import_blueprint_string"
+      },
+      "inventory_split": {
+        "type": "define",
+        "name": "defines.input_action.inventory_split"
+      },
+      "inventory_transfer": {
+        "type": "define",
+        "name": "defines.input_action.inventory_transfer"
+      },
+      "launch_rocket": {
+        "type": "define",
+        "name": "defines.input_action.launch_rocket"
+      },
+      "market_offer": {
+        "type": "define",
+        "name": "defines.input_action.market_offer"
+      },
+      "mod_settings_changed": {
+        "type": "define",
+        "name": "defines.input_action.mod_settings_changed"
+      },
+      "open_achievements_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_achievements_gui"
+      },
+      "open_blueprint_library_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_blueprint_library_gui"
+      },
+      "open_blueprint_record": {
+        "type": "define",
+        "name": "defines.input_action.open_blueprint_record"
+      },
+      "open_bonus_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_bonus_gui"
+      },
+      "open_character_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_character_gui"
+      },
+      "open_equipment": {
+        "type": "define",
+        "name": "defines.input_action.open_equipment"
+      },
+      "open_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_gui"
+      },
+      "open_item": {
+        "type": "define",
+        "name": "defines.input_action.open_item"
+      },
+      "open_kills_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_kills_gui"
+      },
+      "open_logistic_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_logistic_gui"
+      },
+      "open_mod_item": {
+        "type": "define",
+        "name": "defines.input_action.open_mod_item"
+      },
+      "open_production_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_production_gui"
+      },
+      "open_technology_gui": {
+        "type": "define",
+        "name": "defines.input_action.open_technology_gui"
       },
       "open_train_gui": {
         "type": "define",
@@ -2117,73 +2080,213 @@
         "type": "define",
         "name": "defines.input_action.open_train_station_gui"
       },
-      "switch_to_rename_stop_gui": {
-        "type": "define",
-        "name": "defines.input_action.switch_to_rename_stop_gui"
-      },
-      "open_bonus_gui": {
-        "type": "define",
-        "name": "defines.input_action.open_bonus_gui"
-      },
       "open_trains_gui": {
         "type": "define",
         "name": "defines.input_action.open_trains_gui"
-      },
-      "open_achievements_gui": {
-        "type": "define",
-        "name": "defines.input_action.open_achievements_gui"
       },
       "open_tutorials_gui": {
         "type": "define",
         "name": "defines.input_action.open_tutorials_gui"
       },
+      "paste_entity_settings": {
+        "type": "define",
+        "name": "defines.input_action.paste_entity_settings"
+      },
+      "place_equipment": {
+        "type": "define",
+        "name": "defines.input_action.place_equipment"
+      },
+      "remove_cables": {
+        "type": "define",
+        "name": "defines.input_action.remove_cables"
+      },
+      "reset_assembling_machine": {
+        "type": "define",
+        "name": "defines.input_action.reset_assembling_machine"
+      },
+      "rotate_entity": {
+        "type": "define",
+        "name": "defines.input_action.rotate_entity"
+      },
       "select_area": {
         "type": "define",
         "name": "defines.input_action.select_area"
       },
-      "alt_select_area": {
+      "select_blueprint_entities": {
         "type": "define",
-        "name": "defines.input_action.alt_select_area"
+        "name": "defines.input_action.select_blueprint_entities"
       },
-      "server_command": {
+      "select_entity_slot": {
         "type": "define",
-        "name": "defines.input_action.server_command"
+        "name": "defines.input_action.select_entity_slot"
       },
-      "open_logistic_gui": {
+      "select_gun": {
         "type": "define",
-        "name": "defines.input_action.open_logistic_gui"
+        "name": "defines.input_action.select_gun"
+      },
+      "select_item": {
+        "type": "define",
+        "name": "defines.input_action.select_item"
+      },
+      "select_tile_slot": {
+        "type": "define",
+        "name": "defines.input_action.select_tile_slot"
+      },
+      "set_auto_launch_rocket": {
+        "type": "define",
+        "name": "defines.input_action.set_auto_launch_rocket"
+      },
+      "set_autosort_inventory": {
+        "type": "define",
+        "name": "defines.input_action.set_autosort_inventory"
+      },
+      "set_behavior_mode": {
+        "type": "define",
+        "name": "defines.input_action.set_behavior_mode"
+      },
+      "set_car_weapons_control": {
+        "type": "define",
+        "name": "defines.input_action.set_car_weapons_control"
+      },
+      "set_circuit_condition": {
+        "type": "define",
+        "name": "defines.input_action.set_circuit_condition"
+      },
+      "set_circuit_mode_of_operation": {
+        "type": "define",
+        "name": "defines.input_action.set_circuit_mode_of_operation"
+      },
+      "set_deconstruction_item_tile_selection_mode": {
+        "type": "define",
+        "name": "defines.input_action.set_deconstruction_item_tile_selection_mode"
+      },
+      "set_deconstruction_item_trees_and_rocks_only": {
+        "type": "define",
+        "name": "defines.input_action.set_deconstruction_item_trees_and_rocks_only"
       },
       "set_entity_color": {
         "type": "define",
         "name": "defines.input_action.set_entity_color"
       },
-      "clear_selected_blueprint": {
+      "set_entity_energy_property": {
         "type": "define",
-        "name": "defines.input_action.clear_selected_blueprint"
+        "name": "defines.input_action.set_entity_energy_property"
       },
-      "cycle_blueprint_book_forwards": {
+      "set_filter": {
         "type": "define",
-        "name": "defines.input_action.cycle_blueprint_book_forwards"
+        "name": "defines.input_action.set_filter"
       },
-      "cycle_blueprint_book_backwards": {
+      "set_infinity_container_filter_item": {
         "type": "define",
-        "name": "defines.input_action.cycle_blueprint_book_backwards"
+        "name": "defines.input_action.set_infinity_container_filter_item"
       },
-      "stop_movement_in_the_next_tick": {
+      "set_infinity_container_remove_unfiltered_items": {
         "type": "define",
-        "name": "defines.input_action.stop_movement_in_the_next_tick"
+        "name": "defines.input_action.set_infinity_container_remove_unfiltered_items"
       },
-      "toggle_enable_vehicle_logistics_while_moving": {
+      "set_inserter_max_stack_size": {
         "type": "define",
-        "name": "defines.input_action.toggle_enable_vehicle_logistics_while_moving"
+        "name": "defines.input_action.set_inserter_max_stack_size"
       },
-      "open_equipment": {
+      "set_inventory_bar": {
         "type": "define",
-        "name": "defines.input_action.open_equipment"
+        "name": "defines.input_action.set_inventory_bar"
       },
-      "select_entity_slot": {
+      "set_logistic_filter_item": {
         "type": "define",
-        "name": "defines.input_action.select_entity_slot"
+        "name": "defines.input_action.set_logistic_filter_item"
+      },
+      "set_logistic_filter_signal": {
+        "type": "define",
+        "name": "defines.input_action.set_logistic_filter_signal"
+      },
+      "set_logistic_trash_filter_item": {
+        "type": "define",
+        "name": "defines.input_action.set_logistic_trash_filter_item"
+      },
+      "set_request_from_buffers": {
+        "type": "define",
+        "name": "defines.input_action.set_request_from_buffers"
+      },
+      "set_research_finished_stops_game": {
+        "type": "define",
+        "name": "defines.input_action.set_research_finished_stops_game"
+      },
+      "set_signal": {
+        "type": "define",
+        "name": "defines.input_action.set_signal"
+      },
+      "set_single_blueprint_record_icon": {
+        "type": "define",
+        "name": "defines.input_action.set_single_blueprint_record_icon"
+      },
+      "set_splitter_priority": {
+        "type": "define",
+        "name": "defines.input_action.set_splitter_priority"
+      },
+      "set_train_stopped": {
+        "type": "define",
+        "name": "defines.input_action.set_train_stopped"
+      },
+      "setup_assembling_machine": {
+        "type": "define",
+        "name": "defines.input_action.setup_assembling_machine"
+      },
+      "setup_blueprint": {
+        "type": "define",
+        "name": "defines.input_action.setup_blueprint"
+      },
+      "setup_single_blueprint_record": {
+        "type": "define",
+        "name": "defines.input_action.setup_single_blueprint_record"
+      },
+      "shortcut_quick_bar_transfer": {
+        "type": "define",
+        "name": "defines.input_action.shortcut_quick_bar_transfer"
+      },
+      "smart_pipette": {
+        "type": "define",
+        "name": "defines.input_action.smart_pipette"
+      },
+      "stack_split": {
+        "type": "define",
+        "name": "defines.input_action.stack_split"
+      },
+      "stack_transfer": {
+        "type": "define",
+        "name": "defines.input_action.stack_transfer"
+      },
+      "start_repair": {
+        "type": "define",
+        "name": "defines.input_action.start_repair"
+      },
+      "start_research": {
+        "type": "define",
+        "name": "defines.input_action.start_research"
+      },
+      "start_walking": {
+        "type": "define",
+        "name": "defines.input_action.start_walking"
+      },
+      "switch_connect_to_logistic_network": {
+        "type": "define",
+        "name": "defines.input_action.switch_connect_to_logistic_network"
+      },
+      "switch_constant_combinator_state": {
+        "type": "define",
+        "name": "defines.input_action.switch_constant_combinator_state"
+      },
+      "switch_power_switch_state": {
+        "type": "define",
+        "name": "defines.input_action.switch_power_switch_state"
+      },
+      "switch_to_rename_stop_gui": {
+        "type": "define",
+        "name": "defines.input_action.switch_to_rename_stop_gui"
+      },
+      "take_equipment": {
+        "type": "define",
+        "name": "defines.input_action.take_equipment"
       },
       "toggle_deconstruction_item_entity_filter_mode": {
         "type": "define",
@@ -2193,77 +2296,58 @@
         "type": "define",
         "name": "defines.input_action.toggle_deconstruction_item_tile_filter_mode"
       },
-      "set_deconstruction_item_trees_and_rocks_only": {
+      "toggle_driving": {
         "type": "define",
-        "name": "defines.input_action.set_deconstruction_item_trees_and_rocks_only"
+        "name": "defines.input_action.toggle_driving"
       },
-      "set_deconstruction_item_tile_selection_mode": {
+      "toggle_enable_vehicle_logistics_while_moving": {
         "type": "define",
-        "name": "defines.input_action.set_deconstruction_item_tile_selection_mode"
+        "name": "defines.input_action.toggle_enable_vehicle_logistics_while_moving"
       },
-      "mod_settings_changed": {
+      "toggle_show_entity_info": {
         "type": "define",
-        "name": "defines.input_action.mod_settings_changed"
+        "name": "defines.input_action.toggle_show_entity_info"
       },
-      "set_entity_energy_property": {
+      "use_ability": {
         "type": "define",
-        "name": "defines.input_action.set_entity_energy_property"
+        "name": "defines.input_action.use_ability"
       },
-      "set_auto_launch_rocket": {
+      "use_artillery_remote": {
         "type": "define",
-        "name": "defines.input_action.set_auto_launch_rocket"
+        "name": "defines.input_action.use_artillery_remote"
       },
-      "drop_to_blueprint_book": {
+      "use_item": {
         "type": "define",
-        "name": "defines.input_action.drop_to_blueprint_book"
+        "name": "defines.input_action.use_item"
       },
-      "clear_selected_deconstruction_item": {
+      "wire_dragging": {
         "type": "define",
-        "name": "defines.input_action.clear_selected_deconstruction_item"
+        "name": "defines.input_action.wire_dragging"
       },
-      "edit_custom_tag": {
+      "write_to_console": {
         "type": "define",
-        "name": "defines.input_action.edit_custom_tag"
+        "name": "defines.input_action.write_to_console"
+      }
+    }
+  },
+  "build_check_type": {
+    "type": "define",
+    "properties": {
+      "script": {
+        "type": "define",
+        "name": "defines.build_check_type.script"
       },
-      "delete_custom_tag": {
+      "manual": {
         "type": "define",
-        "name": "defines.input_action.delete_custom_tag"
+        "name": "defines.build_check_type.manual"
       },
-      "toggle_connect_front_center_tank": {
+      "ghost_place": {
         "type": "define",
-        "name": "defines.input_action.toggle_connect_front_center_tank"
+        "name": "defines.build_check_type.ghost_place"
       },
-      "toggle_connect_center_back_tank": {
+      "ghost_revive": {
         "type": "define",
-        "name": "defines.input_action.toggle_connect_center_back_tank"
-      },
-      "select_tile_slot": {
-        "type": "define",
-        "name": "defines.input_action.select_tile_slot"
-      },
-      "add_permission_group": {
-        "type": "define",
-        "name": "defines.input_action.add_permission_group"
-      },
-      "delete_permission_group": {
-        "type": "define",
-        "name": "defines.input_action.delete_permission_group"
-      },
-      "edit_permission_group": {
-        "type": "define",
-        "name": "defines.input_action.edit_permission_group"
-      },
-      "import_blueprint_string": {
-        "type": "define",
-        "name": "defines.input_action.import_blueprint_string"
-      },
-      "gui_elem_selected": {
-        "type": "define",
-        "name": "defines.input_action.gui_elem_selected"
-      },
-      "blueprint_transfer_queue_update": {
-        "type": "define",
-        "name": "defines.input_action.blueprint_transfer_queue_update"
+        "name": "defines.build_check_type.ghost_revive"
       }
     }
   },
@@ -2333,6 +2417,10 @@
       "tutorials": {
         "type": "define",
         "name": "defines.gui_type.tutorials"
+      },
+      "custom": {
+        "type": "define",
+        "name": "defines.gui_type.custom"
       }
     }
   }
