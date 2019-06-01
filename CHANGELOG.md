@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.0 - 2019-06-01
+- Update to Factorio 0.17.45
+
 ## 0.6.0 - 2018-08-11
 - Update to Factorio 0.16.51
 - Autocomplete items now properly render markdown strings thanks to VS Codes addition of `MarkdownString` class
