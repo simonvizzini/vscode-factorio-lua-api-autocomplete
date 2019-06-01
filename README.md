@@ -10,6 +10,15 @@
 
   ![tooltips](images/tooltips.gif)
 
+## Dev Requirements
+
+Using nvm you can get the correct node version to run the scraper: `nvm use`.
+
+After this install the necessary modules with `npm install`.
+
+## Update data
+
+Run the scrapper to pull the latest data from the Factorio API documentation: `npx ts-node scraper/index.ts`
 
 ## Todo
 
