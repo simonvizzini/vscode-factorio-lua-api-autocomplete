@@ -41,17 +41,17 @@
     "test": "node ./node_modules/vscode/bin/test"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.64",
-    "@types/mocha": "^2.2.32",
-    "@types/node": "^6.0.40",
-    "html-to-text": "^3.2.0",
-    "mocha": "^2.3.3",
-    "osmosis": "^1.1.4",
-    "ts-node": "^3.0.4",
-    "typescript": "^2.0.3",
-    "vscode": "^1.0.0"
+    "@types/lodash": "^4.14.134",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.0.7",
+    "html-to-text": "^5.1.1",
+    "mocha": "^6.1.4",
+    "osmosis": "^1.1.10",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.5.1",
+    "vscode": "^1.1.34"
   }
 }
